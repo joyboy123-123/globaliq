@@ -28,7 +28,7 @@
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
-  html, body { height: 100%; }
+  html, body { height: 100%; background: var(--bg); }
 
   body {
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
@@ -228,7 +228,7 @@
     .press-track { animation: none; }
   }
   /* ===== Footer (carried over from quiz) ===== */
-  footer{flex:none;background:#f7f9ff;color:var(--text);padding:40px 24px 24px;}
+  footer{flex:none;position:relative;clear:both;z-index:0;border-top:100dvh solid var(--bg);background:#f7f9ff;color:var(--text);padding:40px 24px 24px;}
   .logo-footer{margin-left:-18px;} .logo-footer img{height:65px;width:auto;display:block;}
   .footer-social{display:flex;gap:16px;margin-top:20px;margin-bottom:28px;}
   .footer-social a{display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;background:#e2e8f0;color:var(--navy);text-decoration:none;}
