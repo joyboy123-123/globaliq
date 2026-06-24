@@ -383,59 +383,40 @@ const REVIEWS = [
     return Array.from({length:5},(_,i)=>`<span style="color:${i<n?'#f5a623':'#d1d8e0'};font-size:15px;">★</span>`).join('');
   }
 
+  const btnStyle = 'background:none;border:none;cursor:pointer;font-size:18px;color:var(--muted);padding:0 4px;line-height:1;';
+
+  function dotsHTML(){
+    return REVIEWS.map((_,i)=>`<span style="width:6px;height:6px;border-radius:50%;background:${i===cur?'#1a3cff':'var(--line)'};display:inline-block;transition:background .2s;"></span>`).join('');
+  }
+
   function render(){
     const r = REVIEWS[cur];
     card.innerHTML = `
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5px;">
         <div style="display:flex;gap:2px;">${starsHTML(r.stars)}</div>
         <span style="display:inline-flex;align-items:center;gap:4px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="14" height="14"><circle cx="10" cy="10" r="10" fill="#1877F2"/><path d="M6 10.5l3 3 5-5.5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>Verified</span>
       </div>
-      <div style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(13px,2vh,15px);color:var(--text);margin-bottom:6px;">${r.title}</div>
-      <div style="font-size:clamp(12px,1.7vh,13.5px);color:var(--muted);line-height:1.5;margin-bottom:12px;">${r.text}</div>
-      <div style="font-size:clamp(11px,1.6vh,12.5px);color:var(--muted);font-weight:500;">${r.author} &nbsp;·&nbsp; ${r.location}</div>
+      <div style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(13px,2vh,15px);color:var(--text);margin-bottom:4px;">${r.title}</div>
+      <div style="font-size:clamp(12px,1.7vh,13.5px);color:var(--muted);line-height:1.45;margin-bottom:8px;">${r.text}</div>
+      <div style="font-size:clamp(11px,1.6vh,12.5px);color:var(--muted);font-weight:500;margin-bottom:8px;">${r.author} &nbsp;·&nbsp; ${r.location}</div>
+      <div style="border-top:1px solid var(--line);padding-top:8px;display:flex;align-items:center;justify-content:space-between;">
+        <button id="rv-prev" style="${btnStyle}">&#8592;</button>
+        <span style="font-size:clamp(10px,1.4vh,11px);color:var(--muted);">Rated <strong style="color:var(--text);">4.8</strong> / 5 &nbsp;·&nbsp; <strong style="color:var(--text);">132,353</strong> reviews</span>
+        <button id="rv-next" style="${btnStyle}">&#8594;</button>
+      </div>
+      <div style="display:flex;gap:5px;justify-content:center;margin-top:6px;">${dotsHTML()}</div>
     `;
+    card.querySelector('#rv-prev').onclick = ()=>{ cur=(cur-1+REVIEWS.length)%REVIEWS.length; render(); };
+    card.querySelector('#rv-next').onclick = ()=>{ cur=(cur+1)%REVIEWS.length; render(); };
   }
 
-  // nav row
-  const nav = document.createElement('div');
-  nav.style.cssText = 'display:flex;align-items:center;justify-content:space-between;margin-top:10px;';
-
-  const btnPrev = document.createElement('button');
-  btnPrev.innerHTML = '&#8592;';
-  btnPrev.style.cssText = 'background:none;border:1.5px solid var(--line);border-radius:50%;width:30px;height:30px;cursor:pointer;font-size:14px;color:var(--muted);display:flex;align-items:center;justify-content:center;';
-
-  const btnNext = document.createElement('button');
-  btnNext.innerHTML = '&#8594;';
-  btnNext.style.cssText = btnPrev.style.cssText;
-
-  const dots = document.createElement('div');
-  dots.style.cssText = 'display:flex;gap:5px;';
-
-  function updateDots(){
-    dots.innerHTML = REVIEWS.map((_,i)=>`<span style="width:6px;height:6px;border-radius:50%;background:${i===cur?'#1a3cff':'var(--line)'};display:inline-block;transition:background .2s;"></span>`).join('');
-  }
-
-  btnPrev.onclick = ()=>{ cur=(cur-1+REVIEWS.length)%REVIEWS.length; render(); updateDots(); };
-  btnNext.onclick = ()=>{ cur=(cur+1)%REVIEWS.length; render(); updateDots(); };
-
-  // summary line
-  const summary = document.createElement('p');
-  summary.style.cssText = 'text-align:center;font-size:clamp(11px,1.5vh,12px);color:var(--muted);margin-top:8px;';
-  summary.innerHTML = 'Rated <strong style="color:var(--text);">4.8</strong> / 5 based on <strong style="color:var(--text);">132,353 reviews</strong>';
-
-  nav.appendChild(btnPrev);
-  nav.appendChild(dots);
-  nav.appendChild(btnNext);
   sec.appendChild(card);
-  sec.appendChild(nav);
-  sec.appendChild(summary);
   wrap.appendChild(sec);
 
   render();
-  updateDots();
 
   // auto-advance every 4s
-  setInterval(()=>{ cur=(cur+1)%REVIEWS.length; render(); updateDots(); }, 4000);
+  setInterval(()=>{ cur=(cur+1)%REVIEWS.length; render(); }, 4000);
 })();
 
 /* ---------- elements + animation ---------- */
