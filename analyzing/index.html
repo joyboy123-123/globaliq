@@ -377,7 +377,7 @@ const REVIEWS = [
   sec.style.cssText = 'width:100%;max-width:560px;margin-top:clamp(6px,1.5vh,14px);';
 
   const card = document.createElement('div');
-  card.style.cssText = 'background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:18px 20px;text-align:left;position:relative;min-height:140px;';
+  card.style.cssText = 'background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:14px 16px;text-align:left;position:relative;';
 
   function starsHTML(n){
     return Array.from({length:5},(_,i)=>`<span style="color:${i<n?'#f5a623':'#d1d8e0'};font-size:15px;">★</span>`).join('');
@@ -391,20 +391,20 @@ const REVIEWS = [
 
   function render(){
     const r = REVIEWS[cur];
+    const shortText = r.text.length > 90 ? r.text.slice(0,90).replace(/\s\S+$/,'') + '…' : r.text;
     card.innerHTML = `
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
         <div style="display:flex;gap:2px;">${starsHTML(r.stars)}</div>
-        <span style="display:inline-flex;align-items:center;gap:4px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="14" height="14"><circle cx="10" cy="10" r="10" fill="#1877F2"/><path d="M6 10.5l3 3 5-5.5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>Verified</span>
+        <span style="display:inline-flex;align-items:center;gap:4px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="13" height="13"><circle cx="10" cy="10" r="10" fill="#1877F2"/><path d="M6 10.5l3 3 5-5.5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>Verified</span>
       </div>
-      <div style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(13px,2vh,15px);color:var(--text);margin-bottom:4px;">${r.title}</div>
-      <div style="font-size:clamp(12px,1.7vh,13.5px);color:var(--muted);line-height:1.45;margin-bottom:8px;">${r.text}</div>
-      <div style="font-size:clamp(11px,1.6vh,12.5px);color:var(--muted);font-weight:500;margin-bottom:8px;">${r.author} &nbsp;·&nbsp; ${r.location}</div>
-      <div style="border-top:1px solid var(--line);padding-top:8px;display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;color:var(--text);margin-bottom:3px;">${r.title}</div>
+      <div style="font-size:12.5px;color:var(--muted);line-height:1.4;margin-bottom:6px;">${shortText}</div>
+      <div style="font-size:11.5px;color:var(--muted);font-weight:500;margin-bottom:8px;">${r.author} &nbsp;·&nbsp; ${r.location}</div>
+      <div style="border-top:1px solid var(--line);padding-top:7px;display:flex;align-items:center;justify-content:space-between;">
         <button id="rv-prev" style="${btnStyle}">&#8592;</button>
-        <span style="font-size:clamp(10px,1.4vh,11px);color:var(--muted);">Rated <strong style="color:var(--text);">4.8</strong> / 5 &nbsp;·&nbsp; <strong style="color:var(--text);">132,353</strong> reviews</span>
+        <span style="font-size:11px;color:var(--muted);">Rated <strong style="color:var(--text);">4.8</strong> / 5 &nbsp;·&nbsp; <strong style="color:var(--text);">132,353</strong> reviews</span>
         <button id="rv-next" style="${btnStyle}">&#8594;</button>
       </div>
-      <div style="display:flex;gap:5px;justify-content:center;margin-top:6px;">${dotsHTML()}</div>
     `;
     card.querySelector('#rv-prev').onclick = ()=>{ cur=(cur-1+REVIEWS.length)%REVIEWS.length; render(); };
     card.querySelector('#rv-next').onclick = ()=>{ cur=(cur+1)%REVIEWS.length; render(); };
@@ -442,15 +442,32 @@ let raf, startT;
 const GATE_AT = 0;
 let gateAck=false, pauseStart=0;
 const gateEl=document.getElementById('gate');
+
+// Scroll lock helpers
+function lockScroll(){
+  document.body.style.overflow='hidden';
+  document.body.style.touchAction='none';
+}
+function unlockScroll(){
+  document.body.style.overflow='';
+  document.body.style.touchAction='';
+}
+// Block touchmove on all gate overlays so backdrop swipe does nothing
+[gateEl, document.getElementById('gate2'), document.getElementById('gate3')].forEach(el=>{
+  el.addEventListener('touchmove', e=>e.preventDefault(), {passive:false});
+});
+
 function openGate(){
   pauseStart=performance.now();
   cancelAnimationFrame(raf);
+  lockScroll();
   gateEl.classList.add('show');
 }
 function closeGate(){
   if(gateAck) return;
   gateAck=true;
   gateEl.classList.remove('show');
+  unlockScroll();
   startT += performance.now()-pauseStart;   // shift start so progress resumes where it froze
   raf=requestAnimationFrame(frame);
 }
@@ -463,12 +480,14 @@ const gate2El=document.getElementById('gate2');
 function openGate2(){
   q2PauseStart=performance.now();
   cancelAnimationFrame(raf);
+  lockScroll();
   gate2El.classList.add('show');
 }
 function closeGate2(){
   if(q2Ack) return;
   q2Ack=true;
   gate2El.classList.remove('show');
+  unlockScroll();
   startT += performance.now()-q2PauseStart;   // resume where it froze
   raf=requestAnimationFrame(frame);
 }
@@ -482,12 +501,14 @@ const gate3El=document.getElementById('gate3');
 function openGate3(){
   q3PauseStart=performance.now();
   cancelAnimationFrame(raf);
+  lockScroll();
   gate3El.classList.add('show');
 }
 function closeGate3(){
   if(q3Ack) return;
   q3Ack=true;
   gate3El.classList.remove('show');
+  unlockScroll();
   startT += performance.now()-q3PauseStart;   // resume where it froze
   raf=requestAnimationFrame(frame);
 }
