@@ -59,29 +59,29 @@
   /* ---- top bar / logo ---- */
   header {
     background: #fff;
-    padding: clamp(12px, 1.8vh, 18px) 24px;
+    padding: clamp(8px, 1.3vh, 14px) 24px;
     flex: none;
   }
   .brand { display: flex; align-items: center; }
-  .logo-img { height: 50px; width: auto; display: block; }
+  .logo-img { height: 44px; width: auto; display: block; }
 
   /* ---- content: fills remaining space, distributes evenly ---- */
   main {
     flex: 1;
     min-height: 0;
-    padding: clamp(12px, 2.2vh, 24px) 24px clamp(14px, 2.2vh, 24px);
+    padding: clamp(8px, 1.6vh, 18px) 24px calc(clamp(10px, 1.6vh, 18px) + env(safe-area-inset-bottom));
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    gap: clamp(10px, 1.6vh, 18px);
+    gap: clamp(7px, 1.2vh, 14px);
   }
 
   h1 {
     font-family: 'Poppins', sans-serif;
     font-weight: 800;
     color: #000;
-    font-size: clamp(22px, 4.4vh, 29px);
-    line-height: 1.22;
+    font-size: clamp(19px, 3.7vh, 27px);
+    line-height: 1.18;
     letter-spacing: -.5px;
     text-align: center;
   }
@@ -97,14 +97,14 @@
   .review {
     background: var(--card);
     border-radius: 22px;
-    padding: clamp(16px, 2.6vh, 24px) 22px clamp(18px, 2.8vh, 26px);
+    padding: clamp(13px, 2vh, 22px) 20px clamp(14px, 2.2vh, 24px);
     box-shadow: var(--shadow);
   }
   .review-top {
     display: flex;
     align-items: center;
     gap: 15px;
-    margin-bottom: clamp(12px, 2vh, 20px);
+    margin-bottom: clamp(8px, 1.4vh, 16px);
   }
   .avatar {
     width: 56px; height: 56px; border-radius: 50%;
@@ -127,15 +127,15 @@
     display: block;
     font-family: 'Poppins', sans-serif;
     font-weight: 600;
-    font-size: clamp(18px, 2.6vh, 21px);
-    line-height: 1.32;
-    margin-bottom: 10px;
+    font-size: clamp(16px, 2.3vh, 20px);
+    line-height: 1.26;
+    margin-bottom: 9px;
     quotes: '"' '"';
   }
   .review p {
     color: var(--muted);
-    font-size: clamp(14px, 2vh, 16.5px);
-    line-height: 1.5;
+    font-size: clamp(13px, 1.8vh, 15.5px);
+    line-height: 1.42;
   }
 
   /* ---- stat tiles ---- */
@@ -147,7 +147,7 @@
   .tile {
     background: var(--card);
     border-radius: 18px;
-    padding: clamp(14px, 2.2vh, 22px) 16px;
+    padding: clamp(11px, 1.8vh, 20px) 16px;
     display: flex;
     align-items: center;
     gap: 13px;
