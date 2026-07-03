@@ -1,1 +1,5 @@
-const Stripe = require("stripe");
+{
+  "dependencies": {
+    "stripe": "^16.12.0"
+  }
+}
