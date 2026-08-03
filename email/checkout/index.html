@@ -17789,6 +17789,7 @@ function PaymentBox() {
     const [processing, setProcessing] = React.useState(false);
     const [errorMsg, setErrorMsg] = React.useState("");
     const [eceVisible, setEceVisible] = React.useState(true);
+    const [applePayAvailable, setApplePayAvailable] = React.useState(true);
     const stripeRef = React.useRef(null);
     const elementsRef = React.useRef(null);
     const paymentElementRef = React.useRef(null);
@@ -17799,11 +17800,11 @@ function PaymentBox() {
         (async () => {
             try {
                 if (!/^https?:$/.test(window.location.protocol)) {
-                    console.error("[Stripe config] This page is being viewed as a local file preview. The payment API (/api/create-subscription) and Stripe.js only exist on the deployed site.");
+                    console.error("[Stripe config] This page is being viewed as a local file preview. The payment API (/api/create-payment-intent) and Stripe.js only exist on the deployed site.");
                     throw new Error("Checkout must be opened on the live site: https://globaliqreport.com/email/checkout");
                 }
                 const email = sessionStorage.getItem(SESSION_KEY) || "";
-                const resp = await fetch("/api/create-subscription", {
+                const resp = await fetch("/api/create-payment-intent", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ email: email }),
@@ -17811,6 +17812,7 @@ function PaymentBox() {
                 const data = await resp.json();
                 if (!resp.ok) throw new Error(data.error || "Unable to start checkout. Please refresh and try again.");
                 if (cancelled) return;
+                if (data.customerId) sessionStorage.setItem("myiq_stripe_customer_id", data.customerId);
 
                 if (!/^pk_(live|test)_[A-Za-z0-9]+$/.test(STRIPE_PUBLISHABLE_KEY)) {
                     // Warn only — the key is passed to Stripe exactly as configured.
@@ -17832,12 +17834,13 @@ function PaymentBox() {
                 elementsRef.current = elements;
 
                 // Real one-click buttons: Google Pay (when available) + Link.
-                // Apple Pay is intentionally disabled here for now (visual button above).
+                // Apple Pay appears automatically here once the domain is verified in
+                // Stripe Dashboard > Settings > Payment method domains.
                 const expressCheckout = elements.create("expressCheckout", {
                     buttonHeight: 44,
                     buttonTheme: { googlePay: "black" },
                     paymentMethods: {
-                        applePay: "never",
+                        applePay: "auto",
                         googlePay: "auto",
                         link: "auto",
                         paypal: "never",
@@ -17849,7 +17852,8 @@ function PaymentBox() {
                 expressCheckout.on("ready", (event) => {
                     if (cancelled) return;
                     const m = event.availablePaymentMethods;
-                    if (!m || (!m.googlePay && !m.link)) setEceVisible(false);
+                    if (!m || (!m.googlePay && !m.link && !m.applePay)) setEceVisible(false);
+                    setApplePayAvailable(!!(m && m.applePay));
                 });
                 expressCheckout.on("confirm", async () => {
                     setErrorMsg("");
@@ -17873,7 +17877,7 @@ function PaymentBox() {
         const paymentElement = elementsRef.current.create("payment", {
             layout: "tabs",
             paymentMethodOrder: methodOrderRef.current,
-            wallets: { applePay: "never", googlePay: "never" },
+            wallets: { applePay: "auto", googlePay: "never" },
         });
         paymentElement.mount("#payment-element");
         paymentElement.on("ready", () => setPayReady(true));
@@ -17936,7 +17940,16 @@ function PaymentBox() {
         h(PayBtn, { onClick: () => markUnavailable("venmo"), style: { background: "#3d8df5" } },
             h("span", { style: { color: "#fff", fontSize: 19, fontWeight: 800, fontStyle: "italic" } }, "venmo")),
         unavailable === "venmo" ? h(UnavailableMsg, null) : null,
-        h(PayBtn, { onClick: () => markUnavailable("applepay"), style: { background: "#000", color: "#fff" } },
+        h(PayBtn, { onClick: () => {
+            trackStage("clicked_pay_applepay");
+            if (applePayAvailable) {
+                setUnavailable(null);
+                const el = document.getElementById("express-checkout-element");
+                if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
+            } else {
+                markUnavailable("applepay");
+            }
+        }, style: { background: "#000", color: "#fff" } },
             "Buy with ",
             h("span", { style: { display: "inline-flex", alignItems: "center", gap: 1 } },
                 h("span", { style: { fontSize: 16 } }, "\uF8FF"), "Pay")),

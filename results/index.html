@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>GlobalIQ — Your Results</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg:        #e8f1fc;
+    --card:      #ffffff;
+    --ink:       #16263b;
+    --blue:      #1a3cff;
+    --navy:      #0a1560;
+    --muted:     #707b8a;
+    --teal:      #2e7d6e;
+    --light-blue:#dce8f8;
+    --shadow:    0 4px 12px rgba(22, 38, 59, .06),
+                 0 22px 44px -18px rgba(22, 38, 59, .24);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; background: var(--bg); }
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: #c9d8ec;
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    display: flex;
+    justify-content: center;
+    min-height: 100%;
+  }
+  .phone {
+    width: 100%;
+    max-width: 440px;
+    min-height: 100dvh;
+    background: var(--bg);
+    display: flex;
+    flex-direction: column;
+  }
+  header {
+    background: #fff;
+    padding: 14px 24px;
+    flex: none;
+    display: flex;
+    justify-content: center;
+  }
+  .wordmark {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    font-size: 22px;
+    color: var(--navy);
+    letter-spacing: -.4px;
+  }
+  .wordmark span { color: var(--blue); }
+  main {
+    flex: 1;
+    padding: 28px 24px calc(28px + env(safe-area-inset-bottom));
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .state { display: none; }
+  .state.show { display: flex; flex-direction: column; gap: 20px; }
+
+  .spinner {
+    width: 40px; height: 40px; border-radius: 50%;
+    border: 4px solid var(--light-blue); border-top-color: var(--blue);
+    animation: spin 0.8s linear infinite;
+    margin: 40px auto 0;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .center-text { text-align: center; color: var(--muted); font-size: 15px; }
+
+  h1 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    color: #000;
+    font-size: 22px;
+    line-height: 1.2;
+    text-align: center;
+  }
+  h1 span { color: var(--blue); }
+
+  .score-card {
+    background: var(--card);
+    border-radius: 22px;
+    padding: 28px 20px;
+    box-shadow: var(--shadow);
+    text-align: center;
+  }
+  .score-label { color: var(--muted); font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; }
+  .score-number { font-family: 'Poppins', sans-serif; font-size: 3.2rem; font-weight: 800; color: var(--blue); margin: 6px 0; }
+  .score-desc { font-size: 15px; color: var(--ink); }
+
+  .error-card {
+    background: var(--card);
+    border-radius: 22px;
+    padding: 24px 20px;
+    box-shadow: var(--shadow);
+    text-align: center;
+    color: #b42318;
+  }
+  .notice {
+    background: #fff8e6;
+    border: 1px solid #f2d98a;
+    border-radius: 14px;
+    padding: 14px 16px;
+    font-size: 13.5px;
+    color: #7a5b00;
+  }
+
+  .btn {
+    display: block;
+    text-align: center;
+    background: var(--blue);
+    color: #fff;
+    font-weight: 700;
+    font-size: 15px;
+    padding: 14px 20px;
+    border-radius: 14px;
+    text-decoration: none;
+  }
+  .btn.secondary { background: var(--teal); }
+
+  footer {
+    flex: none;
+    padding: 18px 24px calc(18px + env(safe-area-inset-bottom));
+    background: #fff;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 16px;
+    justify-content: center;
+  }
+  footer a { color: var(--muted); font-size: 12.5px; text-decoration: none; }
+  footer a:hover { color: var(--blue); }
+  .footer-bottom { width: 100%; text-align: center; color: var(--muted); font-size: 11.5px; margin-top: 8px; }
+</style>
+</head>
+<body>
+<div class="phone">
+  <header>
+    <div class="wordmark">Global<span>IQ</span></div>
+  </header>
+
+  <main>
+    <!-- Loading state: shown while we confirm the payment and set up the membership -->
+    <div id="stateLoading" class="state show">
+      <h1>Finishing up your <span>membership</span>&hellip;</h1>
+      <div class="spinner"></div>
+      <p class="center-text">Setting up your account. This only takes a moment — please don't close this page.</p>
+    </div>
+
+    <!-- Error state: payment did not succeed -->
+    <div id="stateError" class="state">
+      <h1>We couldn't confirm your <span>payment</span></h1>
+      <div class="error-card" id="errorMessage">
+        Something went wrong confirming your payment. No charge was completed.
+      </div>
+      <a class="btn" href="https://globaliqreport.com/email/checkout">Try Again</a>
+    </div>
+
+    <!-- Success state: results -->
+    <div id="stateSuccess" class="state">
+      <h1>Your <span>IQ Report</span> is ready</h1>
+      <div class="score-card">
+        <div class="score-label">Your Score</div>
+        <div class="score-number" id="iqScoreNumber">—</div>
+        <div class="score-desc" id="iqScoreDesc">Based on your assessment responses.</div>
+      </div>
+      <div class="notice" id="subscriptionNotice" style="display:none;"></div>
+      <a class="btn secondary" href="https://globaliqreport.com/contact">Need help? Contact Support</a>
+    </div>
+  </main>
+
+  <footer>
+    <a href="https://globaliqreport.com/cancellation">How to Cancel</a>
+    <a href="https://globaliqreport.com/contact">Contact</a>
+    <a href="https://globaliqreport.com/privacy">Privacy Policy</a>
+    <a href="https://globaliqreport.com/terms">Terms &amp; Conditions</a>
+    <a href="https://globaliqreport.com/refund">Refund Policy</a>
+    <div class="footer-bottom">Copyright &copy; 2026 GlobalIQ™. All rights reserved. For entertainment or educational purposes only.</div>
+  </footer>
+</div>
+
+<script>
+(function () {
+  function showState(id) {
+    ["stateLoading", "stateError", "stateSuccess"].forEach(function (s) {
+      document.getElementById(s).classList.toggle("show", s === id);
+    });
+  }
+
+  function computeDisplayedIQ() {
+    var rawScore = parseInt(sessionStorage.getItem("myiq_quiz_score"), 10);
+    var rawTotal = parseInt(sessionStorage.getItem("myiq_quiz_total"), 10);
+    var pct = (!isNaN(rawScore) && !isNaN(rawTotal) && rawTotal > 0) ? (rawScore / rawTotal) : 0.6;
+    var iq = Math.round(100 + (pct - 0.5) * 90);
+    if (iq < 85) iq = 85;
+    if (iq > 145) iq = 145;
+    return iq;
+  }
+
+  function describeIQ(iq) {
+    if (iq >= 130) return "Very superior range — well above average.";
+    if (iq >= 120) return "Superior range — above average.";
+    if (iq >= 110) return "High average range.";
+    if (iq >= 90) return "Average range.";
+    return "Below average range.";
+  }
+
+  function renderScore() {
+    var iq = computeDisplayedIQ();
+    document.getElementById("iqScoreNumber").textContent = iq;
+    document.getElementById("iqScoreDesc").textContent = describeIQ(iq);
+  }
+
+  function showSubscriptionNotice(message) {
+    var el = document.getElementById("subscriptionNotice");
+    el.textContent = message;
+    el.style.display = "block";
+  }
+
+  async function activateSubscription(paymentIntentId) {
+    try {
+      const resp = await fetch("/api/activate-subscription", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ paymentIntentId: paymentIntentId }),
+      });
+      const data = await resp.json();
+      if (!resp.ok) throw new Error(data.error || "Membership setup failed.");
+      return data;
+    } catch (err) {
+      console.error("[results] activate-subscription error:", err.message);
+      return null;
+    }
+  }
+
+  async function init() {
+    var params = new URLSearchParams(window.location.search);
+    var paymentIntentId = params.get("payment_intent");
+    var redirectStatus = params.get("redirect_status");
+
+    if (!paymentIntentId || redirectStatus !== "succeeded") {
+      showState("stateError");
+      return;
+    }
+
+    showState("stateLoading");
+    var result = await activateSubscription(paymentIntentId);
+
+    // The user already paid and completed their quiz — always show their result,
+    // membership setup issues must never block that.
+    renderScore();
+    if (!result || !result.success) {
+      showSubscriptionNotice(
+        "There was an issue finalizing your membership. Your $1 payment was received — " +
+        "please contact support so we can confirm your membership manually."
+      );
+    }
+    showState("stateSuccess");
+  }
+
+  init();
+})();
+</script>
+</body>
+</html>

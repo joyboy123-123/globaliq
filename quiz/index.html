@@ -612,7 +612,7 @@ function render(){
       ans.appendChild(b);
     }
     rb=document.createElement('button');rb.className='btn-results';rb.textContent='Get My Results';
-    rb.onclick=function(){if(sLeft<120){document.getElementById('assessIncomplete').classList.add('show');return;}window.location.href='https://globaliqreport.com/trust';};
+    rb.onclick=function(){if(sLeft<120){document.getElementById('assessIncomplete').classList.add('show');return;}var scoreTotal=QS.filter(function(x){return !x.noScore&&typeof x.ans!=='undefined'&&x.ans!==-1;}).length;sessionStorage.setItem('myiq_quiz_score',String(score));sessionStorage.setItem('myiq_quiz_total',String(scoreTotal));window.location.href='https://globaliqreport.com/trust';};
     ans.appendChild(rb);
     note=document.createElement('p');note.className='edu-note';
     note.textContent='Do you want to confirm your answers? You will not be able to edit them after validation.';
