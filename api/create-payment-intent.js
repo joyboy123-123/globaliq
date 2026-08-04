@@ -12,8 +12,11 @@
 // Dashboard → Settings → Payment methods, and register your domain for Apple Pay.
 //
 // Uses the environment variables already configured in Vercel:
-//   STRIPE_SECRET_KEY      (sk_live_… / sk_test_…)
-//   STRIPE_TRIAL_PRICE_ID  (price_… for the $1 one-time trial-activation price)
+//   STRIPE_SECRET_KEY       (sk_live_… / sk_test_…)
+//   STRIPE_PUBLISHABLE_KEY  (pk_live_… / pk_test_… — MUST be the same mode/account
+//                            as STRIPE_SECRET_KEY, returned to the frontend below so
+//                            they can never drift out of sync with each other again)
+//   STRIPE_TRIAL_PRICE_ID   (price_… for the $1 one-time trial-activation price)
 
 const Stripe = require("stripe");
 
@@ -22,6 +25,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
 });
 
 const TRIAL_PRICE_ID = process.env.STRIPE_TRIAL_PRICE_ID;
+const PUBLISHABLE_KEY = process.env.STRIPE_PUBLISHABLE_KEY;
 
 module.exports = async function handler(req, res) {
   if (req.method !== "POST") {
@@ -34,6 +38,10 @@ module.exports = async function handler(req, res) {
   }
   if (!TRIAL_PRICE_ID) {
     console.error("[create-payment-intent] Missing STRIPE_TRIAL_PRICE_ID env var.");
+    return res.status(500).json({ error: "Server misconfiguration. Contact support." });
+  }
+  if (!PUBLISHABLE_KEY) {
+    console.error("[create-payment-intent] Missing STRIPE_PUBLISHABLE_KEY env var.");
     return res.status(500).json({ error: "Server misconfiguration. Contact support." });
   }
 
@@ -66,6 +74,7 @@ module.exports = async function handler(req, res) {
     return res.status(200).json({
       clientSecret: paymentIntent.client_secret,
       customerId: customer.id,
+      publishableKey: PUBLISHABLE_KEY,
     });
   } catch (err) {
     console.error("[create-payment-intent] Stripe error:", err.message);

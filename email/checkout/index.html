@@ -17765,8 +17765,10 @@ function CertificateOffer() {
 }
 // ── Payment box ────────────────────────────────────────────
 // Official Stripe integration (Stripe.js + Express Checkout Element + Payment Element).
-// PayPal / Venmo / Apple Pay are visual-only for now and show an "unavailable" message.
-const STRIPE_PUBLISHABLE_KEY = "pk_live_51To2pCPgjIlA6mpwW73k1Y3Tq-LEEa1joeyDrAJoNFaJEVXryfWnry59Fs7rlvOD-JMhYkg8qfcWf5s1NDeTZ8LR7M00ejifVHFL";
+// PayPal / Venmo are visual-only for now and show an "unavailable" message.
+// The publishable key is NOT hardcoded here — it's returned by /api/create-payment-intent
+// (STRIPE_PUBLISHABLE_KEY env var on the server) so it can never fall out of sync with
+// whichever mode/account STRIPE_SECRET_KEY is actually using.
 const STRIPE_SUCCESS_URL = "https://globaliqreport.com/results";
 const UNAVAILABLE_MSG = "Payment option is not available at the moment.";
 function PayBtn(props) {
@@ -17814,11 +17816,11 @@ function PaymentBox() {
                 if (cancelled) return;
                 if (data.customerId) sessionStorage.setItem("myiq_stripe_customer_id", data.customerId);
 
-                if (!/^pk_(live|test)_[A-Za-z0-9]+$/.test(STRIPE_PUBLISHABLE_KEY)) {
-                    // Warn only — the key is passed to Stripe exactly as configured.
-                    console.warn("[Stripe config] STRIPE_PUBLISHABLE_KEY contains characters outside A-Za-z0-9. If Stripe rejects it, compare it character-for-character with Dashboard > Developers > API keys.");
+                if (!data.publishableKey || !/^pk_(live|test)_[A-Za-z0-9]+$/.test(data.publishableKey)) {
+                    console.error("[Stripe config] Server did not return a valid publishableKey. Check STRIPE_PUBLISHABLE_KEY in Vercel.");
+                    throw new Error("Unable to start checkout. Please refresh and try again.");
                 }
-                const stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
+                const stripe = Stripe(data.publishableKey);
                 const elements = stripe.elements({
                     clientSecret: data.clientSecret,
                     appearance: {
