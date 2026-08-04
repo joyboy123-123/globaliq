@@ -17868,7 +17868,21 @@ function PaymentBox() {
 
                 // Dedicated full-size Apple Pay button — mounted where the old fake
                 // decoy button used to be, sized/styled to match the other big buttons.
-                const applePayExpress = elements.create("expressCheckout", {
+                // Stripe only allows ONE Express Checkout Element per Elements group,
+                // so this needs its own separate group (same clientSecret) rather than
+                // reusing `elements` above.
+                const applePayElements = stripe.elements({
+                    clientSecret: data.clientSecret,
+                    appearance: {
+                        theme: "stripe",
+                        variables: {
+                            colorPrimary: "#2f6bff",
+                            borderRadius: "12px",
+                            fontFamily: "'Inter', system-ui, -apple-system, sans-serif",
+                        },
+                    },
+                });
+                const applePayExpress = applePayElements.create("expressCheckout", {
                     buttonHeight: 48,
                     buttonTheme: { applePay: "black" },
                     paymentMethods: {
@@ -17889,7 +17903,7 @@ function PaymentBox() {
                 applePayExpress.on("confirm", async () => {
                     setErrorMsg("");
                     const { error } = await stripe.confirmPayment({
-                        elements: elements,
+                        elements: applePayElements,
                         confirmParams: { return_url: STRIPE_SUCCESS_URL },
                     });
                     if (error) setErrorMsg(error.message || "Payment failed. Please try again.");
