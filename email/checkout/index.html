@@ -17785,16 +17785,17 @@ function UnavailableMsg() {
     return h("div", { style: { color: "#ef4444", fontSize: 13, fontWeight: 600, textAlign: "center", margin: "-4px 0 11px" } }, UNAVAILABLE_MSG);
 }
 function PaymentBox() {
-    const [unavailable, setUnavailable] = React.useState(null); // "paypal" | "venmo" | "applepay"
+    const [unavailable, setUnavailable] = React.useState(null); // "paypal" | "venmo"
     const [showSheet, setShowSheet] = React.useState(false);
     const [payReady, setPayReady] = React.useState(false);
     const [processing, setProcessing] = React.useState(false);
     const [errorMsg, setErrorMsg] = React.useState("");
     const [eceVisible, setEceVisible] = React.useState(true);
-    const [applePayAvailable, setApplePayAvailable] = React.useState(true);
+    const [applePayReady, setApplePayReady] = React.useState(true);
     const stripeRef = React.useRef(null);
     const elementsRef = React.useRef(null);
     const paymentElementRef = React.useRef(null);
+    const applePayExpressRef = React.useRef(null);
     const methodOrderRef = React.useRef(["card", "cashapp", "link"]);
 
     React.useEffect(() => {
@@ -17836,13 +17837,13 @@ function PaymentBox() {
                 elementsRef.current = elements;
 
                 // Real one-click buttons: Google Pay (when available) + Link.
-                // Apple Pay appears automatically here once the domain is verified in
-                // Stripe Dashboard > Settings > Payment method domains.
+                // Apple Pay is intentionally excluded from this compact widget — it gets
+                // its own full-size dedicated button below instead (see applePayExpress).
                 const expressCheckout = elements.create("expressCheckout", {
                     buttonHeight: 44,
                     buttonTheme: { googlePay: "black" },
                     paymentMethods: {
-                        applePay: "auto",
+                        applePay: "never",
                         googlePay: "auto",
                         link: "auto",
                         paypal: "never",
@@ -17854,8 +17855,7 @@ function PaymentBox() {
                 expressCheckout.on("ready", (event) => {
                     if (cancelled) return;
                     const m = event.availablePaymentMethods;
-                    if (!m || (!m.googlePay && !m.link && !m.applePay)) setEceVisible(false);
-                    setApplePayAvailable(!!(m && m.applePay));
+                    if (!m || (!m.googlePay && !m.link)) setEceVisible(false);
                 });
                 expressCheckout.on("confirm", async () => {
                     setErrorMsg("");
@@ -17865,6 +17865,36 @@ function PaymentBox() {
                     });
                     if (error) setErrorMsg(error.message || "Payment failed. Please try again.");
                 });
+
+                // Dedicated full-size Apple Pay button — mounted where the old fake
+                // decoy button used to be, sized/styled to match the other big buttons.
+                const applePayExpress = elements.create("expressCheckout", {
+                    buttonHeight: 48,
+                    buttonTheme: { applePay: "black" },
+                    paymentMethods: {
+                        applePay: "auto",
+                        googlePay: "never",
+                        link: "never",
+                        paypal: "never",
+                        amazonPay: "never",
+                        klarna: "never",
+                    },
+                });
+                applePayExpress.mount("#apple-pay-express-element");
+                applePayExpress.on("ready", (event) => {
+                    if (cancelled) return;
+                    const m = event.availablePaymentMethods;
+                    setApplePayReady(!!(m && m.applePay));
+                });
+                applePayExpress.on("confirm", async () => {
+                    setErrorMsg("");
+                    const { error } = await stripe.confirmPayment({
+                        elements: elements,
+                        confirmParams: { return_url: STRIPE_SUCCESS_URL },
+                    });
+                    if (error) setErrorMsg(error.message || "Payment failed. Please try again.");
+                });
+                applePayExpressRef.current = applePayExpress;
             }
             catch (err) {
                 if (!cancelled) setErrorMsg(err.message || "Unable to start checkout. Please refresh and try again.");
@@ -17879,7 +17909,7 @@ function PaymentBox() {
         const paymentElement = elementsRef.current.create("payment", {
             layout: "tabs",
             paymentMethodOrder: methodOrderRef.current,
-            wallets: { applePay: "auto", googlePay: "never" },
+            wallets: { applePay: "never", googlePay: "never" },
         });
         paymentElement.mount("#payment-element");
         paymentElement.on("ready", () => setPayReady(true));
@@ -17942,20 +17972,8 @@ function PaymentBox() {
         h(PayBtn, { onClick: () => markUnavailable("venmo"), style: { background: "#3d8df5" } },
             h("span", { style: { color: "#fff", fontSize: 19, fontWeight: 800, fontStyle: "italic" } }, "venmo")),
         unavailable === "venmo" ? h(UnavailableMsg, null) : null,
-        h(PayBtn, { onClick: () => {
-            trackStage("clicked_pay_applepay");
-            if (applePayAvailable) {
-                setUnavailable(null);
-                const el = document.getElementById("express-checkout-element");
-                if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
-            } else {
-                markUnavailable("applepay");
-            }
-        }, style: { background: "#000", color: "#fff" } },
-            "Buy with ",
-            h("span", { style: { display: "inline-flex", alignItems: "center", gap: 1 } },
-                h("span", { style: { fontSize: 16 } }, "\uF8FF"), "Pay")),
-        unavailable === "applepay" ? h(UnavailableMsg, null) : null,
+        h("div", { id: "apple-pay-express-element", style: { marginBottom: applePayReady ? 11 : 0, display: applePayReady ? "block" : "none" } }),
+        applePayReady === false ? h(UnavailableMsg, null) : null,
         h("div", { id: "express-checkout-element", style: { marginBottom: eceVisible ? 11 : 0, display: eceVisible ? "block" : "none" } }),
         h(PayBtn, { onClick: () => openSheet("card"), style: { background: "#2e6e60", color: "#fff", marginBottom: showSheet || errorMsg ? 11 : 0 } },
             h("svg", { width: 19, height: 19, viewBox: "0 0 24 24", fill: "none", stroke: "#fff", strokeWidth: 2 },
