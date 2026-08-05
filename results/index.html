@@ -238,8 +238,47 @@
     }
   }
 
+  // PayPal/Venmo path — fully separate from Stripe, shares the same
+  // subscriptionId regardless of which of the two buttons the customer used.
+  async function verifyPaypalSubscription(subscriptionId) {
+    try {
+      const resp = await fetch("/api/paypal-verify-subscription", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ subscriptionId: subscriptionId }),
+      });
+      const data = await resp.json();
+      if (!resp.ok) throw new Error(data.error || "Membership verification failed.");
+      return data;
+    } catch (err) {
+      console.error("[results] paypal-verify-subscription error:", err.message);
+      return null;
+    }
+  }
+
   async function init() {
     var params = new URLSearchParams(window.location.search);
+
+    // PayPal/Venmo redirect back here as ?paypal=success&subscriptionId=...
+    // (set by both buttons in email/checkout/index.html) — check this first,
+    // independent of the Stripe params below.
+    var paypalStatus = params.get("paypal");
+    var paypalSubscriptionId = params.get("subscriptionId");
+    if (paypalStatus === "success" && paypalSubscriptionId) {
+      showState("stateLoading");
+      var paypalResult = await verifyPaypalSubscription(paypalSubscriptionId);
+      renderScore();
+      if (!paypalResult || !paypalResult.active) {
+        showSubscriptionNotice(
+          "There was an issue finalizing your membership. Your $1 payment was received — " +
+          "please contact support so we can confirm your membership manually."
+        );
+      }
+      showState("stateSuccess");
+      return;
+    }
+
+    // Stripe path (card / Cash App Pay / Apple Pay / Google Pay / Link) — unchanged.
     var paymentIntentId = params.get("payment_intent");
     var redirectStatus = params.get("redirect_status");
 

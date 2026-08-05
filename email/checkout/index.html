@@ -17764,12 +17764,21 @@ function CertificateOffer() {
         h(FAQSection, null));
 }
 // ── Payment box ────────────────────────────────────────────
-// Official Stripe integration (Stripe.js + Express Checkout Element + Payment Element).
-// PayPal / Venmo are visual-only for now and show an "unavailable" message.
+// Official Stripe integration (Stripe.js + Express Checkout Element + Payment Element)
+// for card / Cash App Pay / Apple Pay / Google Pay / Link. PayPal and Venmo are a
+// completely separate, real integration going straight to PayPal (not Stripe) —
+// see api/paypal-create-subscription.js and api/paypal-verify-subscription.js.
+// Stripe's PayPal support isn't available for US-based accounts, which is why
+// PayPal/Venmo don't just piggyback on the Stripe Payment Element like Cash App Pay does.
 // The publishable key is NOT hardcoded here — it's returned by /api/create-payment-intent
 // (STRIPE_PUBLISHABLE_KEY env var on the server) so it can never fall out of sync with
 // whichever mode/account STRIPE_SECRET_KEY is actually using.
-const STRIPE_SUCCESS_URL = "https://globaliqreport.com/results";
+// Using www explicitly here — the bare apex domain (globaliqreport.com without
+// www) has an SSL certificate issue as of this writing (Vercel domain setup),
+// which would show customers a security warning right after they pay. www is
+// confirmed working reliably. Safe to switch back to the bare domain once the
+// apex SSL is confirmed fixed in Vercel > Domains.
+const STRIPE_SUCCESS_URL = "https://www.globaliqreport.com/results";
 const UNAVAILABLE_MSG = "Payment option is not available at the moment.";
 function PayBtn(props) {
     return h("button", {
@@ -17785,13 +17794,18 @@ function UnavailableMsg() {
     return h("div", { style: { color: "#ef4444", fontSize: 13, fontWeight: 600, textAlign: "center", margin: "-4px 0 11px" } }, UNAVAILABLE_MSG);
 }
 function PaymentBox() {
-    const [unavailable, setUnavailable] = React.useState(null); // "paypal" | "venmo"
     const [showSheet, setShowSheet] = React.useState(false);
     const [payReady, setPayReady] = React.useState(false);
     const [processing, setProcessing] = React.useState(false);
     const [errorMsg, setErrorMsg] = React.useState("");
     const [eceVisible, setEceVisible] = React.useState(true);
     const [applePayReady, setApplePayReady] = React.useState(true);
+    // PayPal + Venmo: real integration, fully separate from Stripe (see
+    // api/paypal-create-subscription.js). Both buttons share one endpoint and
+    // one PayPal Subscription Plan — "idle" | "loading" | "ready" | "unavailable".
+    const [paypalStage, setPaypalStage] = React.useState({ paypal: "idle", venmo: "idle" });
+    const paypalSdkPromiseRef = React.useRef(null);
+    const paypalRenderedRef = React.useRef({ paypal: false, venmo: false });
     const stripeRef = React.useRef(null);
     const elementsRef = React.useRef(null);
     const paymentElementRef = React.useRef(null);
@@ -17949,9 +17963,80 @@ function PaymentBox() {
         }, 80);
     }
 
-    function markUnavailable(which) {
-        trackStage("clicked_pay_" + which);
-        setUnavailable(which);
+    // Loads the PayPal JS SDK on demand (only when PayPal or Venmo is actually
+    // clicked, never on page load) and caches the loading promise so a second
+    // click doesn't inject the script twice.
+    function loadPaypalSdk(clientId) {
+        if (paypalSdkPromiseRef.current) return paypalSdkPromiseRef.current;
+        paypalSdkPromiseRef.current = new Promise((resolve, reject) => {
+            if (window.paypal) { resolve(window.paypal); return; }
+            const script = document.createElement("script");
+            script.src = "https://www.paypal.com/sdk/js?client-id=" + encodeURIComponent(clientId) + "&vault=true&intent=subscription&enable-funding=venmo";
+            script.onload = () => resolve(window.paypal);
+            script.onerror = () => reject(new Error("Failed to load PayPal. Please try again."));
+            document.body.appendChild(script);
+        });
+        return paypalSdkPromiseRef.current;
+    }
+
+    // Shared by both the PayPal button and the Venmo button — method is
+    // "paypal" or "venmo". Both call the same /api/paypal-create-subscription
+    // endpoint; the only difference is which PayPal funding source is requested.
+    async function startPaypalFlow(method) {
+        trackStage("clicked_pay_" + method);
+        if (paypalRenderedRef.current[method]) return;
+        setErrorMsg("");
+        setPaypalStage((prev) => Object.assign({}, prev, { [method]: "loading" }));
+        try {
+            const email = sessionStorage.getItem(SESSION_KEY) || "";
+            const resp = await fetch("/api/paypal-create-subscription", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email: email }),
+            });
+            const data = await resp.json();
+            if (!resp.ok) throw new Error(data.error || "Unable to start PayPal checkout. Please try again.");
+
+            sessionStorage.setItem("myiq_paypal_subscription_id", data.subscriptionId);
+            const paypalSdk = await loadPaypalSdk(data.paypalClientId);
+            const fundingSource = method === "venmo" ? paypalSdk.FUNDING.VENMO : paypalSdk.FUNDING.PAYPAL;
+
+            const buttons = paypalSdk.Buttons({
+                fundingSource: fundingSource,
+                style: { layout: "horizontal", height: 48 },
+                // The subscription was already created server-side above —
+                // just hand PayPal's SDK the ID we already have.
+                createSubscription: function () {
+                    return data.subscriptionId;
+                },
+                onApprove: function (approvalData) {
+                    window.location.href = "https://www.globaliqreport.com/results?paypal=success&subscriptionId=" +
+                        encodeURIComponent(approvalData.subscriptionID || data.subscriptionId);
+                },
+                onCancel: function () {
+                    setPaypalStage((prev) => Object.assign({}, prev, { [method]: "idle" }));
+                },
+                onError: function (err) {
+                    console.error("[PayPal " + method + "] button error:", err);
+                    setErrorMsg("PayPal payment failed. Please try again.");
+                    setPaypalStage((prev) => Object.assign({}, prev, { [method]: "idle" }));
+                },
+            });
+
+            if (!buttons.isEligible()) {
+                // Expected sometimes, especially for Venmo — PayPal controls
+                // per-buyer funding-source eligibility, not this code.
+                setPaypalStage((prev) => Object.assign({}, prev, { [method]: "unavailable" }));
+                return;
+            }
+
+            await buttons.render("#" + method + "-button-container");
+            paypalRenderedRef.current[method] = true;
+            setPaypalStage((prev) => Object.assign({}, prev, { [method]: "ready" }));
+        } catch (err) {
+            setErrorMsg(err.message || "Unable to start PayPal checkout. Please try again.");
+            setPaypalStage((prev) => Object.assign({}, prev, { [method]: "idle" }));
+        }
     }
 
     async function handlePay() {
@@ -17976,16 +18061,17 @@ function PaymentBox() {
                 h("span", { style: { fontSize: 17, fontWeight: 700, color: "#64748b", textDecoration: "line-through", marginRight: 7 } }, "$6.99"),
                 h("span", { style: { fontSize: 17, fontWeight: 800, color: "#0f172a" } }, "$1.00"))),
         h("div", { style: { height: 1, background: "#e2e8f0", marginBottom: 16 } }),
-        h(PayBtn, { onClick: () => markUnavailable("paypal"), style: { background: "#f7c14b" } },
-            h("span", { style: { fontSize: 16, fontWeight: 800 } },
-                h("span", { style: { color: "#253b80" } }, "Pay"), h("span", { style: { color: "#179bd7" } }, "Pal"))),
-        unavailable === "paypal" ? h(UnavailableMsg, null) : null,
+        paypalStage.paypal !== "ready" ? h(PayBtn, { onClick: () => startPaypalFlow("paypal"), style: { background: "#f7c14b" } },
+            paypalStage.paypal === "loading" ? "Loading PayPal…" : h("span", { style: { fontSize: 16, fontWeight: 800 } },
+                h("span", { style: { color: "#253b80" } }, "Pay"), h("span", { style: { color: "#179bd7" } }, "Pal"))) : null,
+        h("div", { id: "paypal-button-container", style: { marginBottom: paypalStage.paypal === "ready" ? 11 : 0, display: paypalStage.paypal === "ready" ? "block" : "none" } }),
         h(PayBtn, { onClick: () => openSheet("cashapp"), style: { background: "#000", color: "#fff" } },
             h("span", { style: { display: "inline-flex", alignItems: "center", justifyContent: "center", width: 22, height: 22, background: "#00d54b", borderRadius: 5, color: "#fff", fontWeight: 900, fontSize: 14 } }, "$"),
             "Cash App Pay"),
-        h(PayBtn, { onClick: () => markUnavailable("venmo"), style: { background: "#3d8df5" } },
-            h("span", { style: { color: "#fff", fontSize: 19, fontWeight: 800, fontStyle: "italic" } }, "venmo")),
-        unavailable === "venmo" ? h(UnavailableMsg, null) : null,
+        paypalStage.venmo !== "ready" ? h(PayBtn, { onClick: () => startPaypalFlow("venmo"), style: { background: "#3d8df5" } },
+            h("span", { style: { color: "#fff", fontSize: 19, fontWeight: 800, fontStyle: "italic" } }, paypalStage.venmo === "loading" ? "Loading…" : "venmo")) : null,
+        h("div", { id: "venmo-button-container", style: { marginBottom: paypalStage.venmo === "ready" ? 11 : 0, display: paypalStage.venmo === "ready" ? "block" : "none" } }),
+        paypalStage.venmo === "unavailable" ? h(UnavailableMsg, null) : null,
         h("div", { id: "apple-pay-express-element", style: { marginBottom: applePayReady ? 11 : 0, display: applePayReady ? "block" : "none" } }),
         applePayReady === false ? h(UnavailableMsg, null) : null,
         h("div", { id: "express-checkout-element", style: { marginBottom: eceVisible ? 11 : 0, display: eceVisible ? "block" : "none" } }),
