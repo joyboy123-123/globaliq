@@ -107,6 +107,7 @@ module.exports = async function handler(req, res) {
       approveUrl: approveLink.href,
       subscriptionId: subData.id,
       paypalClientId: CLIENT_ID,
+      paypalMode: MODE,
     });
   } catch (err) {
     console.error("[paypal-create-subscription] Error:", err.message, err.paypalResponse ? JSON.stringify(err.paypalResponse) : "");

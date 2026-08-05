@@ -17966,12 +17966,18 @@ function PaymentBox() {
     // Loads the PayPal JS SDK on demand (only when PayPal or Venmo is actually
     // clicked, never on page load) and caches the loading promise so a second
     // click doesn't inject the script twice.
-    function loadPaypalSdk(clientId) {
+    function loadPaypalSdk(clientId, mode) {
         if (paypalSdkPromiseRef.current) return paypalSdkPromiseRef.current;
         paypalSdkPromiseRef.current = new Promise((resolve, reject) => {
             if (window.paypal) { resolve(window.paypal); return; }
             const script = document.createElement("script");
-            script.src = "https://www.paypal.com/sdk/js?client-id=" + encodeURIComponent(clientId) + "&vault=true&intent=subscription&enable-funding=venmo";
+            var src = "https://www.paypal.com/sdk/js?client-id=" + encodeURIComponent(clientId) + "&vault=true&intent=subscription&enable-funding=venmo";
+            // buyer-country=US is a SANDBOX-ONLY testing parameter that simulates
+            // Venmo eligibility — per PayPal's docs, it's required for Venmo to
+            // render at all in sandbox, and should NOT be sent in live mode
+            // (real buyer location is used automatically there instead).
+            if (mode === "sandbox") src += "&buyer-country=US";
+            script.src = src;
             script.onload = () => resolve(window.paypal);
             script.onerror = () => reject(new Error("Failed to load PayPal. Please try again."));
             document.body.appendChild(script);
@@ -17998,7 +18004,7 @@ function PaymentBox() {
             if (!resp.ok) throw new Error(data.error || "Unable to start PayPal checkout. Please try again.");
 
             sessionStorage.setItem("myiq_paypal_subscription_id", data.subscriptionId);
-            const paypalSdk = await loadPaypalSdk(data.paypalClientId);
+            const paypalSdk = await loadPaypalSdk(data.paypalClientId, data.paypalMode);
             const fundingSource = method === "venmo" ? paypalSdk.FUNDING.VENMO : paypalSdk.FUNDING.PAYPAL;
 
             const buttons = paypalSdk.Buttons({
