@@ -145,6 +145,20 @@
     }
     .name-error.show { display: block; }
 
+    /* ===== Verifying / payment-error overlays (real payment verification) ===== */
+    .verify-spinner {
+      width: 40px; height: 40px; border-radius: 50%; margin: 6px auto 18px;
+      border: 4px solid #dde4f5; border-top-color: #1a56e8;
+      animation: verifySpin 0.8s linear infinite;
+    }
+    @keyframes verifySpin { to { transform: rotate(360deg); } }
+    .membership-notice {
+      display: block; margin: 0 0 18px; padding: 14px 16px; border-radius: 12px;
+      background: #fff8e6; border: 1px solid #f2d98a; color: #7a5b00;
+      font-size: 14px; line-height: 1.5; text-align: center;
+    }
+    .membership-notice[hidden] { display: none; }
+
     .share { text-align: center; margin-bottom: 34px; }
     .share h2 { margin: 0 0 4px; font-size: 19px; font-weight: 800; color: #0f172a; letter-spacing: -0.3px; }
     .share p { margin: 0 0 16px; font-size: 15px; color: #64748b; }
@@ -228,7 +242,30 @@
 
 <canvas id="confetti" aria-hidden="true"></canvas>
 
-<div class="name-overlay" id="nameOverlay">
+<!-- Shown first, while the payment/subscription is verified server-side. -->
+<div class="name-overlay" id="verifyingOverlay">
+  <div class="name-card" role="status" aria-live="polite">
+    <h2>Finishing up your membership&hellip;</h2>
+    <div class="verify-spinner"></div>
+    <p class="sub">Setting up your account. This only takes a moment — please don't close this page.</p>
+  </div>
+</div>
+
+<!-- Shown instead of the certificate if payment could not be confirmed. -->
+<div class="name-overlay" id="paymentErrorOverlay" hidden>
+  <div class="name-card" role="dialog" aria-modal="true">
+    <h2>We couldn't confirm your payment</h2>
+    <p class="sub">Something went wrong confirming your payment. No charge was completed.</p>
+    <a class="name-submit" style="display:block; text-align:center; text-decoration:none; box-sizing:border-box;" href="https://www.globaliqreport.com/email/checkout">Try Again</a>
+  </div>
+</div>
+
+<!-- Hidden by default now (previously always visible) — only shown once
+     payment verification has actually succeeded, from inside
+     initCertificateFlow() below. This is the fix for the bug where the name
+     form appeared and accepted input even though its submit button had no
+     click handler wired up yet. -->
+<div class="name-overlay" id="nameOverlay" hidden>
   <div class="name-card" role="dialog" aria-modal="true" aria-labelledby="nameTitle">
     <h2 id="nameTitle">What name should we use for your certificate?</h2>
     <p class="sub">Enter your name exactly as you would like it to appear.</p>
@@ -315,6 +352,11 @@
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 14h12v8H6z"/></svg>
         Save or print
       </button>
+    </div>
+
+    <div class="membership-notice" id="membershipNotice" hidden>
+      There was an issue finalizing your membership. Your $1 payment was received —
+      please contact support so we can confirm your membership manually.
     </div>
 
     <div class="share">
@@ -477,6 +519,84 @@
   <div class="footer-bottom">Copyright &copy; 2026 GlobalIQ™. All rights reserved. For entertainment or educational purposes only.</div>
 </footer>
 <script>
+(async function () {
+  var verifyOverlay = document.getElementById('verifyingOverlay');
+  var errorOverlay = document.getElementById('paymentErrorOverlay');
+
+  function computeRealIQ() {
+    var rawScore = parseInt(sessionStorage.getItem('myiq_quiz_score'), 10);
+    var rawTotal = parseInt(sessionStorage.getItem('myiq_quiz_total'), 10);
+    var pct = (!isNaN(rawScore) && !isNaN(rawTotal) && rawTotal > 0) ? (rawScore / rawTotal) : 0.6;
+    var iq = Math.round(100 + (pct - 0.5) * 90);
+    if (iq < 85) iq = 85;
+    if (iq > 145) iq = 145;
+    return iq;
+  }
+
+  async function verifyStripePayment(paymentIntentId) {
+    try {
+      var resp = await fetch('/api/activate-subscription', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ paymentIntentId: paymentIntentId }),
+      });
+      var data = await resp.json();
+      return !!(resp.ok && data.success);
+    } catch (e) {
+      console.error('[results] activate-subscription error:', e.message);
+      return false;
+    }
+  }
+
+  async function verifyPaypalPayment(subscriptionId) {
+    try {
+      var resp = await fetch('/api/paypal-verify-subscription', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ subscriptionId: subscriptionId }),
+      });
+      var data = await resp.json();
+      return !!(resp.ok && data.active);
+    } catch (e) {
+      console.error('[results] paypal-verify-subscription error:', e.message);
+      return false;
+    }
+  }
+
+  var params = new URLSearchParams(window.location.search);
+  var paypalStatus = params.get('paypal');
+  var paypalSubscriptionId = params.get('subscriptionId');
+  var paymentIntentId = params.get('payment_intent');
+  var redirectStatus = params.get('redirect_status');
+
+  var paid = false;
+  var membershipOk = false;
+
+  if (paypalStatus === 'success' && paypalSubscriptionId) {
+    paid = true;
+    membershipOk = await verifyPaypalPayment(paypalSubscriptionId);
+  } else if (paymentIntentId && redirectStatus === 'succeeded') {
+    paid = true;
+    membershipOk = await verifyStripePayment(paymentIntentId);
+  }
+
+  if (verifyOverlay) verifyOverlay.hidden = true;
+
+  if (!paid) {
+    if (errorOverlay) {
+      errorOverlay.hidden = false;
+      document.body.style.overflow = 'hidden';
+    }
+    return;
+  }
+
+  window.__globaliqRealIQScore = computeRealIQ();
+  window.__globaliqMembershipIssue = !membershipOk;
+
+  initCertificateFlow();
+})();
+
+function initCertificateFlow() {
   /* =========================================================
      FIT THE CERTIFICATE TO THE SCREEN
      The certificate is authored at a fixed 1000 x 667 canvas,
@@ -548,7 +668,7 @@
   function fillCertificate() {
     var now = new Date();
     document.getElementById('recipientName').textContent = recipientFromSession();
-    document.getElementById('iqScore').textContent = makeTestScore();
+    document.getElementById('iqScore').textContent = (typeof window.__globaliqRealIQScore === 'number' ? window.__globaliqRealIQScore : makeTestScore());
     document.getElementById('certDate').textContent = formatDate(now);
     document.getElementById('certId').textContent = makeCertificateId(now);
     fitCertificate();
@@ -716,6 +836,8 @@
     overlay.style.display = 'none';
     fillCertificate();
   } else {
+    overlay.hidden = false;
+    overlay.style.display = '';
     document.body.style.overflow = 'hidden';
     fillCertificate();
     setTimeout(function () { firstIn.focus(); }, 60);
@@ -787,6 +909,11 @@
 
   buildShareLinks();
 
+  var membershipNotice = document.getElementById('membershipNotice');
+  if (window.__globaliqMembershipIssue && membershipNotice) { membershipNotice.hidden = false; }
+
+
+}
 
   /* ===== Footer language selector ===== */
   function toggleLang(){var d=document.getElementById('langDropdown');if(d)d.classList.toggle('open');}
