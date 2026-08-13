@@ -8,5 +8,6 @@
   "gender.male_button": "Raġel",
   "gender.female_button": "In-nisa",
   "avg_score.label": "Il- punteġġ medju tal-IQ tal-lum:",
-  "disclaimer.text": "Biex tara r-riżultati tiegħek, int ser tkun mitluba tiddaħħal l-email tiegħek u tibda abbonament: $1.00 għal prova ta' 7 ijiem, imbagħad $ 29.99/ xahar sakemm ma tinħassarx; auto-renews u tista' tinħassar kull meta fil-kont tiegħek. Prezz eskluż it-taxxa; Prezzi huma f'USD; GlobalIQ huwa għal skopijiet edukattivi/divertiment biss, mhux evalwazzjoni professjonali; billi tkompli, inti taqbel mal-iskeda tagħna <a href=\"https://globaliqreport.com/terms\">Termini u kundizzjonijiet</a> u <a href=\"https://globaliqreport.com/privacy\">Avviż ta' Privatezza</a>. mistoqsijiet? <a href=\"https://globaliqreport.com/help\">hawn</a>."
+  "disclaimer.text": "Biex tara r-riżultati tiegħek, ser tkun mitlub tiddaħħal l-email tiegħek u tibda abbonament:\n    <span class=\"price\">$1.00 għal prova ta' 7-il jum, imbagħad $29.99/ xahar</span>.\n    <strong>Jitiddedelbu awtomatikament sakemm ma jitneħħiex</strong>, u\n    <strong>tista'tikkanċella fi kwalunkwe ħin fil-kont tiegħek</strong>.",
+  "fineprint.text": "Il-prezz ma jimponix taxxa. Il-prezzijiet huma f'USD. GlobalIQ huwa għal skopijiet edukattivi/divertiment biss, mhux evalwazzjoni professjonali. <a href=\"https://globaliqreport.com/terms\">Termini u kundizzjonijiet</a> u <a href=\"https://globaliqreport.com/privacy\">Avviż ta' Privatezza</a>. mistoqsijiet? <a href=\"https://globaliqreport.com/help\">hawn</a>."
 }

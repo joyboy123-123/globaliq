@@ -8,5 +8,6 @@
   "gender.male_button": "Vyrai",
   "gender.female_button": "Moteris",
   "avg_score.label": "Šiandieninis vidutinis IQ:",
-  "disclaimer.text": "Norėdami pamatyti savo rezultatus, jums reikės įvesti savo el. pašto paštą ir pradėti prenumeratą: $1.00 7 dienų bandymo metu, tada $ 29.99 / mėnesį, nebent atšaukiama; automatiškai atnaujinti ir galite atšaukti bet kada savo sąskaitoje. kaina neapmokestinama mokesčio; kainos yra JAV doleriais; GlobalIQ yra tik švietimo / pramogų tikslais, ne profesinis vertinimas; tęsiančiu, sutinkate su mūsų <a href=\"https://globaliqreport.com/terms\">Bendrosios nuostatos</a> ir <a href=\"https://globaliqreport.com/privacy\">Privatumo pranešimas</a>. Questions? Contact support <a href=\"https://globaliqreport.com/help\">čia</a>."
+  "disclaimer.text": "Norėdami pamatyti savo rezultatus, jums reikės įvesti savo el. pašto adresą ir pradėti prenumeratą:\n    <span class=\"price\">$1.00 for a 7-day trial, then $29.99/month</span>.\n    <strong>Jis automatiškai atnaujinamas, nebent panaikintas</strong>, ir\n    <strong>galite atšaukti savo sąskaitą bet kada</strong>.",
+  "fineprint.text": "Kainos neįtraukiamos mokesčio. Kainos yra JAV doleriais. GlobalIQ yra tik švietimo ir pramogų tikslais, ne profesionaliai vertinimu. <a href=\"https://globaliqreport.com/terms\">Bendrosios nuostatos</a> ir <a href=\"https://globaliqreport.com/privacy\">Privatumo pranešimas</a>. Questions? Contact support <a href=\"https://globaliqreport.com/help\">čia</a>."
 }

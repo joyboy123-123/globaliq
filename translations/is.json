@@ -8,5 +8,6 @@
   "gender.male_button": "Karlmenn",
   "gender.female_button": "Konur",
   "avg_score.label": "Meðal IQ-skora í dag:",
-  "disclaimer.text": "Til að sjá niðurstöður þínar verður þú krafist að skrá tölvupóstinn þinn og byrja áskrif: $1.00 fyrir 7 daga próf, svo $ 29.99 / mánuður nema aflýst; sjálfvirkt endurnýjun og þú getur aflýst hvenær sem er á reikningnum þínum. Verð án skatt; Verð eru í USD; GlobalIQ er aðeins til fræðslu / skemmtun markmiða, ekki faglega mat; með því að halda áfram, samþykkir þú að okkar <a href=\"https://globaliqreport.com/terms\">Samkvæmt skilmálum</a> og <a href=\"https://globaliqreport.com/privacy\">Upplýsing um persónuvernd</a>. Questions? Contact support <a href=\"https://globaliqreport.com/help\">hér</a>."
+  "disclaimer.text": "Til að sjá niðurstöður þínar verður þú gert að skrá tölvupóstinn þinn og byrja áskrif:\n    <span class=\"price\">$1.00 fyrir 7 daga próf og 29.99 á mánuði.</span>.\n    <strong>Hann endurnýjist sjálfkrafa nema aflýstur sé aflýstur.</strong>, og\n    <strong>Þú getur aflýst hvenær sem er á reikningnum þínum.</strong>.",
+  "fineprint.text": "Verð án skatt. Verð eru í USD. GlobalIQ er eingöngu til fræðslu- og skemmtunartæka, ekki fagleg mats. Með því að halda áfram samþykkir þú að viðhaldum okkar <a href=\"https://globaliqreport.com/terms\">Samkvæmt skilmálum</a> og <a href=\"https://globaliqreport.com/privacy\">Upplýsing um persónuvernd</a>. Questions? Contact support <a href=\"https://globaliqreport.com/help\">hér</a>."
 }

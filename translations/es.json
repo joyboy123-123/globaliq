@@ -8,5 +8,6 @@
   "gender.male_button": "Hombre",
   "gender.female_button": "Mujer",
   "avg_score.label": "El coeficiente intelectual promedio de hoy:",
-  "disclaimer.text": "Para ver los resultados, se le pedirá que entre su correo electrónico y inicie una suscripción: $1.00 para una prueba de 7 días, luego $29.99/mes a menos que se cancele; renova automáticamente y puede cancelar en cualquier momento en su cuenta. El precio excluye impuestos; los precios son en USD; GlobalIQ es solo para fines educativos/entretenimiento, no para una evaluación profesional; continuando, usted acepta nuestra <a href=\"https://globaliqreport.com/terms\">Términos y condiciones</a> y <a href=\"https://globaliqreport.com/privacy\">Aviso de privacidad</a>¿Cuáles son las preguntas? <a href=\"https://globaliqreport.com/help\">aquí</a>."
+  "disclaimer.text": "Para ver los resultados, se le pedirá que entre su correo electrónico y inicie una suscripción:\n    <span class=\"price\">$1.00 para una prueba de 7 días, luego $29.99/mes.</span>.\n    <strong>Renueva automáticamente a menos que se cancele</strong>, y\n    <strong>Puede cancelar en cualquier momento en su cuenta</strong>.",
+  "fineprint.text": "Price excludes tax. Prices are in USD. GlobalIQ is for educational/entertainment purposes only, not a professional evaluation. By continuing, you agree to our <a href=\"https://globaliqreport.com/terms\">Términos y condiciones</a> y <a href=\"https://globaliqreport.com/privacy\">Aviso de privacidad</a>. Questions? Contact support <a href=\"https://globaliqreport.com/help\">aquí</a>."
 }

@@ -8,5 +8,6 @@
   "gender.male_button": "Mehed",
   "gender.female_button": "Naine",
   "avg_score.label": "Tänapäeva keskmine IQ:",
-  "disclaimer.text": "Et näha tulemusi, peate sisestama oma e-posti ja alustama abonement: $1.00 7-päevase proovi jaoks, siis $ 29.99/kuune, kui see ei tühistata; autorehvatamine ja saate tühistada igal ajal oma konto. Hinnast ei makseta; hinnad on USD; GlobalIQ on ainult haridus-/ meelelahutus eesmärgil, mitte professionaalne hindamine; jätkamise teel nõustute meiega <a href=\"https://globaliqreport.com/terms\">Termid ja tingimused</a> ja <a href=\"https://globaliqreport.com/privacy\">Isikuvabaduste kohta teatav teave</a>. Questions? Contact support <a href=\"https://globaliqreport.com/help\">siin</a>."
+  "disclaimer.text": "Tulusid näetamiseks peate sisestama oma e-posti ja alustama abonementit:\n    <span class=\"price\">7 päeva katsetuse eest $1.00, siis 29,99 dollarit kuus.</span>.\n    <strong>See uueneb automaatselt, kui see ei tühistata.</strong>, ja\n    <strong>Sa võid oma kontot igal ajal tühistada.</strong>.",
+  "fineprint.text": "Price excludes tax. Prices are in USD. GlobalIQ is for educational/entertainment purposes only, not a professional evaluation. By continuing, you agree to our <a href=\"https://globaliqreport.com/terms\">Termid ja tingimused</a> ja <a href=\"https://globaliqreport.com/privacy\">Isikuvabaduste kohta teatav teave</a>. Questions? Contact support <a href=\"https://globaliqreport.com/help\">siin</a>."
 }

@@ -8,5 +8,6 @@
   "gender.male_button": "Male",
   "gender.female_button": "Female",
   "avg_score.label": "Today's average IQ score:",
-  "disclaimer.text": "To view your results, you'll be required to enter your email and start a subscription: $1.00 for a 7-day trial, then $29.99/month unless cancelled; auto-renews and you can cancel anytime in your account. Price excludes tax; Prices are in USD; GlobalIQ is for educational/entertainment purposes only, not a professional evaluation; by continuing, you agree to our <a href=\"https://globaliqreport.com/terms\">Terms &amp; Conditions</a> and <a href=\"https://globaliqreport.com/privacy\">Privacy Notice</a>. Questions? Contact support <a href=\"https://globaliqreport.com/help\">here</a>."
+  "disclaimer.text": "To view your results, you'll be required to enter your email and start a subscription:\n    <span class=\"price\">$1.00 for a 7-day trial, then $29.99/month</span>.\n    <strong>It renews automatically unless canceled</strong>, and\n    <strong>you can cancel anytime in your account</strong>.",
+  "fineprint.text": "Price excludes tax. Prices are in USD. GlobalIQ is for educational/entertainment purposes only, not a professional evaluation. By continuing, you agree to our <a href=\"https://globaliqreport.com/terms\">Terms &amp; Conditions</a> and <a href=\"https://globaliqreport.com/privacy\">Privacy Notice</a>. Questions? Contact support <a href=\"https://globaliqreport.com/help\">here</a>."
 }

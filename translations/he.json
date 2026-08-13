@@ -8,5 +8,6 @@
   "gender.male_button": "זכר",
   "gender.female_button": "אישה",
   "avg_score.label": "הציון הממוצע של IQ של היום:",
-  "disclaimer.text": "כדי להציג את התוצאות שלך, אתה תצטרך להזין את הדואר האלקטרוני שלך ולהתחיל את הה ਗਾਹਕੀ: $1.00 עבור ניסוי של 7 ימים, ואז $ 29.99 / חודש אלא אם כן מבוטל; מתחדש אוטומטי ואתה יכול לבטל בכל עת בחשבון שלך. מחיר אינו מס; המחירים הם ב-USD; GlobalIQ הוא למטרות חינוכיות / בידור בלבד, לא הערכה מקצועית; על ידי המשיכה, אתה מסכים <a href=\"https://globaliqreport.com/terms\">תנאים</a> ו <a href=\"https://globaliqreport.com/privacy\">הודעה פרטית</a>. Questions? Contact support <a href=\"https://globaliqreport.com/help\">כאן</a>."
+  "disclaimer.text": "כדי לראות את התוצאות שלך, אתה נדרש להזין את הדואר האלקטרוני שלך ולהתחיל כפייה:\n    <span class=\"price\">$1.00 למשפט של 7 ימים, ואז $29.99 / חודש</span>.\n    <strong>הוא מתחדש באופן אוטומטי אלא אם כן מבוטל.</strong>, ו\n    <strong>אתה יכול לבטל בכל עת בחשבון שלך.</strong>.",
+  "fineprint.text": "מחירים אינם מסים. המחירים הם בדולרים. GlobalIQ הוא למטרות חינוכיות/בידוריות בלבד, לא הערכה מקצועית. <a href=\"https://globaliqreport.com/terms\">תנאים</a> ו <a href=\"https://globaliqreport.com/privacy\">הודעה פרטית</a>. Questions? Contact support <a href=\"https://globaliqreport.com/help\">כאן</a>."
 }

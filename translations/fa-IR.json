@@ -8,5 +8,6 @@
   "gender.male_button": "مرد",
   "gender.female_button": "زن",
   "avg_score.label": "نمره متوسط IQ امروز:",
-  "disclaimer.text": "برای مشاهده نتایج خود، شما باید ایمیل خود را وارد کنید و اشتراک خود را شروع کنید: $1.00 برای یک آزمون هفت روزه، سپس $ 29.99 / ماه مگر اینکه لغو شود؛ تجدید خودکار و شما می توانید هر زمان در حساب خود لغو کنید. قیمت مالیات را خارج می کند؛ قیمت ها در دلار است؛ GlobalIQ فقط برای اهداف آموزشی / سرگرمی است، نه یک ارزیابی حرفه ای؛ با ادامه، شما با ما موافق هستید <a href=\"https://globaliqreport.com/terms\">شرط ها و مقررات</a> و <a href=\"https://globaliqreport.com/privacy\">اطلاعیه ی حریم خصوصی</a>سوال؟ تماس با پشتیبانی <a href=\"https://globaliqreport.com/help\">اینجا</a>."
+  "disclaimer.text": "برای مشاهده نتایج، شما باید ایمیل خود را وارد کنید و اشتراک گذاری را شروع کنید:\n    <span class=\"price\">$1.00 for a 7-day trial, then $29.99/month</span>.\n    <strong>به صورت خودکار تجدید می شود مگر اینکه لغو شود</strong>, و\n    <strong>شما ميتونيد هر وقت توي حسابتون لغو كنيد</strong>.",
+  "fineprint.text": "قیمت بدون مالیات. قیمت ها در دلار است. GlobalIQ فقط برای اهداف آموزشی/ سرگرمی است، نه یک ارزیابی حرفه ای. با ادامه، شما موافقت می کنید که ما در مورد این موضوع صحبت می کنیم. <a href=\"https://globaliqreport.com/terms\">شرط ها و مقررات</a> و <a href=\"https://globaliqreport.com/privacy\">اطلاعیه ی حریم خصوصی</a>. Questions? Contact support <a href=\"https://globaliqreport.com/help\">اینجا</a>."
 }

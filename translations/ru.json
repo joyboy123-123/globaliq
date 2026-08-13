@@ -8,5 +8,6 @@
   "gender.male_button": "Мужчина",
   "gender.female_button": "Женщина",
   "avg_score.label": "Сегодняшний средний IQ:",
-  "disclaimer.text": "Чтобы просмотреть результаты, вам нужно будет ввести свой электронный адрес и начать подписку: $1.00 на 7-дневный пробный период, затем $29.99/месяц, если он не отменен; авто-обновление и вы можете отменить его в любое время в своей учетной записи. Цена не включает налогов; цены в долларах США; GlobalIQ предназначен только для образовательных/развлекательных целей, а не для профессиональной оценки; продолжая, вы соглашаетесь с нашим <a href=\"https://globaliqreport.com/terms\">Условия</a> и <a href=\"https://globaliqreport.com/privacy\">Уведомление о конфиденциальности</a>. Questions? Contact support <a href=\"https://globaliqreport.com/help\">здесь</a>."
+  "disclaimer.text": "Чтобы увидеть результаты, вам нужно будет ввести свой электронный адрес и начать подписку:\n    <span class=\"price\">$1.00 for a 7-day trial, then $29.99/month</span>.\n    <strong>Он автоматически обновляется, если не отменено.</strong>, и\n    <strong>Вы можете отменить в любое время на своем счете</strong>.",
+  "fineprint.text": "Цена не включает налогов. Цена в долларах США. GlobalIQ предназначена только для образовательных/развлекательных целей, а не для профессиональной оценки. <a href=\"https://globaliqreport.com/terms\">Условия</a> и <a href=\"https://globaliqreport.com/privacy\">Уведомление о конфиденциальности</a>. Questions? Contact support <a href=\"https://globaliqreport.com/help\">здесь</a>."
 }

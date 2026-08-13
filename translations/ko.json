@@ -8,5 +8,6 @@
   "gender.male_button": "남성",
   "gender.female_button": "여성",
   "avg_score.label": "오늘 평균 IQ 점수는:",
-  "disclaimer.text": "결과를 보기 위해 이메일 입력하고 구독을 시작해야 합니다. 7일 시험에 대한 경우 $1.00이고 취소하지 않는 한 월 29.99달러; 자동 재생 및 귀하의 계정에서 언제든지 취소 할 수 있습니다. 가격은 세금 제외입니다. 가격은 USD입니다. GlobalIQ는 교육 / 엔터테인먼트 목적으로만, 전문적인 평가가 아닙니다. 계속하면, 당신은 우리의 동의합니다 <a href=\"https://globaliqreport.com/terms\">약관</a> 그리고 <a href=\"https://globaliqreport.com/privacy\">개인정보 보호 통지</a>질문? 연락 지원 <a href=\"https://globaliqreport.com/help\">여기</a>."
+  "disclaimer.text": "결과를 보기 위해서는 이메일 입력하고 가입을 시작해야 합니다.\n    <span class=\"price\">$1.00 for a 7-day trial, then $29.99/month</span>.\n    <strong>취소하지 않는 한 자동으로 재생됩니다</strong>, 그리고\n    <strong>귀하의 계좌에서 언제든지 취소할 수 있습니다</strong>.",
+  "fineprint.text": "가격 세금은 제외됩니다. 가격은 USD입니다. GlobalIQ는 교육/ 엔터테인먼트 목적으로만, 전문적인 평가가 아닙니다. 계속하여, 당신은 우리의 <a href=\"https://globaliqreport.com/terms\">약관</a> 그리고 <a href=\"https://globaliqreport.com/privacy\">개인정보 보호 통지</a>. Questions? Contact support <a href=\"https://globaliqreport.com/help\">여기</a>."
 }

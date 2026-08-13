@@ -8,5 +8,6 @@
   "gender.male_button": "الذكور",
   "gender.female_button": "الإناث",
   "avg_score.label": "متوسط معدل الذكاء اليوم:",
-  "disclaimer.text": "لمشاهدة نتائجك، سيتم مطالبتك بإدخال بريدك الإلكتروني وبدء اشتراك: $1.00 لامتحان لمدة 7 أيام، ثم $ 29.99 / شهر ما لم يتم إلغائه؛ تجديد تلقائي ويمكنك إلغاء أي وقت في حسابك. السعر يستبعد الضرائب؛ الأسعار بالدولار الأمريكي؛ GlobalIQ لأغراض تعليمية / ترفيهية فقط، وليس تقييم مهني؛ من خلال الاستمرار، فإنك توافق على خدماتنا <a href=\"https://globaliqreport.com/terms\">الشروط</a> و <a href=\"https://globaliqreport.com/privacy\">إشعار الخصوصية</a>أسئلة؟ دعم الاتصال <a href=\"https://globaliqreport.com/help\">هنا</a>."
+  "disclaimer.text": "لمشاهدة نتائجك، سيتم مطالبتك بإدخال البريد الإلكتروني الخاص بك وبدء الاشتراك:\n    <span class=\"price\">$1.00 for a 7-day trial, then $29.99/month</span>.\n    <strong>يتم تجديدها تلقائيًا ما لم يتم إلغائها</strong>, و\n    <strong>يمكنك إلغاء أي وقت في حسابك</strong>.",
+  "fineprint.text": "السعر غير الضرائب. الأسعار بالدولار الأمريكي. GlobalIQ هي لأغراض تعليمية/ترفيه فقط، وليس لتقييم مهني. <a href=\"https://globaliqreport.com/terms\">الشروط</a> و <a href=\"https://globaliqreport.com/privacy\">إشعار الخصوصية</a>. Questions? Contact support <a href=\"https://globaliqreport.com/help\">هنا</a>."
 }

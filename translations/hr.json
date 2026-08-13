@@ -8,5 +8,6 @@
   "gender.male_button": "Muški",
   "gender.female_button": "Žena",
   "avg_score.label": "Današnji prosječni IQ rezultat:",
-  "disclaimer.text": "Da biste vidjeli rezultate, morate ući u e-mail i započeti pretplatu: $1.00 za 7-dnevni ispit, zatim $ 29.99/mjesec osim ako se ne otkaže; auto-prinudi i možete otkazati bilo kada u svom računu. Cena isključuje porez; cijene su u USD; GlobalIQ je samo za obrazovne / zabavne svrhe, a ne za profesionalnu ocjenu; nastavivanjem, pristajete na našu <a href=\"https://globaliqreport.com/terms\">Uloga i uvjeti</a> i <a href=\"https://globaliqreport.com/privacy\">Prijavom o privatnosti</a>. Questions? Contact support <a href=\"https://globaliqreport.com/help\">ovdje</a>."
+  "disclaimer.text": "Da biste vidjeli rezultate, morate ući u e-mail i započeti pretplatu:\n    <span class=\"price\">$1.00 za 7-dnevni ispit, onda $29.99/mjesec</span>.\n    <strong>Automatski se obnavlja osim ako se ne otkaže</strong>, i\n    <strong>Možete otkazati u bilo kojem trenutku na svom računu</strong>.",
+  "fineprint.text": "Price excludes tax. Prices are in USD. GlobalIQ is for educational/entertainment purposes only, not a professional evaluation. By continuing, you agree to our <a href=\"https://globaliqreport.com/terms\">Uloga i uvjeti</a> i <a href=\"https://globaliqreport.com/privacy\">Prijavom o privatnosti</a>. Questions? Contact support <a href=\"https://globaliqreport.com/help\">ovdje</a>."
 }

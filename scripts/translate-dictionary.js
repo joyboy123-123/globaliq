@@ -143,6 +143,34 @@ function isSuspiciouslyShort(sourceText, translatedText, floresCode) {
   return translatedText.length < sourceText.length * ratio;
 }
 
+// Third safety net, found necessary after a spot-check of the rebuilt
+// fineprint.text fragment: the source lead sentence "Price excludes tax.
+// Prices are in USD. GlobalIQ is for educational/entertainment purposes
+// only, not a professional evaluation. By continuing, you agree to our "
+// (4 sentences) translated to French with TWO full sentences silently
+// dropped ("Price excludes tax." and "By continuing, you agree to our"
+// both vanished) — yet the surviving output was still long enough to pass
+// isSuspiciouslyShort's length ratio, since the other two sentences are
+// themselves fairly long. A length ratio alone can't catch "dropped a
+// whole clause but padded the rest normally." Counting sentence-ending
+// punctuation is a cheap, language-agnostic proxy for "did entire
+// sentences go missing": if the source has 2+ sentences and the
+// translation has under half as many terminators, treat it as suspect.
+function countSentences(text) {
+  const matches = text.match(/[.!?。！？؟]+/g);
+  return matches ? matches.length : (text.trim() ? 1 : 0);
+}
+function hasMissingClauses(sourceText, translatedText) {
+  const sourceSentences = countSentences(sourceText);
+  if (sourceSentences < 2) return false; // heuristic only meaningful on multi-sentence input
+  // Deliberately strict (ANY drop, not a ratio): the real failure case this
+  // caught was a 3-sentence source losing just 1 sentence (3 -> 2), which a
+  // 50%-loss ratio would have missed entirely. A false positive here just
+  // costs one retry (and, worst case, a safe English fallback for that key)
+  // — cheap insurance against silently dropped content in legal/pricing text.
+  return countSentences(translatedText) < sourceSentences;
+}
+
 // Small manual override table for the specific short, context-free words
 // that recur in this exact disclaimer sentence and are unsafe to run
 // through the model in isolation (see history above: "here" caused a
@@ -211,9 +239,18 @@ async function translateHtmlFragment(html, translateOne, onShortNodeSkipped, flo
     if (!trimmed) continue;
 
     if (trimmed.length < SHORT_NODE_THRESHOLD) {
-      const override = MANUAL_SHORT_OVERRIDES[floresCode] && MANUAL_SHORT_OVERRIDES[floresCode][trimmed.toLowerCase()];
+      // The override table is keyed on the bare word ("and", "here"), but a
+      // short node can arrive with punctuation still attached depending on
+      // where it sits in the sentence (e.g. ", and" between two <strong>
+      // tags) — found via spot-check: ", and" didn't match "and" and fell
+      // through to the English-fallback path instead of translating.
+      // Strip leading/trailing non-letter characters for the lookup only,
+      // then splice the override back between the original punctuation.
+      const punctMatch = trimmed.match(/^(\W*)([\s\S]*?)(\W*)$/);
+      const [, leadPunct, core, trailPunct] = punctMatch || ["", "", trimmed, ""];
+      const override = MANUAL_SHORT_OVERRIDES[floresCode] && MANUAL_SHORT_OVERRIDES[floresCode][core.toLowerCase()];
       if (override) {
-        node.data = leadingWs + override + trailingWs;
+        node.data = leadingWs + leadPunct + override + trailPunct + trailingWs;
         continue;
       }
       if (onShortNodeSkipped) onShortNodeSkipped(trimmed);
@@ -221,12 +258,12 @@ async function translateHtmlFragment(html, translateOne, onShortNodeSkipped, flo
     }
 
     let translated = await translateOne(trimmed);
-    if (hasRepetitionLoop(translated) || isSuspiciouslyShort(trimmed, translated, floresCode)) {
+    if (hasRepetitionLoop(translated) || isSuspiciouslyShort(trimmed, translated, floresCode) || hasMissingClauses(trimmed, translated)) {
       // One retry — quantized model inference isn't perfectly deterministic
       // run to run, so a second attempt sometimes succeeds cleanly even
       // when the first one degenerated or dropped content.
       const retry = await translateOne(trimmed);
-      translated = (hasRepetitionLoop(retry) || isSuspiciouslyShort(trimmed, retry, floresCode)) ? null : retry;
+      translated = (hasRepetitionLoop(retry) || isSuspiciouslyShort(trimmed, retry, floresCode) || hasMissingClauses(trimmed, retry)) ? null : retry;
     }
     if (translated === null) {
       // Both attempts degenerated — fall back to leaving this node in
@@ -339,10 +376,10 @@ async function main() {
           }, floresCode);
         } else {
           let translated = await translateOne(sourceText);
-          if (hasRepetitionLoop(translated) || isSuspiciouslyShort(sourceText, translated, floresCode)) {
+          if (hasRepetitionLoop(translated) || isSuspiciouslyShort(sourceText, translated, floresCode) || hasMissingClauses(sourceText, translated)) {
             const retry = await translateOne(sourceText);
-            if (hasRepetitionLoop(retry) || isSuspiciouslyShort(sourceText, retry, floresCode)) {
-              throw new Error("translation degenerated (repetition loop or suspiciously short/truncated) on both attempts");
+            if (hasRepetitionLoop(retry) || isSuspiciouslyShort(sourceText, retry, floresCode) || hasMissingClauses(sourceText, retry)) {
+              throw new Error("translation degenerated (repetition loop, suspiciously short/truncated, or missing clauses) on both attempts");
             }
             translated = retry;
           }

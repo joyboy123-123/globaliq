@@ -8,5 +8,6 @@
   "gender.male_button": "Erkek",
   "gender.female_button": "Kadın",
   "avg_score.label": "Bugünün ortalama IQ puanı:",
-  "disclaimer.text": "Sonuçlarınızı görmek için e-posta adresinizi girin ve abonelik başlatın: 7 günlük deneme için $1.00 ve iptal edilmedikçe ayda $ 29.99; otomatik yenilenme ve hesabınızda herhangi bir zamanda iptal edebilirsiniz. Fiyat vergi hariç; Fiyatlar USD'de; GlobalIQ sadece eğitim/eğlence amaçlı, profesyonel bir değerlendirme değil; devam ederek, bizim <a href=\"https://globaliqreport.com/terms\">Şartlar ve Koşullar</a> ve <a href=\"https://globaliqreport.com/privacy\">Gizlilik Bilgisi</a>. Questions? Contact support <a href=\"https://globaliqreport.com/help\">burada</a>."
+  "disclaimer.text": "Sonuçlarınızı görmek için e-posta adresinizi girmeniz ve abonelik başlamanız gerekecek:\n    <span class=\"price\">7 günlük deneme için $1.00 sonra 29.99 / ay</span>.\n    <strong>İptal edilmedikçe otomatik olarak yenilenir</strong>, ve\n    <strong>Hesabınızdaki herhangi bir zaman iptal edebilirsiniz.</strong>.",
+  "fineprint.text": "Fiyatlar vergisi hariç. Fiyatlar USD'de. GlobalIQ sadece eğitim/eğlence amaçlı, profesyonel bir değerlendirme değil. <a href=\"https://globaliqreport.com/terms\">Şartlar ve Koşullar</a> ve <a href=\"https://globaliqreport.com/privacy\">Gizlilik Bilgisi</a>. Questions? Contact support <a href=\"https://globaliqreport.com/help\">burada</a>."
 }

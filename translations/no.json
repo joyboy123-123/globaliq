@@ -8,5 +8,6 @@
   "gender.male_button": "Mannlig",
   "gender.female_button": "Kvinner",
   "avg_score.label": "Dagens gjennomsnittlig IQ-poeng:",
-  "disclaimer.text": "For å se resultatene dine, vil du bli bedt om å skrive inn e-post og starte et abonnement: $1.00 for en 7-dagers prøveperiode, deretter $ 29.99 / måned med mindre avlyst; automatisk fornyer og du kan avbryte når som helst i kontoen din. Pris ekskluderer skatt; priser er i USD; GlobalIQ er kun for utdannings- / underholdningsformål, ikke en profesjonell evaluering; ved å fortsette, samtykker du til vår <a href=\"https://globaliqreport.com/terms\">Vilkår og betingelser</a> og <a href=\"https://globaliqreport.com/privacy\">Privatlivsforklaring</a>Kontakt støtte. <a href=\"https://globaliqreport.com/help\">her</a>."
+  "disclaimer.text": "For å se resultatene dine, vil du bli bedt om å skrive inn e-post og starte et abonnement:\n    <span class=\"price\">$1.00 for en 7-dagers prøve, deretter $29.99/mån</span>.\n    <strong>Den fornyes automatisk med mindre den er avlyst</strong>, og\n    <strong>du kan kansellere når som helst på kontoen din</strong>.",
+  "fineprint.text": "Price excludes tax. Prices are in USD. GlobalIQ is for educational/entertainment purposes only, not a professional evaluation. By continuing, you agree to our <a href=\"https://globaliqreport.com/terms\">Vilkår og betingelser</a> og <a href=\"https://globaliqreport.com/privacy\">Privatlivsforklaring</a>. Questions? Contact support <a href=\"https://globaliqreport.com/help\">her</a>."
 }

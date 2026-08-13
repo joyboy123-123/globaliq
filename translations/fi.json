@@ -8,5 +8,6 @@
   "gender.male_button": "Mies",
   "gender.female_button": "Nainen",
   "avg_score.label": "Nykyinen keskiarvot:",
-  "disclaimer.text": "Tulosten katsomiseksi sinun on ilmoitettava sähköposti ja aloitettava tilaus: $1.00 7-päivän kokeelliselle ohjelmalle, sitten $29.99 kuukaudessa, ellei peruutetta; auto-uudistukset ja voit peruuttaa milloin tahansa tililläsi. Hinta ei koske veroja; hinnat ovat USD: ssä; GlobalIQ on vain opetus-/viihde-tarkoituksiin, ei ammatilliseen arviointiin; jatkamalla, hyväksyt meidän <a href=\"https://globaliqreport.com/terms\">Ehdotukset</a> ja <a href=\"https://globaliqreport.com/privacy\">Yksityisyyttä koskeva ilmoitus</a>- Kysymyksiä. <a href=\"https://globaliqreport.com/help\">täällä</a>."
+  "disclaimer.text": "Tulosten katsomiseksi sinun on kirjauduttava sähköpostiosoitteeseesi ja aloitettava tilaus:\n    <span class=\"price\">$1.00 for a 7-day trial, then $29.99/month</span>.\n    <strong>Se uusiutuu automaattisesti, ellei peruutetta</strong>, ja\n    <strong>Voit peruuttaa tilisi milloin tahansa.</strong>.",
+  "fineprint.text": "Price excludes tax. Prices are in USD. GlobalIQ is for educational/entertainment purposes only, not a professional evaluation. By continuing, you agree to our <a href=\"https://globaliqreport.com/terms\">Ehdotukset</a> ja <a href=\"https://globaliqreport.com/privacy\">Yksityisyyttä koskeva ilmoitus</a>. Questions? Contact support <a href=\"https://globaliqreport.com/help\">täällä</a>."
 }

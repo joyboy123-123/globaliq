@@ -8,5 +8,6 @@
   "gender.male_button": "ชาย",
   "gender.female_button": "ผู้หญิง",
   "avg_score.label": "สมาชิกอิคิวเฉลี่ยวันนี้",
-  "disclaimer.text": "เพื่อดูผลงานของคุณ คุณจะต้องใส่อีเมลของคุณและเริ่มสมัครสมาชิก: $1.00 สําหรับการทดลอง 7 วัน, จากนั้น $ 29.99 / เดือน เว้นแต่ยกเลิก; อัตโนมัติต่ออายุและคุณสามารถยกเลิกได้ในเวลาใดในบัญชีของคุณ. ราคาไม่รวมภาษี; ราคาเป็นดอลลาร์ดอเมริกัน; GlobalIQ เป็นเพื่อการศึกษา / ความบันเทิงเท่านั้น, ไม่ใช่การประเมินงานอาชีพ; โดยต่อเนื่อง, คุณตกลงกับเรา <a href=\"https://globaliqreport.com/terms\">กติกาและเงื่อนไข</a> และ <a href=\"https://globaliqreport.com/privacy\">ประกาศความเป็นส่วนตัว</a>คําถาม? <a href=\"https://globaliqreport.com/help\">ที่นี่</a>."
+  "disclaimer.text": "เพื่อดูผลงานของคุณ คุณจะต้องใส่อีเมลของคุณและเริ่มสมัครสมาชิก\n    <span class=\"price\">$1.00 สําหรับการทดลอง 7 วัน, แล้ว $ 29.99 / เดือน</span>.\n    <strong>มันจะต่ออายุโดยอัตโนมัติ เว้นแต่ยกเลิก</strong>, และ\n    <strong>คุณสามารถยกเลิกได้ในบัญชีของคุณในเวลาใดก็ได้</strong>.",
+  "fineprint.text": "Price excludes tax. Prices are in USD. GlobalIQ is for educational/entertainment purposes only, not a professional evaluation. By continuing, you agree to our <a href=\"https://globaliqreport.com/terms\">กติกาและเงื่อนไข</a> และ <a href=\"https://globaliqreport.com/privacy\">ประกาศความเป็นส่วนตัว</a>. Questions? Contact support <a href=\"https://globaliqreport.com/help\">ที่นี่</a>."
 }

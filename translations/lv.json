@@ -8,5 +8,6 @@
   "gender.male_button": "Vīrs",
   "gender.female_button": "Mīlestība",
   "avg_score.label": "Diemžēl, tas nav iespējams.",
-  "disclaimer.text": "Lai redzētu rezultātus, jums būs jāiekļauj e-pasts un jāparedz abonēšanās: $1.00 7 dienu izmēģinājuma, tad $9.99 par mēnesi, ja vien nav atcelts; auto-pārnoteikumi un jūs varat atcelties jebkurā laikā savā kontā. <a href=\"https://globaliqreport.com/terms\">Noteikumi un nosacījumi</a> un <a href=\"https://globaliqreport.com/privacy\">Privātuma paziņojums</a>Vairāk informācijas par šo jautājumu. <a href=\"https://globaliqreport.com/help\">šeit</a>."
+  "disclaimer.text": "Lai redzētu rezultātus, jums būs jāiekļauj e-pasts un jāiet parakstīties:\n    <span class=\"price\">$1.00 par 7-dnešu izmēģinājumu, tad $29.99 par mēnesi</span>.\n    <strong>Tas automātiski atjaunojās, ja vien nav atcelts</strong>, un\n    <strong>Jūs varat atcelt savu kontu jebkurā laikā</strong>.",
+  "fineprint.text": "Price excludes tax. Prices are in USD. GlobalIQ is for educational/entertainment purposes only, not a professional evaluation. By continuing, you agree to our <a href=\"https://globaliqreport.com/terms\">Noteikumi un nosacījumi</a> un <a href=\"https://globaliqreport.com/privacy\">Privātuma paziņojums</a>. Questions? Contact support <a href=\"https://globaliqreport.com/help\">šeit</a>."
 }

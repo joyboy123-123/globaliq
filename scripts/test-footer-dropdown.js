@@ -88,7 +88,7 @@ async function main() {
   const scriptSrc = frRes.body;
   check("script reads document.documentElement.lang", scriptSrc.includes("document.documentElement.lang"));
   check("script compares code === currentCode to set .current", scriptSrc.includes("code === currentCode"));
-  check("script sets currentLangEl.textContent on match", scriptSrc.includes("currentLangEl.textContent = name"));
+  check("script sets currentLangEl.textContent on match", scriptSrc.includes("currentLangEl.textContent = shortLabel"));
 
   console.log("\n5) Progress bar element present, hidden by default, scoped (no interference)");
   check("#lang-progress-bar element exists", $("#lang-progress-bar").length === 1);

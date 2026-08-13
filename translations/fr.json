@@ -8,5 +8,6 @@
   "gender.male_button": "Homme",
   "gender.female_button": "Femme",
   "avg_score.label": "Le score moyen de QI d'aujourd'hui:",
-  "disclaimer.text": "Pour afficher vos résultats, vous devrez saisir votre e-mail et commencer un abonnement: $1.00 pour un essai de 7 jours, puis $29.99 par mois à moins d'annulation; renouvellement automatique et vous pouvez annuler à tout moment dans votre compte. Prix exclus de taxes; prix sont en USD; GlobalIQ est uniquement à des fins éducatives/divertissements, pas une évaluation professionnelle; en continuant, vous acceptez notre <a href=\"https://globaliqreport.com/terms\">Conditions générales</a> et <a href=\"https://globaliqreport.com/privacy\">Avis de confidentialité</a>- Des questions? <a href=\"https://globaliqreport.com/help\">ici</a>."
+  "disclaimer.text": "Pour voir vos résultats, vous devrez entrer votre courriel et commencer un abonnement:\n    <span class=\"price\">$1.00 pour un essai de 7 jours, puis $29.99 par mois</span>.\n    <strong>Il se renouvelle automatiquement à moins d'annulation</strong>, et\n    <strong>Vous pouvez annuler à tout moment sur votre compte.</strong>.",
+  "fineprint.text": "Price excludes tax. Prices are in USD. GlobalIQ is for educational/entertainment purposes only, not a professional evaluation. By continuing, you agree to our <a href=\"https://globaliqreport.com/terms\">Conditions générales</a> et <a href=\"https://globaliqreport.com/privacy\">Avis de confidentialité</a>. Questions? Contact support <a href=\"https://globaliqreport.com/help\">ici</a>."
 }

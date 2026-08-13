@@ -8,5 +8,6 @@
   "gender.male_button": "Αδελφέ",
   "gender.female_button": "Γυναίκα",
   "avg_score.label": "Σήμερα, μέσος όρος IQ:",
-  "disclaimer.text": "Για να δείτε τα αποτελέσματα σας, θα πρέπει να εισάγετε το email σας και να ξεκινήσετε μια συνδρομή: $1.00 για μια δοκιμασία 7 ημερών, στη συνέχεια $ 29.99 / μήνα εκτός εάν ακυρωθεί; αυτο-ανανεώσει και μπορείτε να ακυρώσετε οποιαδήποτε στιγμή στο λογαριασμό σας. <a href=\"https://globaliqreport.com/terms\">Όροι και Προϋποθέσεις</a> και <a href=\"https://globaliqreport.com/privacy\">Ανακοίνωση για την ιδιωτική ζωή</a>- Επικοινωνήστε με την υποστήριξη. <a href=\"https://globaliqreport.com/help\">εδώ</a>."
+  "disclaimer.text": "Για να δείτε τα αποτελέσματα, θα πρέπει να εισάγετε το e-mail σας και να ξεκινήσετε μια συνδρομή:\n    <span class=\"price\">$1.00 για μια δοκιμή 7 ημερών, μετά $29.99/μήνα</span>.\n    <strong>Ανανεώνεται αυτόματα εκτός εάν ακυρωθεί</strong>, και\n    <strong>Μπορείτε να ακυρώσετε οποιαδήποτε στιγμή στο λογαριασμό σας.</strong>.",
+  "fineprint.text": "Price excludes tax. Prices are in USD. GlobalIQ is for educational/entertainment purposes only, not a professional evaluation. By continuing, you agree to our <a href=\"https://globaliqreport.com/terms\">Όροι και Προϋποθέσεις</a> και <a href=\"https://globaliqreport.com/privacy\">Ανακοίνωση για την ιδιωτική ζωή</a>. Questions? Contact support <a href=\"https://globaliqreport.com/help\">εδώ</a>."
 }

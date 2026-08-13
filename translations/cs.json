@@ -8,5 +8,6 @@
   "gender.male_button": "Muž",
   "gender.female_button": "Ženské",
   "avg_score.label": "Dnešní průměrný IQ:",
-  "disclaimer.text": "Chcete-li vidět výsledky, budete muset zadat e-mail a začít s předplatným: $1.00 na 7-denní zkoušku, pak $29.99/měsíc, pokud není zrušen; auto-obnovení a můžete zrušit kdykoliv ve svém účtu. Cena vylučuje daně; ceny jsou v USD; GlobalIQ je pouze pro vzdělávací/zajímavé účely, ne pro profesionální hodnocení; pokračováním souhlasíte s našimi <a href=\"https://globaliqreport.com/terms\">Podmínky</a> a <a href=\"https://globaliqreport.com/privacy\">Oznámení o ochraně soukromí</a>. Questions? Contact support <a href=\"https://globaliqreport.com/help\">zde</a>."
+  "disclaimer.text": "Chcete-li vidět výsledky, budete muset zadat e-mail a začít přihlášení:\n    <span class=\"price\">$1.00 for a 7-day trial, then $29.99/month</span>.\n    <strong>Automaticky se obnoví, pokud není zrušen.</strong>, a\n    <strong>můžete kdykoliv zrušit svůj účet</strong>.",
+  "fineprint.text": "Price excludes tax. Prices are in USD. GlobalIQ is for educational/entertainment purposes only, not a professional evaluation. By continuing, you agree to our <a href=\"https://globaliqreport.com/terms\">Podmínky</a> a <a href=\"https://globaliqreport.com/privacy\">Oznámení o ochraně soukromí</a>. Questions? Contact support <a href=\"https://globaliqreport.com/help\">zde</a>."
 }

@@ -8,5 +8,6 @@
   "gender.male_button": "男性",
   "gender.female_button": "女性",
   "avg_score.label": "今日の平均IQスコアは",
-  "disclaimer.text": "検索結果を見るには,メールを入力してサブスクリプションを開始する必要があります. 7 日間の試用期間: $1.00 キャンセルがない限り,月額は $29.99 自動更新,アカウントの任意の時点でキャンセルできます. 税込価格; 価格はUSDでです. GlobalIQは教育/娯楽目的のみであり,専門的な評価ではありません.継続することで,あなたは当社の同意します <a href=\"https://globaliqreport.com/terms\">条件</a> そして <a href=\"https://globaliqreport.com/privacy\">プライバシーに関する通知</a>連絡先のサポート <a href=\"https://globaliqreport.com/help\">ここ</a>."
+  "disclaimer.text": "メールメールを入力して 登録を開始します\n    <span class=\"price\">7日間の試用で $1.00 続いて月29.99</span>.\n    <strong>キャンセルしない限り自動的に更新されます</strong>, そして\n    <strong>口座の任意の時にキャンセルできます</strong>.",
+  "fineprint.text": "価格は税金を除く.価格はドルでです.GlobalIQは教育/娯楽目的のみで,専門的な評価ではありません. <a href=\"https://globaliqreport.com/terms\">条件</a> そして <a href=\"https://globaliqreport.com/privacy\">プライバシーに関する通知</a>. Questions? Contact support <a href=\"https://globaliqreport.com/help\">ここ</a>."
 }

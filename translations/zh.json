@@ -8,5 +8,6 @@
   "gender.male_button": "男性",
   "gender.female_button": "女人",
   "avg_score.label": "今天的平均智商分数:",
-  "disclaimer.text": "为了查看结果,您需要输入电子邮件并开始订阅:为7天的试用费用1.00美元,然后为月29美元,除非取消;自动更新,您可以在您的帐户中的任何时候取消.价格不包括税收;价格是美元;全球IQ仅用于教育/娱乐目的,而不是专业评估;继续,您同意我们的 <a href=\"https://globaliqreport.com/terms\">条款和条件</a> 和 <a href=\"https://globaliqreport.com/privacy\">隐私通知</a>. Questions? Contact support <a href=\"https://globaliqreport.com/help\">这里</a>."
+  "disclaimer.text": "为了查看结果,您需要输入电子邮件,\n    <span class=\"price\">七天试验费用为1.00美元,然后每月29.99美元</span>.\n    <strong>无需取消,它自动更新</strong>, 和\n    <strong>你可以在任何时候取消你的账户</strong>.",
+  "fineprint.text": "价格不包括税收.价格是美元.全球IQ仅用于教育/娱乐目的,而不是专业评估. <a href=\"https://globaliqreport.com/terms\">条款和条件</a> 和 <a href=\"https://globaliqreport.com/privacy\">隐私通知</a>. Questions? Contact support <a href=\"https://globaliqreport.com/help\">这里</a>."
 }

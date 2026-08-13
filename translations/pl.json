@@ -8,5 +8,6 @@
   "gender.male_button": "Mężczyzna",
   "gender.female_button": "Kobieta",
   "avg_score.label": "Dziś średni IQ:",
-  "disclaimer.text": "Aby zobaczyć wyniki, musisz wpisać e-mail i rozpocząć subskrypcję: $1.00 na 7-dniową próbę, a następnie $ 29.99/miesięczny, chyba że zostanie odwołana; automatycznie odnawianie i możesz odwołać się w dowolnym momencie na swoim koncie. Cena nie obejmuje podatków; ceny są w dolarach amerykańskich; GlobalIQ jest wyłącznie do celów edukacyjnych / rozrywki, nie do celów oceny zawodowej; kontynuując, zgadzasz się z naszą opinią <a href=\"https://globaliqreport.com/terms\">Warunki</a> i <a href=\"https://globaliqreport.com/privacy\">Powiadomienie o prywatności</a>. Questions? Contact support <a href=\"https://globaliqreport.com/help\">tutaj</a>."
+  "disclaimer.text": "Aby zobaczyć wyniki, musisz wpisać e-mail i założyć subskrypcję:\n    <span class=\"price\">$1.00 za 7-dniową próbę, a następnie $29.99/miesiąc</span>.\n    <strong>Odnowi się automatycznie, chyba że zostanie odwołana.</strong>, i\n    <strong>Możesz odwołać konto w dowolnym momencie.</strong>.",
+  "fineprint.text": "Price excludes tax. Prices are in USD. GlobalIQ is for educational/entertainment purposes only, not a professional evaluation. By continuing, you agree to our <a href=\"https://globaliqreport.com/terms\">Warunki</a> i <a href=\"https://globaliqreport.com/privacy\">Powiadomienie o prywatności</a>. Questions? Contact support <a href=\"https://globaliqreport.com/help\">tutaj</a>."
 }

@@ -8,5 +8,6 @@
   "gender.male_button": "Húsz",
   "gender.female_button": "Női",
   "avg_score.label": "A mai átlagos IQ-pont:",
-  "disclaimer.text": "A eredményeket megtekintéséhez be kell írnia az e-mail-eidet és meg kell kezdeni a előfizetést: $1.00 egy hétnapos próbaidőre, majd $29.99/ hónap, hacsak nem törlik; automatikusan megújítja, és bármikor törölheti a fiókját. Az ár adómentes; az árak USD-ben vannak; a GlobalIQ csak oktatási/vidámítási célokra szól, nem szakmai értékelésre; ha folytatja, egyetért az alábbiakban: <a href=\"https://globaliqreport.com/terms\">A feltételek</a> és <a href=\"https://globaliqreport.com/privacy\">Az adatvédelmi nyilatkozat</a>. Questions? Contact support <a href=\"https://globaliqreport.com/help\">itt</a>."
+  "disclaimer.text": "A eredményeket megtekintéséhez be kell írnia az e-mailt, és meg kell kezdeni a feliratkozást:\n    <span class=\"price\">$1.00 egy hétnapos próbaidőre, aztán $29.99/ hónap</span>.\n    <strong>Automatikusan megújul, ha nem törlik</strong>, és\n    <strong>bármikor törölheti a számláját.</strong>.",
+  "fineprint.text": "Az árak adómentesek. Az árak USD-ban vannak. GlobalIQ csak oktatási/ szórakoztató célokra szolgál, nem szakmai értékelésre. <a href=\"https://globaliqreport.com/terms\">A feltételek</a> és <a href=\"https://globaliqreport.com/privacy\">Az adatvédelmi nyilatkozat</a>. Questions? Contact support <a href=\"https://globaliqreport.com/help\">itt</a>."
 }
