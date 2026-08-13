@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/:lang/start",
+      "destination": "/api/render-page?page=start&lang=:lang"
+    }
+  ]
+}

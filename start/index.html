@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Start Your IQ Test – GlobalIQ</title>
+<title data-i18n-key="meta.page_title">Start Your IQ Test – GlobalIQ</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -43,7 +43,7 @@
 
   /* HEADLINE */
   .headline { font-size: 1.65rem; font-weight: 800; color: #000000; line-height: 1.25; margin-bottom: 28px; }
-  .headline span { color: var(--blue); }
+  .headline .hl { color: var(--blue); }
 
   /* CHECKLIST */
   .checklist { list-style: none; display: flex; flex-direction: column; gap: 16px; margin-bottom: 36px; }
@@ -90,6 +90,31 @@
   }
   .disclaimer a { color: var(--muted); text-decoration: underline; }
   .disclaimer a:hover { color: var(--navy); }
+
+  /* Top loading progress bar — appears the instant a language link is
+     clicked, sweeps across, purely for perceived responsiveness during
+     the brief gap before the (likely cached) new page paints. */
+  #lang-progress-bar {
+    position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+    background: var(--blue); z-index: 9999;
+    transition: width 0.3s ease-out;
+    pointer-events: none;
+  }
+  #lang-progress-bar.active { width: 85%; }
+
+  /* Footer language selector */
+  footer.site-footer { margin: 32px auto 0; max-width: 480px; text-align: center; }
+  .footer-lang-wrap { position: relative; display: inline-block; }
+  .lang-btn { display: flex; align-items: center; gap: 8px; border: 1.5px solid #cbd5e1; border-radius: 12px; padding: 10px 16px; background: white; font-size: 0.9rem; color: var(--text); cursor: pointer; }
+  .lang-btn:hover { border-color: var(--blue); }
+  .lang-dropdown { display: none; position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); background: white; border: 1px solid #e2e8f0; border-radius: 14px; box-shadow: 0 8px 32px rgba(0,0,0,0.13); max-height: 320px; overflow-y: auto; z-index: 999; min-width: 220px; padding: 8px 0; }
+  .lang-dropdown.open { display: block; }
+  .lang-option { display: flex; align-items: center; gap: 10px; padding: 10px 18px; font-size: 0.9rem; color: var(--text); text-decoration: none; cursor: pointer; }
+  .lang-option:hover { background: var(--light-blue); }
+  .lang-option.current { font-weight: 700; background: var(--light-blue); }
+  .lang-option.disabled { color: var(--muted); cursor: not-allowed; opacity: 0.55; }
+  .lang-option .flag { font-size: 1.2rem; }
+  .lang-option .soon { margin-left: auto; font-size: 0.72rem; color: var(--muted); }
 </style>
 </head>
 <body>
@@ -100,7 +125,7 @@
 </nav>
 
 <main>
-  <h1 class="headline">Get ready to start the <span>IQ Test!</span></h1>
+  <h1 class="headline"><span data-i18n-key="hero.headline_prefix">Get ready to start the</span> <span class="hl" data-i18n-key="hero.headline_highlight">IQ Test!</span></h1>
 
   <ul class="checklist">
     <li>
@@ -109,7 +134,7 @@
           <polyline points="20 6 9 17 4 12"/>
         </svg>
       </span>
-      <span>You will get 40 questions with growing difficulty</span>
+      <span data-i18n-key="checklist.item1">You will get 40 questions with growing difficulty</span>
     </li>
     <li>
       <span class="check-icon">
@@ -117,7 +142,7 @@
           <polyline points="20 6 9 17 4 12"/>
         </svg>
       </span>
-      <span>Select the right answer out of the 6 options</span>
+      <span data-i18n-key="checklist.item2">Select the right answer out of the 6 options</span>
     </li>
     <li>
       <span class="check-icon">
@@ -125,16 +150,16 @@
           <polyline points="20 6 9 17 4 12"/>
         </svg>
       </span>
-      <span>Every answer counts toward your final IQ score</span>
+      <span data-i18n-key="checklist.item3">Every answer counts toward your final IQ score</span>
     </li>
   </ul>
 
   <div class="gender-row">
-    <a href="https://globaliqreport.com/quiz" class="btn-gender" id="btn-male">Male</a>
-    <a href="https://globaliqreport.com/quiz" class="btn-gender" id="btn-female">Female</a>
+    <a href="https://globaliqreport.com/quiz" class="btn-gender" id="btn-male" data-i18n-key="gender.male_button">Male</a>
+    <a href="https://globaliqreport.com/quiz" class="btn-gender" id="btn-female" data-i18n-key="gender.female_button">Female</a>
   </div>
 
-  <p class="avg-score" id="avg-score">Today's average IQ score: <span id="iq-score"></span></p>
+  <p class="avg-score" id="avg-score"><span data-i18n-key="avg_score.label">Today's average IQ score:</span> <span id="iq-score"></span></p>
   <script>
     (function () {
       // Seed based on today's date so the number stays fixed all day but changes each day
@@ -153,10 +178,126 @@
 
   <hr class="divider" />
 
-  <p class="disclaimer">
+  <p class="disclaimer" data-i18n-key="disclaimer.text" data-i18n-html="true">
     To view your results, you'll be required to enter your email and start a subscription: $1.00 for a 7-day trial, then $29.99/month unless cancelled; auto-renews and you can cancel anytime in your account. Price excludes tax; Prices are in USD; GlobalIQ is for educational/entertainment purposes only, not a professional evaluation; by continuing, you agree to our <a href="https://globaliqreport.com/terms">Terms &amp; Conditions</a> and <a href="https://globaliqreport.com/privacy">Privacy Notice</a>. Questions? Contact support <a href="https://globaliqreport.com/help">here</a>.
   </p>
+
+  <footer class="site-footer">
+    <div class="footer-lang-wrap">
+      <button class="lang-btn" onclick="toggleLang()" id="langBtn" type="button">
+        <span id="currentFlag">🇺🇸</span>
+        <span id="currentLang">English</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="lang-dropdown" id="langDropdown">
+        <!-- data-code drives current-selection highlighting and disabled
+             state below. href points straight at the real per-language
+             URL (Step 4's /:lang/start rewrite) — no JS navigation, no
+             setLang() dead-code pattern. -->
+        <a class="lang-option" data-code="en" href="/start"><span class="flag">🇺🇸</span> English</a>
+        <a class="lang-option" data-code="fr" href="/fr/start"><span class="flag">🇫🇷</span> Français</a>
+        <a class="lang-option" data-code="de" href="/de/start"><span class="flag">🇩🇪</span> Deutsch</a>
+        <a class="lang-option" data-code="no" href="/no/start"><span class="flag">🇳🇴</span> Norsk</a>
+        <a class="lang-option" data-code="es" href="/es/start"><span class="flag">🇪🇸</span> Español</a>
+        <a class="lang-option" data-code="pt" href="/pt/start"><span class="flag">🇵🇹</span> Português</a>
+        <a class="lang-option" data-code="pl" href="/pl/start"><span class="flag">🇵🇱</span> Polski</a>
+        <a class="lang-option" data-code="da-DK" href="/da-DK/start"><span class="flag">🇩🇰</span> Dansk</a>
+        <a class="lang-option" data-code="cs" href="/cs/start"><span class="flag">🇨🇿</span> Čeština</a>
+        <a class="lang-option" data-code="it" href="/it/start"><span class="flag">🇮🇹</span> Italiano</a>
+        <a class="lang-option" data-code="ro" href="/ro/start"><span class="flag">🇷🇴</span> Română</a>
+        <a class="lang-option" data-code="sv" href="/sv/start"><span class="flag">🇸🇪</span> Svenska</a>
+        <a class="lang-option" data-code="el" href="/el/start"><span class="flag">🇬🇷</span> Ελληνικά</a>
+        <a class="lang-option" data-code="lv" href="/lv/start"><span class="flag">🇱🇻</span> Latviešu</a>
+        <a class="lang-option" data-code="sl" href="/sl/start"><span class="flag">🇸🇮</span> Slovenščina</a>
+        <a class="lang-option" data-code="hu" href="/hu/start"><span class="flag">🇭🇺</span> Magyar</a>
+        <a class="lang-option" data-code="hr" href="/hr/start"><span class="flag">🇭🇷</span> Hrvatski</a>
+        <a class="lang-option" data-code="fi" href="/fi/start"><span class="flag">🇫🇮</span> Suomi</a>
+        <a class="lang-option" data-code="et-EE" href="/et-EE/start"><span class="flag">🇪🇪</span> Eesti</a>
+        <a class="lang-option" data-code="sk" href="/sk/start"><span class="flag">🇸🇰</span> Slovenčina</a>
+        <a class="lang-option" data-code="lt" href="/lt/start"><span class="flag">🇱🇹</span> Lietuvių</a>
+        <a class="lang-option" data-code="nl" href="/nl/start"><span class="flag">🇳🇱</span> Nederlands</a>
+        <a class="lang-option" data-code="pt-BR" href="/pt-BR/start"><span class="flag">🇧🇷</span> Português (Brasil)</a>
+        <a class="lang-option" data-code="bg" href="/bg/start"><span class="flag">🇧🇬</span> Български</a>
+        <a class="lang-option" data-code="mt-MT" href="/mt-MT/start"><span class="flag">🇲🇹</span> Malti</a>
+        <a class="lang-option" data-code="es-MX" href="/es-MX/start"><span class="flag">🇲🇽</span> Español (México)</a>
+        <a class="lang-option" data-code="ga-IE" href="/ga-IE/start"><span class="flag">🇮🇪</span> Gaeilge</a>
+        <a class="lang-option" data-code="tr" href="/tr/start"><span class="flag">🇹🇷</span> Türkçe</a>
+        <a class="lang-option" data-code="ar" href="/ar/start"><span class="flag">🇸🇦</span> العربية</a>
+        <a class="lang-option" data-code="fa-IR" href="/fa-IR/start"><span class="flag">🇮🇷</span> فارسی</a>
+        <a class="lang-option" data-code="ku" href="/ku/start"><span class="flag">🏳️</span> Kurdî</a>
+        <a class="lang-option" data-code="ru" href="/ru/start"><span class="flag">🇷🇺</span> Русский</a>
+        <a class="lang-option" data-code="ko" href="/ko/start"><span class="flag">🇰🇷</span> 한국어</a>
+        <a class="lang-option" data-code="zh" href="/zh/start"><span class="flag">🇨🇳</span> 中文</a>
+        <a class="lang-option" data-code="th" href="/th/start"><span class="flag">🇹🇭</span> ไทย</a>
+        <a class="lang-option" data-code="ja" href="/ja/start"><span class="flag">🇯🇵</span> 日本語</a>
+        <a class="lang-option" data-code="uk-UA" href="/uk-UA/start"><span class="flag">🇺🇦</span> Українська</a>
+        <a class="lang-option" data-code="he" href="/he/start"><span class="flag">🇮🇱</span> עברית</a>
+        <a class="lang-option" data-code="is" href="/is/start"><span class="flag">🇮🇸</span> Íslenska</a>
+      </div>
+    </div>
+  </footer>
 </main>
+
+<div id="lang-progress-bar"></div>
+<script>
+  (function () {
+    // Kept in sync with translations/ — Step 2 produced all 38 of these
+    // successfully, so nothing is disabled right now. If a future language
+    // file is ever missing/incomplete, remove its code from this list and
+    // its dropdown option automatically becomes disabled/"coming soon"
+    // below, rather than linking to a URL that would 404.
+    var AVAILABLE_LANGS = ["fr","de","no","es","pt","pl","da-DK","cs","it","ro","sv","el","lv","sl","hu","hr","fi","et-EE","sk","lt","nl","pt-BR","bg","mt-MT","es-MX","ga-IE","tr","ar","fa-IR","ku","ru","ko","zh","th","ja","uk-UA","he","is"];
+
+    var dropdown = document.getElementById('langDropdown');
+    var options = dropdown.querySelectorAll('.lang-option');
+    var currentLangEl = document.getElementById('currentLang');
+    var currentFlagEl = document.getElementById('currentFlag');
+    var currentCode = document.documentElement.lang || 'en';
+
+    options.forEach(function (opt) {
+      var code = opt.getAttribute('data-code');
+      var isAvailable = code === 'en' || AVAILABLE_LANGS.indexOf(code) !== -1;
+      var name = opt.textContent.trim();
+      var flag = opt.querySelector('.flag').textContent;
+
+      if (!isAvailable) {
+        opt.classList.add('disabled');
+        opt.removeAttribute('href');
+        opt.setAttribute('aria-disabled', 'true');
+        var soon = document.createElement('span');
+        soon.className = 'soon';
+        soon.textContent = 'Coming soon';
+        opt.appendChild(soon);
+        opt.addEventListener('click', function (e) { e.preventDefault(); });
+      }
+
+      if (code === currentCode) {
+        opt.classList.add('current');
+        currentLangEl.textContent = name;
+        currentFlagEl.textContent = flag;
+      }
+
+      if (isAvailable) {
+        opt.addEventListener('click', function () {
+          // Real full-page navigation to the language-prefixed URL is
+          // already happening via the <a href>; show the progress bar for
+          // the brief gap before the new (likely cached) page paints.
+          document.getElementById('lang-progress-bar').classList.add('active');
+        });
+      }
+    });
+
+    function toggleLang() {
+      dropdown.classList.toggle('open');
+    }
+    window.toggleLang = toggleLang;
+    document.addEventListener('click', function (e) {
+      if (!e.target.closest('.footer-lang-wrap')) {
+        dropdown.classList.remove('open');
+      }
+    });
+  })();
+</script>
 
 </body>
 </html>
