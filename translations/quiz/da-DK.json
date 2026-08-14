@@ -1,0 +1,18 @@
+{
+  "intro.badge": "Før du begynder",
+  "intro.heading": "Husk dette ord",
+  "intro.body": "Du vil blive bedt om at huske det under testen. Det måler dit arbejdsmage.",
+  "intro.word_hint": "Husk dette ord præcis",
+  "intro.start_button": "Jeg er klar  Start test",
+  "results.heading": "Testet er fuldført!",
+  "results.subheading": "Din IQ-pointscores er beregnet og klar til at se.",
+  "results.ready_heading": "Din IQ score er klar",
+  "results.unlock_label": "Lås op for at afsløre dit rigtige score",
+  "results.report_desc": "Få din fulde kognitive rapport inklusive IQ score, percentile rangering og detaljeret neddeling.",
+  "results.unlock_cta": "Løs min IQ score",
+  "results.retake_button": "Gennemgangstest",
+  "results.disclaimer": "GlobalIQ er kun til uddannelses- og underholdningsformål og erstatter ikke en professionel evaluering.",
+  "incomplete.heading": "Evaluering Uafklaret",
+  "incomplete.body": "Dine svar var ikke tilstrækkelige til at beregne en nøjagtig IQ score. Vær venlig at tage vurderingen tilbage.",
+  "incomplete.restart_button": "Start igen"
+}

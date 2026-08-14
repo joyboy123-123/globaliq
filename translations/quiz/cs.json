@@ -1,0 +1,18 @@
+{
+  "intro.badge": "Než začneš",
+  "intro.heading": "Zapamatuj si to slovo.",
+  "intro.body": "Budete požádáni, abyste si to vzpomněli během testu. To měří vaši pracovní paměť.",
+  "intro.word_hint": "Pamatuj si toto slovo přesně.",
+  "intro.start_button": "Jsem připravený  Začněte test",
+  "results.heading": "Zkouška dokončena!",
+  "results.subheading": "Váš IQ byl vypočítán a je připraven k vidění.",
+  "results.ready_heading": "Váš IQ je připravený.",
+  "results.unlock_label": "Odemkněte, abyste odhalili skutečný výsledek.",
+  "results.report_desc": "Získáte kompletní kognitivní zprávu včetně IQ skóre, percentilové hodnocení a podrobné rozložení.",
+  "results.unlock_cta": "Odemkněte můj IQ skóre →",
+  "results.retake_button": "Zpětní zkouška",
+  "results.disclaimer": "GlobalIQ je určen pouze k vzdělávacím a zábavním účelům a není náhradou pro odborné hodnocení.",
+  "incomplete.heading": "Neúplný posouzení",
+  "incomplete.body": "Vaše odpovědi nebyly dostatečné k výpočtu přesného IQ skóre. Prosím, znovu se podívejte na hodnocení.",
+  "incomplete.restart_button": "Začít znovu"
+}

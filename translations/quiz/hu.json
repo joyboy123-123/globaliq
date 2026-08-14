@@ -1,0 +1,18 @@
+{
+  "intro.badge": "Mielőtt elkezded",
+  "intro.heading": "Felszólj a szót!",
+  "intro.body": "Megkérjük, hogy emlékezzen rá a teszt alatt. Ez mérheti a munkamemóriáját.",
+  "intro.word_hint": "Emlékezz pontosan erre a szót.",
+  "intro.start_button": "Készen állok  Kezdjük a teszteket",
+  "results.heading": "A teszt befejeződött!",
+  "results.subheading": "A IQ-ja kimutatott, és kész a megtekintésre.",
+  "results.ready_heading": "A IQ-ja kész.",
+  "results.unlock_label": "Kinyitja ki a valódi pontszámát.",
+  "results.report_desc": "Kapja meg a teljes kognitív jelentést, beleértve az IQ-t, a percentilt és a részletes bontást.",
+  "results.unlock_cta": "Kiderítse az IQ-m pontszámát",
+  "results.retake_button": "Újravizsgálat",
+  "results.disclaimer": "A GlobalIQ csak oktatási és szórakoztató célokra szolgál, és nem helyettesíti a szakmai értékelést.",
+  "incomplete.heading": "Az értékelés nem teljes",
+  "incomplete.body": "A válaszaid nem voltak elégedettek a pontos IQ-pontok kiszámításához. Kérem, vegye fel újra a vizsgálatot.",
+  "incomplete.restart_button": "Újra kezdd"
+}

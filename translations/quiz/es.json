@@ -1,0 +1,18 @@
+{
+  "intro.badge": "Antes de comenzar",
+  "intro.heading": "Memorizar esta palabra",
+  "intro.body": "Se le pedirá que lo recuerde durante la prueba. Esto mide su memoria de trabajo.",
+  "intro.word_hint": "Recuerda esta palabra exactamente",
+  "intro.start_button": "Estoy listo  Comience la prueba",
+  "results.heading": "¡El examen está completo!",
+  "results.subheading": "Su puntaje de coeficiente intelectual ha sido calculado y está listo para ver.",
+  "results.ready_heading": "Su puntaje de coeficiente intelectual está listo",
+  "results.unlock_label": "Desbloquea para revelar tu verdadera puntuación",
+  "results.report_desc": "Obtenga su informe cognitivo completo incluyendo el puntaje de inteligencia, el ranking percentil y la desglose detallada.",
+  "results.unlock_cta": "Desbloquea mi puntuación de coeficiente intelectual",
+  "results.retake_button": "Prueba de retorno",
+  "results.disclaimer": "GlobalIQ es únicamente para fines educativos y de entretenimiento y no sustituye a una evaluación profesional.",
+  "incomplete.heading": "Evaluación incompleta",
+  "incomplete.body": "Sus respuestas no fueron suficientes para calcular un puntuación exacta de coeficiente intelectual. Por favor, vuelva a evaluar.",
+  "incomplete.restart_button": "Comience de nuevo"
+}

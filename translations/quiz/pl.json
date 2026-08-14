@@ -1,0 +1,18 @@
+{
+  "intro.badge": "Zanim zaczniesz",
+  "intro.heading": "Zapamiętaj to słowo",
+  "intro.body": "Będziesz poproszony o zapamiętanie tego podczas testu. To mierzy twoją pamięć roboczą.",
+  "intro.word_hint": "Pamiętaj dokładnie to słowo",
+  "intro.start_button": "Jestem gotowy  Zacznij test",
+  "results.heading": "Test zakończony!",
+  "results.subheading": "Twój IQ został obliczony i jest gotowy do obejrzenia.",
+  "results.ready_heading": "Twój IQ jest gotowy.",
+  "results.unlock_label": "Odblokować, aby ujawnić swój prawdziwy wynik",
+  "results.report_desc": "Zdobądź pełny raport poznawczy, w tym wynik IQ, ranking percentil i szczegółowy rozkład.",
+  "results.unlock_cta": "Odblokować mój IQ",
+  "results.retake_button": "Badanie ponowne",
+  "results.disclaimer": "GlobalIQ jest przeznaczony wyłącznie do celów edukacyjnych i rozrywkowych i nie zastępuje oceny zawodowej.",
+  "incomplete.heading": "Ocena niepełna",
+  "incomplete.body": "Twoje odpowiedzi nie były wystarczające do obliczenia dokładnego punktu IQ. Proszę ponownie ocenić.",
+  "incomplete.restart_button": "Zacznij od nowa"
+}

@@ -1,0 +1,18 @@
+{
+  "intro.badge": "Predtým ako začnete",
+  "intro.heading": "Zapamätaj si toto slovo",
+  "intro.body": "Budete požiadaní, aby ste si ho spomenuli počas testu. To meria vašu pracovnú pamäť.",
+  "intro.word_hint": "Pamätaj si toto slovo presne.",
+  "intro.start_button": "Som pripravený  Začnite test",
+  "results.heading": "Skúška dokončená!",
+  "results.subheading": "Váš IQ skóre bol vypočítaný a je pripravený na prehľad.",
+  "results.ready_heading": "Tvoj IQ je pripravený",
+  "results.unlock_label": "Odemknutý, aby sa odhalilo skutočný skóre",
+  "results.report_desc": "Získajte kompletnú kognitívnu správu vrátane IQ skóre, percentilového rebríčku a podrobného rozpisu.",
+  "results.unlock_cta": "Odemknutím môj IQ skóre",
+  "results.retake_button": "Test na opakovanie",
+  "results.disclaimer": "GlobalIQ je určený výlučne na vzdelávacie a zábavné účely a nie je náhradou profesionálneho hodnotenia.",
+  "incomplete.heading": "Neúplné hodnotenie",
+  "incomplete.body": "Vaše odpovede neboli dostatočné na výpočet presného IQ skóre. Prosím, opätovne posúdi.",
+  "incomplete.restart_button": "Začnite znova"
+}

@@ -1,0 +1,18 @@
+{
+  "intro.badge": "Prije nego počnete",
+  "intro.heading": "Zapamti ovu riječ",
+  "intro.body": "Bit ćete pozvani da se setite toga tijekom testa. Ovo meriti radnu memoriju.",
+  "intro.word_hint": "Zapamti ta riječ točno.",
+  "intro.start_button": "Spreman sam  Pokret test",
+  "results.heading": "Test je završen!",
+  "results.subheading": "Vaš IQ rezultat je izračunano i spreman je za pregled.",
+  "results.ready_heading": "Tvoj IQ rezultat je spreman.",
+  "results.unlock_label": "Otključajte da otkrijete svoj pravi rezultat",
+  "results.report_desc": "Dobijte svoj puni kognitivni izvještaj uključujući IQ rezultat, percentil rangiranje, i detaljne razrješenje.",
+  "results.unlock_cta": "Otključajte moj IQ rezultat",
+  "results.retake_button": "Ispitivanje",
+  "results.disclaimer": "GlobalIQ je samo za obrazovne i zabavne svrhe i ne zamjenjuje profesionalnu ocjenu.",
+  "incomplete.heading": "Nepotpuno procjena",
+  "incomplete.body": "Vaš odgovor nije bio dovoljan za izračun tačne IQ ocjene. Molim vas, ponovite procjenu.",
+  "incomplete.restart_button": "Počnite opet"
+}

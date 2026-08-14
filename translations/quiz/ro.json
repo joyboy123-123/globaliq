@@ -1,0 +1,18 @@
+{
+  "intro.badge": "Înainte să începi",
+  "intro.heading": "Memorizează acest cuvânt.",
+  "intro.body": "Va fi cerut să-l reamintiţi în timpul testului. Acest lucru măsoară memoria de lucru.",
+  "intro.word_hint": "Aminteşte-ţi cuvântul ăsta exact.",
+  "intro.start_button": "Sunt gata  Începe testul",
+  "results.heading": "Testul complet!",
+  "results.subheading": "Scorul IQ-ului tău a fost calculat şi e gata de văzut.",
+  "results.ready_heading": "Scorul tău IQ este gata",
+  "results.unlock_label": "Deschideţi-vă pentru a vă dezvălui scorul real",
+  "results.report_desc": "Obţineţi raportul dvs. cognitiv complet, inclusiv scorul IQ, clasamentul de percentile şi detalii.",
+  "results.unlock_cta": "Deschideţi scorul IQ-ului meu",
+  "results.retake_button": "Testul de retragere",
+  "results.disclaimer": "GlobalIQ este destinat doar scopurilor educaționale și de divertisment și nu înlocuiește evaluarea profesională.",
+  "incomplete.heading": "Evaluare incompletă",
+  "incomplete.body": "Răspunsurile tale nu au fost suficiente pentru a calcula un scor IQ exact. Vă rugăm să reveniţi la evaluare.",
+  "incomplete.restart_button": "Începe din nou"
+}

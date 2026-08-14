@@ -1,0 +1,18 @@
+{
+  "intro.badge": "Ennen kuin aloitat",
+  "intro.heading": "Muista tämä sana",
+  "intro.body": "Sinulta pyydetään muistamaan se kokeessa. Tämä mittaa työmuistosi.",
+  "intro.word_hint": "Muista tämä sana tarkasti.",
+  "intro.start_button": "Olen valmis  Aloita testi",
+  "results.heading": "Kokeilu on valmis!",
+  "results.subheading": "IQ-näkökulma on laskettu ja se on valmis katsomaan.",
+  "results.ready_heading": "IQ-näkökulmasi on valmis.",
+  "results.unlock_label": "Avaa avaus paljastaa todellinen pisteesi",
+  "results.report_desc": "Saada kokonaisasi kognitiivinen raportti, mukaan lukien IQ-nää, prosenttiililuokit ja yksityiskohtainen jakelu.",
+  "results.unlock_cta": "- Vapauta IQ-niskini",
+  "results.retake_button": "Kokeilu uudelleen",
+  "results.disclaimer": "GlobalIQ on tarkoitettu ainoastaan opetukseen ja viihteeseen, eikä se korvaa ammatillista arviointia.",
+  "incomplete.heading": "Arviointi ei ole täydellinen",
+  "incomplete.body": "Vastauksesi eivät olleet riittävät tarkkaan laskemaan IQ-n. Käänny uudelleen.",
+  "incomplete.restart_button": "Aloita uudestaan"
+}

@@ -1,0 +1,18 @@
+{
+  "intro.badge": "Preden začnete",
+  "intro.heading": "Zapomni to besedo.",
+  "intro.body": "V času testa vas bodo prosili, da se ga spomnite. To meri vaše delovno spomin.",
+  "intro.word_hint": "Zapomni si to besedo natančno.",
+  "intro.start_button": "Pripravljen sem  Začnite testiranje",
+  "results.heading": "Izkušnja je končana!",
+  "results.subheading": "Vaš IQ je izračunano in pripravljen za ogled.",
+  "results.ready_heading": "Vaš IQ je pripravljen.",
+  "results.unlock_label": "Odključite, da razkrite svoj pravi rezultat.",
+  "results.report_desc": "Zberite si celoten kognitivni poročnik, vključno s IQ, oceno in podrobnim razčlenjem.",
+  "results.unlock_cta": "Odklonite moj IQ rezultat",
+  "results.retake_button": "Preizkus ponovnega vnosu",
+  "results.disclaimer": "GlobalIQ je namenjen izključno izobraževanju in zabavi in ne nadomesti strokovne ocene.",
+  "incomplete.heading": "Ocena nepopolna",
+  "incomplete.body": "Odgovori niso bili dovolj, da bi izračunali točen IQ. Prosim, ponovno ocenite.",
+  "incomplete.restart_button": "Začnite znova."
+}

@@ -1,0 +1,18 @@
+{
+  "intro.badge": "Áður en ūú byrjar",
+  "intro.heading": "Minntu þetta orð",
+  "intro.body": "Þú verður beðinn um að muna hann á meðan prófið stendur. Þetta mælir vinnudagsminninn þinn.",
+  "intro.word_hint": "Manstu nákvæmlega þetta orð.",
+  "intro.start_button": "Ég er tilbúin  Byrja prófið",
+  "results.heading": "Prófið lokið!",
+  "results.subheading": "Íktinn hefur verið reiknað og hann er tilbúinn til að skoða.",
+  "results.ready_heading": "IQ-skķran ūinn er tilbúinn.",
+  "results.unlock_label": "Lykkið upp til að sýna raunverulega árangur þinn",
+  "results.report_desc": "Fáðu fulla kynningarskýrslu, IQ stig, hlutfallskrá og smáatriði.",
+  "results.unlock_cta": "Lögðu upp IQ-skora mína",
+  "results.retake_button": "Endurútgerð",
+  "results.disclaimer": "GlobalIQ er eingöngu til fræðslu- og skemmtunartæka og er ekki staðfesting faglegrar skoðunar.",
+  "incomplete.heading": "Áhersla ófullnægjandi",
+  "incomplete.body": "Svör þínar voru ekki nægileg til að reikna nákvæm IQ stig. Vinsamlegast endurtakið matinn.",
+  "incomplete.restart_button": "Byrjaðu aftur"
+}

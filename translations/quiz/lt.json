@@ -1,0 +1,18 @@
+{
+  "intro.badge": "Prieš pradėdami",
+  "intro.heading": "Pamąstyk šį žodį",
+  "intro.body": "Jums bus paprašyta jį prisiminti testuojant. Tai matuoja jūsų darbo atmintį.",
+  "intro.word_hint": "Pamenu šį žodį tiksliai.",
+  "intro.start_button": "Aš pasiruošęs  Pradėkime bandymą",
+  "results.heading": "Išbandymas baigtas!",
+  "results.subheading": "Jūsų IQ rezultatas buvo apskaičiuotas ir yra pasiruošęs žiūrėti.",
+  "results.ready_heading": "Jūsų IQ rezultatas paruoštas",
+  "results.unlock_label": "Atsiskleidykite, kad atskleistumėte savo tikrąjį rezultatą.",
+  "results.report_desc": "Gauk visą pažinimo ataskaitą, įskaitant IQ, procentinį reitingą ir išsamų suskirstymą.",
+  "results.unlock_cta": "Išblokuokite mano IQ",
+  "results.retake_button": "Pertraukimas",
+  "results.disclaimer": "GlobalIQ skirtas tik švietimo ir pramogų tikslais ir nėra profesinio vertinimo pakaitalas.",
+  "incomplete.heading": "Nė vienas iš šių kriterijų",
+  "incomplete.body": "Jūsų atsakymai nepakankamai buvo pakankami apskaičiuoti tikslą IQ rezultatą. Prašau iš naujo įvertinti.",
+  "incomplete.restart_button": "Pradėkime iš naujo"
+}

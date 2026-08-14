@@ -1,0 +1,18 @@
+{
+  "intro.badge": "Başlamadan önce",
+  "intro.heading": "Bu kelimeyi ezberle",
+  "intro.body": "Bu test sırasında hatırlamanız istenir. Bu çalışma hafızanızı ölçer.",
+  "intro.word_hint": "Bu kelimeyi tam olarak hatırla.",
+  "intro.start_button": "Hazırım  Test Başlayın",
+  "results.heading": "Deneme tamamlandı!",
+  "results.subheading": "IQ puanınız hesaplandı ve görüntülemeye hazır.",
+  "results.ready_heading": "IQ puanın hazır.",
+  "results.unlock_label": "Gerçek puanını açıp ortaya çıkar.",
+  "results.report_desc": "Bilgi puanını, yüzdelik sıralamasını ve ayrıntılı ayrıntıları içeren tam bilişsel raporunu al.",
+  "results.unlock_cta": "IQ Skorumu Aç",
+  "results.retake_button": "Tekrar test",
+  "results.disclaimer": "GlobalIQ yalnızca eğitim ve eğlence amaçlı ve profesyonel bir değerlendirmeyi değiştirmez.",
+  "incomplete.heading": "Değerlendirme Tamamlanmamış",
+  "incomplete.body": "Cevaplarınız doğru bir IQ puanı hesaplamak için yeterli değildi. Lütfen değerlendirmeyi tekrar yapın.",
+  "incomplete.restart_button": "Yeniden Başla"
+}

@@ -50,7 +50,7 @@ async function main() {
   check(`no missing codes (${missing.join(", ") || "none"})`, missing.length === 0);
   check(`no extra codes (${extra.join(", ") || "none"})`, extra.length === 0);
 
-  const translationsDir = path.join(__dirname, "..", "translations");
+  const translationsDir = path.join(__dirname, "..", "translations", "start");
   const availableLangs = fs.readdirSync(translationsDir)
     .filter((f) => f.endsWith(".json") && f !== "en.json" && f !== "en.meta.json")
     .map((f) => f.replace(/\.json$/, ""));

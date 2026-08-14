@@ -1,0 +1,18 @@
+{
+  "intro.badge": "Qabel ma tibda",
+  "intro.heading": "Fomm minn memorja din il-kelma",
+  "intro.body": "Int ser titlub biex titfakkarha waqt it-test. Dan jikkalkula l-memorja tax-xogħol tiegħek.",
+  "intro.word_hint": "Ftakar din il-kelma eżattament",
+  "intro.start_button": "Jien lest  Ibda l- Testi",
+  "results.heading": "It- Testa Kompleta!",
+  "results.subheading": "Il- punteġġ tal- IQ tiegħek ġie kkalkulat u huwa lest biex jara.",
+  "results.ready_heading": "Il- punteġġ tal-IQ tiegħek huwa lest",
+  "results.unlock_label": "Iffranka biex turi l- punteġġ reali tiegħek",
+  "results.report_desc": "Agħti r-rapport kognitiv sħiħ tiegħek inkluż il- punteġġ IQ, il-klassifikazzjoni perċentwali, u l-qsim dettaljat.",
+  "results.unlock_cta": "Iffranka l- IQ Score tiegħi →",
+  "results.retake_button": "It-test ta'l- isfel",
+  "results.disclaimer": "GlobalIQ huwa għal skopijiet edukattivi u ta' divertiment biss u ma jissostitwixxix evalwazzjoni professjonali.",
+  "incomplete.heading": "Valutazzjoni mhux kompluta",
+  "incomplete.body": "Ir-risposti tiegħek ma kinux biżżejjed biex jikkalkulow punteġġ IQ preċiż. Jekk jogħġbok irrepeti l-valutazzjoni.",
+  "incomplete.restart_button": "Ibda mill- ġdid"
+}

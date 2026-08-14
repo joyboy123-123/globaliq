@@ -1,0 +1,18 @@
+{
+  "intro.badge": "始める前に",
+  "intro.heading": "この言葉を覚えていてください",
+  "intro.body": "テスト中にそれを思い出してください. これは作業記憶を測定します",
+  "intro.word_hint": "この言葉を正確に覚えておいて",
+  "intro.start_button": "テスト開始",
+  "results.heading": "テスト完了!",
+  "results.subheading": "あなたのIQスコアは計算され 閲覧準備ができています",
+  "results.ready_heading": "IQスコアが準備済み",
+  "results.unlock_label": "解鎖して本当のスコアを明らかにする",
+  "results.report_desc": "知識の全部の報告を 入手してください IQスコア パーセンチルランキング 詳細な分解",
+  "results.unlock_cta": " IQ スコアを開け",
+  "results.retake_button": "再検査",
+  "results.disclaimer": "GlobalIQは教育および娯楽目的のみで,専門的な評価の代わりではありません.",
+  "incomplete.heading": "評価は未完了",
+  "incomplete.body": "あなたの回答は IQを正確に計算するのに 十分ではなかった 評価を再確認してください",
+  "incomplete.restart_button": "再びスタート"
+}

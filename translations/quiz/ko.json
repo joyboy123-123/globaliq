@@ -1,0 +1,18 @@
+{
+  "intro.badge": "시작하기 전에",
+  "intro.heading": "이 단어를 기억하라",
+  "intro.body": "테스트 중에 그것을 기억하도록 요청받습니다. 이것은 작업 기억을 측정합니다.",
+  "intro.word_hint": "이 단어를 정확히 기억하세요",
+  "intro.start_button": "준비 됐어요  시험 시작",
+  "results.heading": "시험 완료!",
+  "results.subheading": "IQ 점수가 계산되어서 볼 수 있습니다.",
+  "results.ready_heading": "IQ 점수가 준비됐어",
+  "results.unlock_label": "진짜 점수를 공개하기 위해 잠금을 열",
+  "results.report_desc": "IQ 점수, 분자 순위, 그리고 상세한 분열을 포함한 전체 인지 보고서를 얻으십시오.",
+  "results.unlock_cta": "내 IQ 점수를 열고",
+  "results.retake_button": "재취약 테스트",
+  "results.disclaimer": "글로벌IQ는 교육 및 엔터테인먼트 목적으로만 이루어지고 있으며 전문적인 평가의 대상이 아닙니다.",
+  "incomplete.heading": "평가 완전하지 않은",
+  "incomplete.body": "당신의 응답은 정확한 IQ 점수를 계산하기에 충분하지 않았습니다. 다시 평가해 주세요.",
+  "incomplete.restart_button": "다시 시작"
+}

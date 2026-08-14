@@ -1,0 +1,18 @@
+{
+  "intro.badge": "Pirms jūs sāksiet",
+  "intro.heading": "Pamācīt šo vārdu",
+  "intro.body": "Jums tiks lūgts to atcerēties testu laikā. Tas mēdz jūsu darba atmiņu.",
+  "intro.word_hint": "Atceraties šo vārdu tieši.",
+  "intro.start_button": "Es esmu gatavs  Sākot testu",
+  "results.heading": "Tests pabeigts!",
+  "results.subheading": "Jūsu IQ rādītājs ir aprēķināts un ir gatavs apskatīt.",
+  "results.ready_heading": "Jūsu IQ rezultāts ir gatavs",
+  "results.unlock_label": "Atklājiet, lai atklātu savu īstu rezultātu.",
+  "results.report_desc": "Uzņem visu savu kognīviju ziņojumu, ieskaitot IQ punktu, procentuālo klasifikāciju un detalizētu sadalījumu.",
+  "results.unlock_cta": "Atklājiet manu IQ punktu",
+  "results.retake_button": "Atkārtotas pārbaudes",
+  "results.disclaimer": "GlobalIQ ir tikai izglītības un atpūtas nolūkos un nav profesionālās novērtējuma aizstāvējs.",
+  "incomplete.heading": "Izvērtējums Nav pabeigts",
+  "incomplete.body": "Jūsu atbildes nebija pietiekamas, lai aprēķinātu precīzi IQ punktu. Lūdzu, atkārtoti izvērtējiet.",
+  "incomplete.restart_button": "Sākot no jauna"
+}

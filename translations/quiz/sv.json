@@ -1,0 +1,18 @@
+{
+  "intro.badge": "Innan du börjar",
+  "intro.heading": "Ta det här ordet i minnet.",
+  "intro.body": "Du kommer att bli ombedd att komma ihåg det under testet. Det mäter ditt arbetsminne.",
+  "intro.word_hint": "Kom ihåg det här ordet exakt.",
+  "intro.start_button": "Jag är redo  Börja provet",
+  "results.heading": "Testet är slut!",
+  "results.subheading": "Din IQ-poäng har beräknats och är redo att visas.",
+  "results.ready_heading": "Din IQ-poäng är klar.",
+  "results.unlock_label": "Öppna för att avslöja din riktiga poäng",
+  "results.report_desc": "Få din fullständiga kognitiva rapport inklusive IQ-poäng, percentiel rankning och detaljerad nedbrytning.",
+  "results.unlock_cta": "Låsa upp mitt IQ-poäng",
+  "results.retake_button": "Återtagningstest",
+  "results.disclaimer": "GlobalIQ är endast avsedd för utbildning och underhållning och ersätter inte en professionell utvärdering.",
+  "incomplete.heading": "Överskattning Falt",
+  "incomplete.body": "Dina svar var otillräckliga för att beräkna en exakt IQ-poäng. - Ta gärna om bedömningen.",
+  "incomplete.restart_button": "Börja igen"
+}

@@ -1,0 +1,18 @@
+{
+  "intro.badge": "Sula dtosaíonn tú",
+  "intro.heading": "Cuimhnigh an focal seo",
+  "intro.body": "Beidh ort é a mheabhrú le linn an tástála. Méadraíonn sé seo do mheabhrúchán oibre.",
+  "intro.word_hint": "Cuimhnigh an focal seo go díreach",
+  "intro.start_button": "Tá mé réidh  Tosaigh an tástáil",
+  "results.heading": "Tuairiscítear an tástáil!",
+  "results.subheading": "Tá do scór IQ ríomh agus tá sé réidh le feiceáil.",
+  "results.ready_heading": "Tá do Scór IQ réidh",
+  "results.unlock_label": "Fág an-clós chun do scór fíor a nochtadh",
+  "results.report_desc": "Faigh do thuairisc inchinnithe iomlán lena n-áirítear scór IQ, rangú céatadáin, agus scrios mionsonraithe.",
+  "results.unlock_cta": "Scór IQ mo Scór a Osclaíodh →",
+  "results.retake_button": "Tástáil ath-aistriú",
+  "results.disclaimer": "Tá an GlobalIQ ar fáil do cheanglais oideachais agus spraoi amháin agus ní mhaireann sé ar mheasúnú gairmiúil.",
+  "incomplete.heading": "Cinntíocht neamhchríochnaithe",
+  "incomplete.body": "Ní raibh do fhreagraí go leor chun scór IQ cruinn a ríomh. Déan athbhreithniú ar an measúnú.",
+  "incomplete.restart_button": "Tosaigh arís"
+}

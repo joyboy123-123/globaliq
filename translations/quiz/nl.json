@@ -1,0 +1,18 @@
+{
+  "intro.badge": "Voordat je begint",
+  "intro.heading": "Onthoud dit woord op je hoofd.",
+  "intro.body": "U zult worden gevraagd om het tijdens de test terug te roepen. Dit meet je werkgeheugen.",
+  "intro.word_hint": "Vergeet dit woord niet.",
+  "intro.start_button": "Ik ben klaar  Begin de test",
+  "results.heading": "De test is voltooid!",
+  "results.subheading": "Je IQ-score is berekend en klaar om te bekijken.",
+  "results.ready_heading": "Je IQ-score is klaar.",
+  "results.unlock_label": "Ontsluit om je echte score te onthullen",
+  "results.report_desc": "Ontvang je volledige cognitieve rapport met IQ score, percentiel rangschikking en gedetailleerde afdeling.",
+  "results.unlock_cta": "Ontgrendel mijn IQ-score",
+  "results.retake_button": "Herhalingstest",
+  "results.disclaimer": "GlobalIQ is uitsluitend bedoeld voor onderwijs en entertainment en is geen vervanging voor een professionele evaluatie.",
+  "incomplete.heading": "Beoordeling Onvolledig",
+  "incomplete.body": "Je antwoorden waren onvoldoende om een exacte IQ te berekenen. Neem de beoordeling opnieuw in.",
+  "incomplete.restart_button": "Begin opnieuw"
+}

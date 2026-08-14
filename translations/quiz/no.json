@@ -1,0 +1,18 @@
+{
+  "intro.badge": "Før du begynner",
+  "intro.heading": "Husk dette ordet",
+  "intro.body": "Du blir bedt om å huske det under testen. Dette måler arbeidsminnet ditt.",
+  "intro.word_hint": "Husk dette ordet nøyaktig",
+  "intro.start_button": "Jeg er klar  Start test",
+  "results.heading": "Testet er fullført!",
+  "results.subheading": "IQ-poenget ditt er beregnet og klar til å se.",
+  "results.ready_heading": "IQ-poenget ditt er klar",
+  "results.unlock_label": "Å låse opp for å avsløre din virkelige score",
+  "results.report_desc": "Få din fulde kognitive rapport inkludert IQ score, prosenttil rangering, og detaljert neddeling.",
+  "results.unlock_cta": "Å låse opp mitt IQ-poeng",
+  "results.retake_button": "Re-tak-test",
+  "results.disclaimer": "GlobalIQ er kun til utdannings- og underholdningsformål og erstatter ikke en profesjonell evaluering.",
+  "incomplete.heading": "Ufullført vurdering",
+  "incomplete.body": "Svarene dine var ikke nok til å beregne en nøyaktig IQ-poeng. Vennligst ta vurderingen igjen.",
+  "incomplete.restart_button": "Start på nytt"
+}

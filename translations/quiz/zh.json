@@ -1,0 +1,18 @@
+{
+  "intro.badge": "在你开始之前",
+  "intro.heading": "记住这个词",
+  "intro.body": "在考试期间,你将被要求回忆. 这可以测量你的工作记忆.",
+  "intro.word_hint": "记住这个词.",
+  "intro.start_button": "我准备好了  开始测试",
+  "results.heading": "测试完成!",
+  "results.subheading": "你的智商分数已经计算出来,准备好查看.",
+  "results.ready_heading": "你的智商成绩准备好",
+  "results.unlock_label": "解锁,揭示你的真实成绩",
+  "results.report_desc": "得到你的认知报告包括智商分数,百分比排名,",
+  "results.unlock_cta": "解锁我的智商成绩",
+  "results.retake_button": "复试",
+  "results.disclaimer": "全球IQ仅用于教育和娱乐目的,并不是替代专业评估.",
+  "incomplete.heading": "评估未完整",
+  "incomplete.body": "你的答案不足以计算一个准确的智商分数. 请重新评估.",
+  "incomplete.restart_button": "开始再一次"
+}

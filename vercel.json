@@ -1,8 +1,12 @@
 {
   "rewrites": [
     {
-      "source": "/:lang/start",
-      "destination": "/api/render-page?page=start&lang=:lang"
+      "source": "/:lang(ar|bg|cs|da-DK|de|el|es|es-MX|et-EE|fa-IR|fi|fr|ga-IE|he|hr|hu|is|it|ja|ko|ku|lt|lv|mt-MT|nl|no|pl|pt|pt-BR|ro|ru|sk|sl|sv|th|tr|uk-UA|zh)",
+      "destination": "/api/render-page?page=home&lang=:lang"
+    },
+    {
+      "source": "/:lang(ar|bg|cs|da-DK|de|el|es|es-MX|et-EE|fa-IR|fi|fr|ga-IE|he|hr|hu|is|it|ja|ko|ku|lt|lv|mt-MT|nl|no|pl|pt|pt-BR|ro|ru|sk|sl|sv|th|tr|uk-UA|zh)/:slug*",
+      "destination": "/api/render-page?page=:slug*&lang=:lang"
     }
   ]
 }

@@ -1,0 +1,18 @@
+{
+  "intro.badge": "Enne kui alustad",
+  "intro.heading": "Pea seda sõna meelde.",
+  "intro.body": "Teid paluakse seda meelde tuletada testi ajal. See mõõdab teie töömälu.",
+  "intro.word_hint": "Mäletad seda sõna täpselt",
+  "intro.start_button": "Olen valmis  Alustage testi",
+  "results.heading": "Test on lõppenud!",
+  "results.subheading": "Teie IQ on arvutatud ja valmis vaatama.",
+  "results.ready_heading": "Su IQ on valmis.",
+  "results.unlock_label": "Avage oma tõeline tulemus paljastamiseks.",
+  "results.report_desc": "Saada oma täielik kognitsusraport koos IQ score, protsentiili rangimine ja üksikasjalik jaotamine.",
+  "results.unlock_cta": "Avastage mu IQ-number",
+  "results.retake_button": "Kordanõuet",
+  "results.disclaimer": "GlobalIQ on mõeldud ainult haridus- ja meelelahutuskasutustele ning ei asenda professionaalset hindamist.",
+  "incomplete.heading": "Hindamine ei ole täielik",
+  "incomplete.body": "Teie vastused ei olnud piisavad IQ-punkti arvutamiseks. Palun vaadake uuesti hinnangut.",
+  "incomplete.restart_button": "Alusta uuesti"
+}

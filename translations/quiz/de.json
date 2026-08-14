@@ -1,0 +1,18 @@
+{
+  "intro.badge": "Bevor du beginnst",
+  "intro.heading": "Das Wort auswendig",
+  "intro.body": "Sie werden gebeten, sich während des Tests an ihn zu erinnern. Das misst Ihr Arbeitsgedächtnis.",
+  "intro.word_hint": "Denken Sie genau an dieses Wort.",
+  "intro.start_button": "Ich bin bereit  Beginn des Tests",
+  "results.heading": "Der Test ist abgeschlossen!",
+  "results.subheading": "Ihr IQ-Score wurde berechnet und ist bereit.",
+  "results.ready_heading": "Dein IQ ist bereit.",
+  "results.unlock_label": "Entriegeln Sie, um Ihre richtige Punktzahl zu enthüllen",
+  "results.report_desc": "Erhalten Sie Ihren vollständigen kognitiven Bericht, einschließlich IQ-Score, Perzentilen-Ranking und detaillierte Aufgliederung.",
+  "results.unlock_cta": "Ich habe IQ-Score",
+  "results.retake_button": "Wiederholungstest",
+  "results.disclaimer": "GlobalIQ dient ausschließlich Bildung und Unterhaltung und ersetzt keine berufliche Bewertung.",
+  "incomplete.heading": "Unvollständig",
+  "incomplete.body": "Ihre Antworten waren nicht ausreichend, um einen genauen IQ-Score zu berechnen. Bitte nehmen Sie die Bewertung wieder.",
+  "incomplete.restart_button": "Beginnen Sie von vorne"
+}

@@ -1,0 +1,18 @@
+{
+  "intro.badge": "לפני שתתחיל",
+  "intro.heading": "תזכור את המילה הזאת.",
+  "intro.body": "אתה תתבקש לזכור אותו במהלך הבדיקה. זה מדד את זיכרון העבודה שלך.",
+  "intro.word_hint": "זכור את המילה הזאת בדיוק",
+  "intro.start_button": "אני מוכן  להתחיל בדיקת",
+  "results.heading": "הבדיקה הסתיימה!",
+  "results.subheading": "הציון שלך הועבר והינו מוכן להציג.",
+  "results.ready_heading": "ציון האיקואיד שלך מוכן",
+  "results.unlock_label": "פתח את המנעול כדי לחשוף את ההשפעה האמיתית שלך",
+  "results.report_desc": "קבל את הדו\"ח הקוגניטיבי המלא שלך כולל ציון IQ, דירוג אחוזים, ופרסדרת מפורט.",
+  "results.unlock_cta": "פתח את ציון IQ שלי",
+  "results.retake_button": "בדיקת חזרה",
+  "results.disclaimer": "GlobalIQ נועד למטרות חינוכיות ובידוריות בלבד ולא מחליף לערכה מקצועית.",
+  "incomplete.heading": "הערכה לא מלאה",
+  "incomplete.body": "התשובות שלך לא היו מספיכות לחשב ציון IQ מדויק. אנא תחזור על הערכה.",
+  "incomplete.restart_button": "התחל מחדש"
+}

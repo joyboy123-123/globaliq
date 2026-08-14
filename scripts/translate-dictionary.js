@@ -171,6 +171,56 @@ function hasMissingClauses(sourceText, translatedText) {
   return countSentences(translatedText) < sourceSentences;
 }
 
+function isDegenerate(sourceText, translatedText, floresCode) {
+  return hasRepetitionLoop(translatedText)
+    || isSuspiciouslyShort(sourceText, translatedText, floresCode)
+    || hasMissingClauses(sourceText, translatedText);
+}
+
+// Splits on sentence-ending punctuation followed by whitespace, keeping the
+// punctuation with its sentence. Deliberately simple (no abbreviation
+// handling) — good enough for the marketing/FAQ copy this runs on, and a
+// slightly-wrong split just means slightly different sentence boundaries,
+// not corrupted output.
+function splitIntoSentences(text) {
+  const matches = text.match(/[^.!?]+[.!?]+(\s+|$)/g);
+  if (!matches || matches.length < 2) return [text];
+  return matches.map((s) => s.trim()).filter(Boolean);
+}
+
+// Third-tier fallback for plain (non-HTML) keys, tried after a whole-string
+// translation degenerates twice. Long multi-sentence paragraphs (FAQ
+// answers, legal copy) fail far more often as one big translation call than
+// their individual sentences do — the same "smaller units are more
+// reliable" lesson already proven true for HTML-fragment text nodes.
+// Translates each sentence independently (one retry each); any sentence
+// that still fails falls back to its own English text rather than reverting
+// the ENTIRE paragraph to English just because one clause was difficult.
+async function translateWithSentenceFallback(sourceText, translateOne, floresCode) {
+  const sentences = splitIntoSentences(sourceText);
+  if (sentences.length < 2) return null; // nothing to gain by splitting a single sentence
+
+  const translatedParts = [];
+  let anySucceeded = false;
+  for (const sentence of sentences) {
+    let translated = await translateOne(sentence);
+    if (isDegenerate(sentence, translated, floresCode)) {
+      const retry = await translateOne(sentence);
+      translated = isDegenerate(sentence, retry, floresCode) ? null : retry;
+    }
+    if (translated === null) {
+      translatedParts.push(sentence); // this sentence only, in English
+    } else {
+      translatedParts.push(translated);
+      anySucceeded = true;
+    }
+  }
+  // If EVERY sentence individually failed too, there's nothing gained over
+  // the plain whole-English fallback the caller already has — let it use
+  // that instead of a needlessly reassembled all-English paragraph.
+  return anySucceeded ? translatedParts.join(" ") : null;
+}
+
 // Small manual override table for the specific short, context-free words
 // that recur in this exact disclaimer sentence and are unsafe to run
 // through the model in isolation (see history above: "here" caused a
@@ -301,10 +351,22 @@ process.on("uncaughtException", (err) => {
 });
 
 async function main() {
-  const enPath = path.resolve(__dirname, "..", "translations", "en.json");
-  const metaPath = path.resolve(__dirname, "..", "translations", "en.meta.json");
+  // --page=<pageId> selects which page's translations/{page}/en.json to
+  // translate, matching the per-page directory layout extract-strings.js
+  // writes to (translations/{page}/en.json, translations/{page}/{lang}.json).
+  // Required now that the site has more than one translated page — a flat
+  // shared dictionary would risk key collisions between pages.
+  const pageArg = process.argv.find((a) => a.startsWith("--page="));
+  const page = pageArg ? pageArg.replace("--page=", "") : null;
+  if (!page) {
+    console.error("Usage: node scripts/translate-dictionary.js --page=<pageId> [--langs=fr,ar,zh]");
+    process.exit(1);
+  }
+  const pageDir = path.resolve(__dirname, "..", "translations", page);
+  const enPath = path.join(pageDir, "en.json");
+  const metaPath = path.join(pageDir, "en.meta.json");
   if (!fs.existsSync(enPath)) {
-    console.error("translations/en.json not found — run scripts/extract-strings.js first.");
+    console.error(`${enPath} not found — run scripts/extract-strings.js first.`);
     process.exit(1);
   }
   const enDict = JSON.parse(fs.readFileSync(enPath, "utf8"));
@@ -312,7 +374,7 @@ async function main() {
     fs.existsSync(metaPath) ? JSON.parse(fs.readFileSync(metaPath, "utf8")).htmlKeys : []
   );
   const keys = Object.keys(enDict);
-  console.log(`Loaded ${keys.length} source strings from en.json (${htmlKeys.size} are HTML fragments: ${[...htmlKeys].join(", ") || "none"})`);
+  console.log(`Loaded ${keys.length} source strings for page "${page}" (${htmlKeys.size} are HTML fragments: ${[...htmlKeys].join(", ") || "none"})`);
 
   console.log(`Loading ${MODEL_NAME} (quantized q8 variant)...`);
   const { pipeline } = await import("@huggingface/transformers");
@@ -335,7 +397,7 @@ async function main() {
   });
   console.log("Model loaded.\n");
 
-  const outDir = path.resolve(__dirname, "..", "translations");
+  const outDir = pageDir;
   const summary = { fullSuccess: [], partial: [], failed: [], shortNodesByLang: {} };
 
   // Optional: node scripts/translate-dictionary.js --langs=fr,ar,zh
@@ -376,19 +438,94 @@ async function main() {
           }, floresCode);
         } else {
           let translated = await translateOne(sourceText);
-          if (hasRepetitionLoop(translated) || isSuspiciouslyShort(sourceText, translated, floresCode) || hasMissingClauses(sourceText, translated)) {
+          if (isDegenerate(sourceText, translated, floresCode)) {
             const retry = await translateOne(sourceText);
-            if (hasRepetitionLoop(retry) || isSuspiciouslyShort(sourceText, retry, floresCode) || hasMissingClauses(sourceText, retry)) {
-              throw new Error("translation degenerated (repetition loop, suspiciously short/truncated, or missing clauses) on both attempts");
-            }
-            translated = retry;
+            translated = isDegenerate(sourceText, retry, floresCode) ? null : retry;
           }
-          result[key] = translated;
+          if (translated === null) {
+            // Whole-paragraph translation degenerated twice. Before giving
+            // up entirely, try sentence-by-sentence — smaller units are
+            // consistently more reliable in this pipeline, and this way a
+            // partially-translated result beats an all-English one.
+            translated = await translateWithSentenceFallback(sourceText, translateOne, floresCode);
+          }
+          if (translated === null) {
+            // Nothing worked, not even per-sentence. Previously this threw
+            // and left the key OUT of the written JSON as `null` — which
+            // render-page.js would then render as the literal string
+            // "null" on the page (cheerio's .text(null) stringifies it).
+            // Fall back to the original English text instead, same
+            // graceful-degradation pattern already used for HTML-fragment
+            // text nodes, and flag it in the same "needs manual review"
+            // report rather than silently emitting a visible bug.
+            shortNodesSkipped.push({ key, text: sourceText + " [repetition-loop fallback]" });
+            result[key] = sourceText;
+          } else {
+            result[key] = translated;
+          }
         }
       } catch (err) {
         console.error(`  FAILED [${code}] key="${key}": ${err.message}`);
         failedKeys.push(key);
         result[key] = null;
+      }
+    }
+
+    // Collision check: found via manual spot-check on the results page —
+    // "First name" and "Last name" both translated to the French for
+    // "Last name" ("Nom de famille"). Neither is a repetition loop, neither
+    // is short/truncated, neither drops a clause — it's a plain
+    // mistranslation, a failure mode none of the checks above catch. If two
+    // keys with DIFFERENT source text end up with the SAME translated
+    // value, that's a strong signal at least one is wrong. Retry each
+    // colliding key once (independently, without the other's interference);
+    // if the retry still collides with something else, fall back to
+    // English for that key rather than risk shipping the wrong word.
+    const byTranslatedValue = {};
+    for (const key of keys) {
+      const val = result[key];
+      if (typeof val !== "string" || !val || htmlKeys.has(key)) continue; // HTML fragments checked per-node already; plain-string only here
+      const sourceText = enDict[key];
+      if (!byTranslatedValue[val]) byTranslatedValue[val] = [];
+      byTranslatedValue[val].push(key);
+    }
+    // Normalize before comparing sources: lowercase, strip trailing arrows/
+    // punctuation, collapse whitespace. Retroactive scan across home's
+    // completed translations surfaced ~50 "collisions" that were all false
+    // positives — e.g. "How it Works" / "How It Works" (case only) and
+    // "Start IQ Test Now" / "Start IQ Test Now →" (trailing arrow) are
+    // legitimately the same phrase reused in nav + mobile-nav + section
+    // heading, and SHOULD translate identically. Only a real semantic
+    // difference (like "First name" vs "Last name") should trigger a retry.
+    const normalize = (s) => s.toLowerCase().replace(/[→→]/g, "").replace(/[^\p{L}\p{N}\s]/gu, "").replace(/\s+/g, " ").trim();
+    for (const [val, collidingKeys] of Object.entries(byTranslatedValue)) {
+      if (collidingKeys.length < 2) continue;
+      const distinctSources = new Set(collidingKeys.map((k) => normalize(enDict[k])));
+      if (distinctSources.size < 2) continue; // same source text (or a trivial variant) legitimately sharing a key — not a bug
+      console.error(`  COLLISION [${code}]: keys [${collidingKeys.join(", ")}] all translated to the same value "${val}" despite different source text — retrying each independently`);
+      // Retrying isn't guaranteed to fix it — spot-check on results/fr found
+      // the model deterministically mistranslates "First name" the same
+      // wrong way every time (not random degeneration, a consistent wrong
+      // answer), so a naive "accept the retry" would silently keep shipping
+      // it. After retrying, re-check whether the NEW value still collides
+      // with anything else currently in `result` (not just the other
+      // originally-colliding keys) — if so, the retry didn't actually
+      // resolve the ambiguity, so fall back to English rather than trust it.
+      for (const key of collidingKeys) {
+        const retry = await translateOne(enDict[key]);
+        let finalVal = isDegenerate(enDict[key], retry, floresCode) ? null : retry;
+        if (finalVal !== null) {
+          const stillColliding = Object.entries(result).some(
+            ([otherKey, otherVal]) => otherKey !== key && otherVal === finalVal && normalize(enDict[otherKey] || "") !== normalize(enDict[key])
+          );
+          if (stillColliding) finalVal = null;
+        }
+        if (finalVal === null) {
+          result[key] = enDict[key];
+          shortNodesSkipped.push({ key, text: enDict[key] + " [translation-collision fallback]" });
+        } else {
+          result[key] = finalVal;
+        }
       }
     }
 
@@ -405,6 +542,14 @@ async function main() {
       summary.fullSuccess.push(code);
       console.log(`  Wrote translations/${code}.json (${keys.length}/${keys.length} keys)`);
     } else if (failedKeys.length < keys.length) {
+      // Final safety net: a genuinely unexpected error (not the controlled
+      // degenerate-output checks above, which already fall back to English)
+      // still leaves `null` in `result`. Never let that reach the written
+      // file — cheerio's .text(null) would render the literal word "null"
+      // on the live page. Fall back to English here too.
+      for (const key of failedKeys) {
+        if (result[key] === null) result[key] = enDict[key];
+      }
       fs.writeFileSync(
         path.join(outDir, `${code}.json`),
         JSON.stringify(result, null, 2) + "\n"

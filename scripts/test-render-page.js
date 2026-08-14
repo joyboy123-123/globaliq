@@ -56,7 +56,7 @@ async function main() {
   // 1 & 5. fr renders real French text, correct headers.
   console.log("1) lang=fr");
   let res = await call({ page: "start", lang: "fr" });
-  const fr = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "translations", "fr.json"), "utf8"));
+  const fr = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "translations", "start", "fr.json"), "utf8"));
   check("status 200", res.statusCode === 200);
   check("contains translated headline_prefix", res.body.includes(fr["hero.headline_prefix"]));
   check("contains translated checklist.item1", res.body.includes(fr["checklist.item1"]));
@@ -86,7 +86,7 @@ async function main() {
   console.log("4) Non-Latin scripts: zh, ja, ko, th");
   for (const lang of ["zh", "ja", "ko", "th"]) {
     const r = await call({ page: "start", lang });
-    const dict = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "translations", `${lang}.json`), "utf8"));
+    const dict = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "translations", "start", `${lang}.json`), "utf8"));
     check(`${lang}: status 200`, r.statusCode === 200);
     check(`${lang}: contains translated headline_prefix`, r.body.includes(dict["hero.headline_prefix"]));
     check(`${lang}: Cache-Control correct`, r.headers["cache-control"] === EXPECTED_CACHE_CONTROL);
@@ -108,15 +108,16 @@ async function main() {
   const logoSnippet = sourceHtml.match(/src="data:image\/png;base64,[^"]{200}/)[0];
   check("base64 logo snippet present unchanged in fr render", res.body.includes(logoSnippet));
 
-  // 9. Link persistence: with page allow-list = ["start"] only, links to
-  // /quiz, /terms, /privacy, /help must stay plain English (not /fr/quiz),
-  // since none of those pages are in the allow-list yet.
-  console.log("9) link persistence (page allow-list = ['start'] only)");
-  check("male button still links to plain /quiz (not /fr/quiz)", res.body.includes('href="https://globaliqreport.com/quiz"') && !res.body.includes('href="https://globaliqreport.com/fr/quiz"'));
-  check("female button still links to plain /quiz (not /fr/quiz)", (res.body.match(/href="https:\/\/globaliqreport\.com\/quiz"/g) || []).length >= 2);
-  check("terms link still plain (not language-prefixed)", res.body.includes('href="https://globaliqreport.com/terms"'));
-  check("privacy link still plain (not language-prefixed)", res.body.includes('href="https://globaliqreport.com/privacy"'));
-  check("help link still plain (not language-prefixed)", res.body.includes('href="https://globaliqreport.com/help"'));
+  // 9. Link persistence: PAGE_ALLOW_LIST now includes home/start/quiz/results.
+  // /quiz IS translated, so start's gender buttons SHOULD now be rewritten
+  // to /fr/quiz (that's the whole point of the funnel staying in-language).
+  // /terms, /privacy, /help are NOT translated pages, so those must stay plain.
+  console.log("9) link persistence (page allow-list = home/start/quiz/results)");
+  check("male button now links to /fr/quiz (quiz is a translated page)", res.body.includes('href="https://globaliqreport.com/fr/quiz"'));
+  check("female button now links to /fr/quiz too", (res.body.match(/href="https:\/\/globaliqreport\.com\/fr\/quiz"/g) || []).length >= 2);
+  check("terms link still plain (not a translated page)", res.body.includes('href="https://globaliqreport.com/terms"'));
+  check("privacy link still plain (not a translated page)", res.body.includes('href="https://globaliqreport.com/privacy"'));
+  check("help link still plain (not a translated page)", res.body.includes('href="https://globaliqreport.com/help"'));
 
   console.log(`\n${failures === 0 ? "ALL CHECKS PASSED" : `${failures} CHECK(S) FAILED`}`);
   process.exit(failures === 0 ? 0 : 1);

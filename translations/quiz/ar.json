@@ -1,0 +1,18 @@
+{
+  "intro.badge": "قبل أن تبدأ",
+  "intro.heading": "تذكر هذه الكلمة",
+  "intro.body": "سيتم طلب منك أن تتذكرها أثناء الاختبار. هذا يقيّم ذاكرتك العاملة.",
+  "intro.word_hint": "تذكر هذه الكلمة بالضبط",
+  "intro.start_button": "أنا مستعدة  البدء في الاختبار",
+  "results.heading": "الإختبار قد اكتمل",
+  "results.subheading": "لقد تم حساب درجة ذكاءك و جاهزة لرؤية",
+  "results.ready_heading": "درجة ذكائك جاهزة",
+  "results.unlock_label": "إفتحوا لتكشفوا عن النتيجة الحقيقية",
+  "results.report_desc": "احصل على تقريرك المعرفي الكامل بما في ذلك درجة الذكاء، تصنيف الفئات، وتفصيل التفصيل.",
+  "results.unlock_cta": "افتح علامتي الذكاء",
+  "results.retake_button": "اختبار إعادة التدريب",
+  "results.disclaimer": "إن GlobalIQ يستخدم فقط لأغراض تعليمية وترفيهية ولا يحل محل التقييم المهني.",
+  "incomplete.heading": "التقييم غير كامل",
+  "incomplete.body": "ردودك لم تكن كافية لحساب درجة ذكاء دقيقة من فضلكم إعادةوا التقييم",
+  "incomplete.restart_button": "ابدأ من جديد"
+}

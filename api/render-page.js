@@ -27,25 +27,46 @@ const cheerio = require("cheerio");
 const TRANSLATIONS_DIR = path.join(__dirname, "..", "translations");
 const SITE_ROOT = path.join(__dirname, "..");
 
-// Built from whichever translations/{code}.json files actually exist on
-// disk, not hand-maintained — this can never drift out of sync with what
-// Step 2 actually produced successfully. en.json/en.meta.json are excluded
-// since "en" isn't a translation target (it's the untranslated source).
-function getLangAllowList() {
+// Built from whichever translations/{page}/{code}.json files actually
+// exist on disk for THIS SPECIFIC page, not hand-maintained — this can
+// never drift out of sync with what that page's translation run actually
+// produced successfully. Checked per-page (not globally) since different
+// pages may be translated at different times as the funnel is built out.
+// en.json/en.meta.json are excluded since "en" isn't a translation target.
+function getLangAllowList(page) {
+  const dir = path.join(TRANSLATIONS_DIR, page);
   return fs
-    .readdirSync(TRANSLATIONS_DIR)
+    .readdirSync(dir)
     .filter((f) => f.endsWith(".json") && f !== "en.json" && f !== "en.meta.json")
     .map((f) => f.replace(/\.json$/, ""));
 }
 
-// Page-scope allow-list. Just "start" for the pilot — deliberately a plain
-// list, not derived from a directory scan, since not every folder under
-// the site root is a translatable page (e.g. api/, scripts/, translations/
-// itself). Extend this array as more pages get their own data-i18n-key
-// markup + extraction in later steps.
-const PAGE_ALLOW_LIST = ["start"];
+// Page-scope allow-list — deliberately a plain hand-maintained list, not
+// derived from a directory scan. Scoped to the actual conversion funnel
+// only (home -> start -> quiz -> results), per explicit product decision:
+// footer/legal/docs pages (privacy, terms, refund, cookie, cancellation,
+// contact, sign-in, pricing, help, etc.) are NOT translated — visitors
+// don't need those in-language to complete the funnel, and translating
+// legal text carries more risk than value here. "home" is a special
+// sentinel for the site root (source file is SITE_ROOT/index.html, not
+// SITE_ROOT/home/index.html, and its URL is /{lang} not /{lang}/home).
+// NOTE: only add a page here once its translations/{page}/ directory
+// actually exists and has been verified — listing a page before its
+// translations exist would make render-page.js 500 (file not found)
+// instead of cleanly rejecting it, for any real visitor who hits it early.
+// Target funnel scope: home, start (done), quiz, results — added one at a
+// time as each is built out.
+const PAGE_ALLOW_LIST = [
+  "home",
+  "start",
+  "quiz",
+  "results",
+];
 
 function pageSourcePath(page) {
+  if (page === "home") {
+    return path.join(SITE_ROOT, "index.html");
+  }
   return path.join(SITE_ROOT, page, "index.html");
 }
 
@@ -59,12 +80,25 @@ const RTL_LANGS = new Set(["ar", "fa-IR", "he"]);
 // Matches an internal/same-site link, whether given as an absolute
 // globaliqreport.com URL or a root-relative path, and captures the page
 // segment right after the domain/root so it can be checked against
-// PAGE_ALLOW_LIST and rewritten to /{lang}/{page} when eligible.
+// PAGE_ALLOW_LIST and rewritten to /{lang}/{page} when eligible. A bare
+// root link (the logo: href="https://globaliqreport.com" or href="/",
+// with nothing after the domain/slash) maps to the "home" sentinel, since
+// that's the page allow-list entry for the site root.
 function parseInternalLink(href) {
   if (typeof href !== "string") return null;
+  const absoluteRootMatch = href.match(/^https?:\/\/(?:www\.)?globaliqreport\.com\/?(\?.*)?(#.*)?$/i);
+  if (absoluteRootMatch) {
+    const rootPrefix = href.match(/^https?:\/\/(?:www\.)?globaliqreport\.com\//i)
+      ? href.match(/^https?:\/\/(?:www\.)?globaliqreport\.com\//i)[0]
+      : href.replace(/(\?.*)?(#.*)?$/, "") + "/";
+    return { prefix: rootPrefix, page: "home", rest: (absoluteRootMatch[1] || "") + (absoluteRootMatch[2] || "") };
+  }
   const absoluteMatch = href.match(/^https?:\/\/(?:www\.)?globaliqreport\.com\/([^/?#]+)(.*)$/i);
   if (absoluteMatch) {
     return { prefix: href.slice(0, href.indexOf(absoluteMatch[1])), page: absoluteMatch[1], rest: absoluteMatch[2] };
+  }
+  if (href === "/") {
+    return { prefix: "/", page: "home", rest: "" };
   }
   const relativeMatch = href.match(/^\/([^/?#]+)(.*)$/);
   if (relativeMatch) {
@@ -75,8 +109,9 @@ function parseInternalLink(href) {
 
 function renderTranslatedPage(page, lang) {
   const sourceHtml = fs.readFileSync(pageSourcePath(page), "utf8");
-  const dict = JSON.parse(fs.readFileSync(path.join(TRANSLATIONS_DIR, `${lang}.json`), "utf8"));
-  const metaPath = path.join(TRANSLATIONS_DIR, "en.meta.json");
+  const pageDir = path.join(TRANSLATIONS_DIR, page);
+  const dict = JSON.parse(fs.readFileSync(path.join(pageDir, `${lang}.json`), "utf8"));
+  const metaPath = path.join(pageDir, "en.meta.json");
   const htmlKeys = new Set(
     fs.existsSync(metaPath) ? JSON.parse(fs.readFileSync(metaPath, "utf8")).htmlKeys : []
   );
@@ -129,7 +164,9 @@ function renderTranslatedPage(page, lang) {
     const parsed = parseInternalLink(href);
     if (!parsed) return; // external link, mailto:, #anchor — leave alone
     if (!PAGE_ALLOW_LIST.includes(parsed.page)) return; // no translated version to link to
-    $(el).attr("href", `${parsed.prefix}${lang}/${parsed.page}${parsed.rest}`);
+    // "home" is served at the bare /{lang} URL, not /{lang}/home.
+    const pageSegment = parsed.page === "home" ? "" : `/${parsed.page}`;
+    $(el).attr("href", `${parsed.prefix}${lang}${pageSegment}${parsed.rest}`);
   });
 
   return "<!DOCTYPE html>\n" + $.html();
@@ -151,7 +188,7 @@ module.exports = async function handler(req, res) {
   if (!PAGE_ALLOW_LIST.includes(page)) {
     return res.status(400).json({ error: `Unknown page "${page}".` });
   }
-  const langAllowList = getLangAllowList();
+  const langAllowList = getLangAllowList(page);
   if (!langAllowList.includes(lang)) {
     return res.status(400).json({ error: `Unsupported language "${lang}".` });
   }

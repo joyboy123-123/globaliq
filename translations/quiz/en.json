@@ -1,0 +1,18 @@
+{
+  "intro.badge": "Before you begin",
+  "intro.heading": "Memorize this word",
+  "intro.body": "You will be asked to recall it during the test. This measures your working memory.",
+  "intro.word_hint": "Remember this word exactly",
+  "intro.start_button": "I'm Ready — Start Test",
+  "results.heading": "Test Complete!",
+  "results.subheading": "Your IQ score has been calculated and is ready to view.",
+  "results.ready_heading": "Your IQ Score is Ready",
+  "results.unlock_label": "Unlock to reveal your real score",
+  "results.report_desc": "Get your full cognitive report including IQ score, percentile ranking, and detailed breakdown.",
+  "results.unlock_cta": "Unlock My IQ Score →",
+  "results.retake_button": "Retake Test",
+  "results.disclaimer": "GlobalIQ is for educational and entertainment purposes only and is not a substitute for a professional evaluation.",
+  "incomplete.heading": "Assessment Incomplete",
+  "incomplete.body": "Your responses were insufficient to calculate an accurate IQ score. Please retake the assessment.",
+  "incomplete.restart_button": "Start Again"
+}

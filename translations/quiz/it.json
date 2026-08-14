@@ -1,0 +1,18 @@
+{
+  "intro.badge": "Prima di iniziare",
+  "intro.heading": "Ricordate questa parola",
+  "intro.body": "Vi verrà chiesto di ricordarlo durante il test. Questo misura la vostra memoria di lavoro.",
+  "intro.word_hint": "Ricordate questa parola esattamente",
+  "intro.start_button": "Sono pronto  Iniziare il test",
+  "results.heading": "Il test è completato!",
+  "results.subheading": "Il tuo punteggio di QI è stato calcolato e pronto per la visualizzazione.",
+  "results.ready_heading": "Il tuo punteggio di QI è pronto",
+  "results.unlock_label": "Sblocca per rivelare il tuo vero punteggio",
+  "results.report_desc": "Ottieni il tuo rapporto cognitivo completo, inclusi il punteggio IQ, la classifica percentile e la ripartizione dettagliata.",
+  "results.unlock_cta": "Sblocca il mio punteggio di QI",
+  "results.retake_button": "Test di ricomposizione",
+  "results.disclaimer": "GlobalIQ è destinato esclusivamente a fini educativi e di intrattenimento e non sostituisce una valutazione professionale.",
+  "incomplete.heading": "Valutazione incompleta",
+  "incomplete.body": "Le tue risposte non sono state sufficienti per calcolare un punteggio accurato di QI. Per favore, riprendete la valutazione.",
+  "incomplete.restart_button": "Ricominciare"
+}
