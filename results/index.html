@@ -214,7 +214,7 @@
     .lang-dropdown.open{display:block;}
     .lang-option{display:flex;align-items:center;gap:10px;padding:10px 18px;cursor:pointer;font-size:0.9rem;color:var(--text);text-decoration:none;}
     .lang-option:hover{background:var(--light-blue);}
-    .lang-option .flag{font-size:1.2rem;}
+    .flag { width: 20px; height: 15px; object-fit: cover; border-radius: 2px; display: inline-block; vertical-align: middle; }
     .lang-option.current{font-weight:700;background:var(--light-blue);}
     .lang-option.disabled{color:var(--muted);cursor:not-allowed;opacity:0.55;}
     .lang-option .soon{margin-left:auto;font-size:0.72rem;color:var(--muted);}
@@ -421,50 +421,50 @@
   <!-- Language Selector -->
   <div class="footer-lang-wrap" style="position:relative;">
     <button class="lang-btn" onclick="toggleLang()" id="langBtn">
-      <span id="currentFlag">🇺🇸</span>
+      <img id="currentFlag" src="https://flagcdn.com/us.svg" width="20" height="15" alt="">
       <span id="currentLang">English</span>
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
     </button>
     <div class="lang-dropdown" id="langDropdown">
-      <a class="lang-option" data-code="en" href="/results"><span class="flag">🇺🇸</span> English</a>
-      <a class="lang-option" data-code="fr" href="/fr/results"><span class="flag">🇫🇷</span> Français</a>
-      <a class="lang-option" data-code="de" href="/de/results"><span class="flag">🇩🇪</span> Deutsch</a>
-      <a class="lang-option" data-code="no" href="/no/results"><span class="flag">🇳🇴</span> Norsk</a>
-      <a class="lang-option" data-code="es" href="/es/results"><span class="flag">🇪🇸</span> Español</a>
-      <a class="lang-option" data-code="pt" href="/pt/results"><span class="flag">🇵🇹</span> Português</a>
-      <a class="lang-option" data-code="pl" href="/pl/results"><span class="flag">🇵🇱</span> Polski</a>
-      <a class="lang-option" data-code="da-DK" href="/da-DK/results"><span class="flag">🇩🇰</span> Dansk</a>
-      <a class="lang-option" data-code="cs" href="/cs/results"><span class="flag">🇨🇿</span> Čeština</a>
-      <a class="lang-option" data-code="it" href="/it/results"><span class="flag">🇮🇹</span> Italiano</a>
-      <a class="lang-option" data-code="ro" href="/ro/results"><span class="flag">🇷🇴</span> Română</a>
-      <a class="lang-option" data-code="sv" href="/sv/results"><span class="flag">🇸🇪</span> Svenska</a>
-      <a class="lang-option" data-code="el" href="/el/results"><span class="flag">🇬🇷</span> Ελληνικά</a>
-      <a class="lang-option" data-code="lv" href="/lv/results"><span class="flag">🇱🇻</span> Latviešu</a>
-      <a class="lang-option" data-code="sl" href="/sl/results"><span class="flag">🇸🇮</span> Slovenščina</a>
-      <a class="lang-option" data-code="hu" href="/hu/results"><span class="flag">🇭🇺</span> Magyar</a>
-      <a class="lang-option" data-code="hr" href="/hr/results"><span class="flag">🇭🇷</span> Hrvatski</a>
-      <a class="lang-option" data-code="fi" href="/fi/results"><span class="flag">🇫🇮</span> Suomi</a>
-      <a class="lang-option" data-code="et-EE" href="/et-EE/results"><span class="flag">🇪🇪</span> Eesti</a>
-      <a class="lang-option" data-code="sk" href="/sk/results"><span class="flag">🇸🇰</span> Slovenčina</a>
-      <a class="lang-option" data-code="lt" href="/lt/results"><span class="flag">🇱🇹</span> Lietuvių</a>
-      <a class="lang-option" data-code="nl" href="/nl/results"><span class="flag">🇳🇱</span> Nederlands</a>
-      <a class="lang-option" data-code="pt-BR" href="/pt-BR/results"><span class="flag">🇧🇷</span> Português (Brasil)</a>
-      <a class="lang-option" data-code="bg" href="/bg/results"><span class="flag">🇧🇬</span> Български</a>
-      <a class="lang-option" data-code="mt-MT" href="/mt-MT/results"><span class="flag">🇲🇹</span> Malti</a>
-      <a class="lang-option" data-code="es-MX" href="/es-MX/results"><span class="flag">🇲🇽</span> Español (México)</a>
-      <a class="lang-option" data-code="ga-IE" href="/ga-IE/results"><span class="flag">🇮🇪</span> Gaeilge</a>
-      <a class="lang-option" data-code="tr" href="/tr/results"><span class="flag">🇹🇷</span> Türkçe</a>
-      <a class="lang-option" data-code="ar" href="/ar/results"><span class="flag">🇸🇦</span> العربية</a>
-      <a class="lang-option" data-code="fa-IR" href="/fa-IR/results"><span class="flag">🇮🇷</span> فارسی</a>
-      <a class="lang-option" data-code="ku" href="/ku/results"><span class="flag">🏳️</span> Kurdî</a>
-      <a class="lang-option" data-code="ru" href="/ru/results"><span class="flag">🇷🇺</span> Русский</a>
-      <a class="lang-option" data-code="ko" href="/ko/results"><span class="flag">🇰🇷</span> 한국어</a>
-      <a class="lang-option" data-code="zh" href="/zh/results"><span class="flag">🇨🇳</span> 中文</a>
-      <a class="lang-option" data-code="th" href="/th/results"><span class="flag">🇹🇭</span> ไทย</a>
-      <a class="lang-option" data-code="ja" href="/ja/results"><span class="flag">🇯🇵</span> 日本語</a>
-      <a class="lang-option" data-code="uk-UA" href="/uk-UA/results"><span class="flag">🇺🇦</span> Українська</a>
-      <a class="lang-option" data-code="he" href="/he/results"><span class="flag">🇮🇱</span> עברית</a>
-      <a class="lang-option" data-code="is" href="/is/results"><span class="flag">🇮🇸</span> Íslenska</a>
+      <a class="lang-option" data-code="en" href="/results"><img class="flag" src="https://flagcdn.com/us.svg" width="20" height="15" alt=""> English</a>
+      <a class="lang-option" data-code="fr" href="/fr/results"><img class="flag" src="https://flagcdn.com/fr.svg" width="20" height="15" alt=""> Français</a>
+      <a class="lang-option" data-code="de" href="/de/results"><img class="flag" src="https://flagcdn.com/de.svg" width="20" height="15" alt=""> Deutsch</a>
+      <a class="lang-option" data-code="no" href="/no/results"><img class="flag" src="https://flagcdn.com/no.svg" width="20" height="15" alt=""> Norsk</a>
+      <a class="lang-option" data-code="es" href="/es/results"><img class="flag" src="https://flagcdn.com/es.svg" width="20" height="15" alt=""> Español</a>
+      <a class="lang-option" data-code="pt" href="/pt/results"><img class="flag" src="https://flagcdn.com/pt.svg" width="20" height="15" alt=""> Português</a>
+      <a class="lang-option" data-code="pl" href="/pl/results"><img class="flag" src="https://flagcdn.com/pl.svg" width="20" height="15" alt=""> Polski</a>
+      <a class="lang-option" data-code="da-DK" href="/da-DK/results"><img class="flag" src="https://flagcdn.com/dk.svg" width="20" height="15" alt=""> Dansk</a>
+      <a class="lang-option" data-code="cs" href="/cs/results"><img class="flag" src="https://flagcdn.com/cz.svg" width="20" height="15" alt=""> Čeština</a>
+      <a class="lang-option" data-code="it" href="/it/results"><img class="flag" src="https://flagcdn.com/it.svg" width="20" height="15" alt=""> Italiano</a>
+      <a class="lang-option" data-code="ro" href="/ro/results"><img class="flag" src="https://flagcdn.com/ro.svg" width="20" height="15" alt=""> Română</a>
+      <a class="lang-option" data-code="sv" href="/sv/results"><img class="flag" src="https://flagcdn.com/se.svg" width="20" height="15" alt=""> Svenska</a>
+      <a class="lang-option" data-code="el" href="/el/results"><img class="flag" src="https://flagcdn.com/gr.svg" width="20" height="15" alt=""> Ελληνικά</a>
+      <a class="lang-option" data-code="lv" href="/lv/results"><img class="flag" src="https://flagcdn.com/lv.svg" width="20" height="15" alt=""> Latviešu</a>
+      <a class="lang-option" data-code="sl" href="/sl/results"><img class="flag" src="https://flagcdn.com/si.svg" width="20" height="15" alt=""> Slovenščina</a>
+      <a class="lang-option" data-code="hu" href="/hu/results"><img class="flag" src="https://flagcdn.com/hu.svg" width="20" height="15" alt=""> Magyar</a>
+      <a class="lang-option" data-code="hr" href="/hr/results"><img class="flag" src="https://flagcdn.com/hr.svg" width="20" height="15" alt=""> Hrvatski</a>
+      <a class="lang-option" data-code="fi" href="/fi/results"><img class="flag" src="https://flagcdn.com/fi.svg" width="20" height="15" alt=""> Suomi</a>
+      <a class="lang-option" data-code="et-EE" href="/et-EE/results"><img class="flag" src="https://flagcdn.com/ee.svg" width="20" height="15" alt=""> Eesti</a>
+      <a class="lang-option" data-code="sk" href="/sk/results"><img class="flag" src="https://flagcdn.com/sk.svg" width="20" height="15" alt=""> Slovenčina</a>
+      <a class="lang-option" data-code="lt" href="/lt/results"><img class="flag" src="https://flagcdn.com/lt.svg" width="20" height="15" alt=""> Lietuvių</a>
+      <a class="lang-option" data-code="nl" href="/nl/results"><img class="flag" src="https://flagcdn.com/nl.svg" width="20" height="15" alt=""> Nederlands</a>
+      <a class="lang-option" data-code="pt-BR" href="/pt-BR/results"><img class="flag" src="https://flagcdn.com/br.svg" width="20" height="15" alt=""> Português (Brasil)</a>
+      <a class="lang-option" data-code="bg" href="/bg/results"><img class="flag" src="https://flagcdn.com/bg.svg" width="20" height="15" alt=""> Български</a>
+      <a class="lang-option" data-code="mt-MT" href="/mt-MT/results"><img class="flag" src="https://flagcdn.com/mt.svg" width="20" height="15" alt=""> Malti</a>
+      <a class="lang-option" data-code="es-MX" href="/es-MX/results"><img class="flag" src="https://flagcdn.com/mx.svg" width="20" height="15" alt=""> Español (México)</a>
+      <a class="lang-option" data-code="ga-IE" href="/ga-IE/results"><img class="flag" src="https://flagcdn.com/ie.svg" width="20" height="15" alt=""> Gaeilge</a>
+      <a class="lang-option" data-code="tr" href="/tr/results"><img class="flag" src="https://flagcdn.com/tr.svg" width="20" height="15" alt=""> Türkçe</a>
+      <a class="lang-option" data-code="ar" href="/ar/results"><img class="flag" src="https://flagcdn.com/sa.svg" width="20" height="15" alt=""> العربية</a>
+      <a class="lang-option" data-code="fa-IR" href="/fa-IR/results"><img class="flag" src="https://flagcdn.com/ir.svg" width="20" height="15" alt=""> فارسی</a>
+      <a class="lang-option" data-code="ku" href="/ku/results"><img class="flag" src="https://flagcdn.com/iq.svg" width="20" height="15" alt=""> Kurdî</a>
+      <a class="lang-option" data-code="ru" href="/ru/results"><img class="flag" src="https://flagcdn.com/ru.svg" width="20" height="15" alt=""> Русский</a>
+      <a class="lang-option" data-code="ko" href="/ko/results"><img class="flag" src="https://flagcdn.com/kr.svg" width="20" height="15" alt=""> 한국어</a>
+      <a class="lang-option" data-code="zh" href="/zh/results"><img class="flag" src="https://flagcdn.com/cn.svg" width="20" height="15" alt=""> 中文</a>
+      <a class="lang-option" data-code="th" href="/th/results"><img class="flag" src="https://flagcdn.com/th.svg" width="20" height="15" alt=""> ไทย</a>
+      <a class="lang-option" data-code="ja" href="/ja/results"><img class="flag" src="https://flagcdn.com/jp.svg" width="20" height="15" alt=""> 日本語</a>
+      <a class="lang-option" data-code="uk-UA" href="/uk-UA/results"><img class="flag" src="https://flagcdn.com/ua.svg" width="20" height="15" alt=""> Українська</a>
+      <a class="lang-option" data-code="he" href="/he/results"><img class="flag" src="https://flagcdn.com/il.svg" width="20" height="15" alt=""> עברית</a>
+      <a class="lang-option" data-code="is" href="/is/results"><img class="flag" src="https://flagcdn.com/is.svg" width="20" height="15" alt=""> Íslenska</a>
     </div>
   </div>
 
@@ -798,7 +798,7 @@
       var code = opt.getAttribute('data-code');
       var isAvailable = code === 'en' || AVAILABLE_LANGS.indexOf(code) !== -1;
       var shortLabel = code === 'en' ? 'EN' : code.split('-')[0].toUpperCase();
-      var flag = opt.querySelector('.flag').textContent;
+      var flagSrc = opt.querySelector('.flag').src;
 
       if (!isAvailable) {
         opt.classList.add('disabled');
@@ -814,7 +814,7 @@
       if (code === currentCode) {
         opt.classList.add('current');
         if (currentLangEl) currentLangEl.textContent = shortLabel;
-        if (currentFlagEl) currentFlagEl.textContent = flag;
+        if (currentFlagEl) currentFlagEl.src = flagSrc;
       }
 
       if (isAvailable) {
