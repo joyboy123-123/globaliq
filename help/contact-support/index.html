@@ -123,9 +123,14 @@
     .lang-btn:hover{border-color:var(--blue);}
     .lang-dropdown{display:none;position:absolute;background:white;border:1px solid #e2e8f0;border-radius:14px;box-shadow:0 8px 32px rgba(0,0,0,0.13);max-height:320px;overflow-y:auto;z-index:999;min-width:220px;padding:8px 0;}
     .lang-dropdown.open{display:block;}
-    .lang-option{display:flex;align-items:center;gap:10px;padding:10px 18px;cursor:pointer;font-size:0.9rem;color:var(--text);}
+    .lang-option{display:flex;align-items:center;gap:10px;padding:10px 18px;cursor:pointer;font-size:0.9rem;color:var(--text);text-decoration:none;}
     .lang-option:hover{background:var(--light-blue);}
-    .lang-option .flag{font-size:1.2rem;}
+    .lang-option.current{font-weight:700;background:var(--light-blue);}
+    .lang-option.disabled{color:var(--muted);cursor:not-allowed;opacity:0.55;}
+    .lang-option .soon{margin-left:auto;font-size:0.72rem;color:var(--muted);}
+    .flag { width: 20px; height: 15px; object-fit: cover; border-radius: 2px; display: inline-block; vertical-align: middle; }
+    #lang-progress-bar{position:fixed;top:0;left:0;height:3px;width:0%;background:var(--blue);z-index:9999;transition:width 0.3s ease-out;pointer-events:none;}
+    #lang-progress-bar.active{width:85%;}
     .footer-bottom{border-top:1px solid #e2e8f0;margin-top:12px;padding-top:20px;font-size:0.78rem;text-align:center;color:var(--muted);}
     </style>
 </head>
@@ -139,112 +144,112 @@
 
 <main>
   <div class="wrap" id="top">
-    <h1>Help Center</h1>
-    <p class="lede">Search for an answer below, or email a person.</p>
+    <h1 data-i18n-key="page.heading">Help Center</h1>
+    <p class="lede" data-i18n-key="page.lede">Search for an answer below, or email a person.</p>
 
     <div class="search-wrap">
       <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
       <input type="text" id="q" placeholder="Search help articles" autocomplete="off" />
     </div>
-    <div class="no-results" id="noResults">Nothing matched that. Try a different word, or email <a href="mailto:support@globaliqreport.com">support@globaliqreport.com</a>.</div>
+    <div class="no-results" id="noResults" data-i18n-key="page.no_results" data-i18n-html="true">Nothing matched that. Try a different word, or email <a href="mailto:support@globaliqreport.com">support@globaliqreport.com</a>.</div>
 
     <div class="quick">
       <a href="https://globaliqreport.com/cancellation">
         <span class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15 9l-6 6M9 9l6 6"/></svg></span>
-        <span><span class="t">Cancel subscription</span><span class="d">Stop future charges in under a minute</span></span>
+        <span><span class="t" data-i18n-key="quick.cancel.title">Cancel subscription</span><span class="d" data-i18n-key="quick.cancel.desc">Stop future charges in under a minute</span></span>
       </a>
       <a href="https://globaliqreport.com/contact">
         <span class="ico"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg></span>
-        <span><span class="t">Contact support</span><span class="d">Reach a person by email</span></span>
+        <span><span class="t" data-i18n-key="quick.contact.title">Contact support</span><span class="d" data-i18n-key="quick.contact.desc">Reach a person by email</span></span>
       </a>
       <a href="https://globaliqreport.com/refund">
         <span class="ico"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg></span>
-        <span><span class="t">Refund policy</span><span class="d">What we refund and what we do not</span></span>
+        <span><span class="t" data-i18n-key="quick.refund.title">Refund policy</span><span class="d" data-i18n-key="quick.refund.desc">What we refund and what we do not</span></span>
       </a>
       <a href="https://globaliqreport.com/privacy">
         <span class="ico"><svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.4 8.3-8 9-4.6-.7-8-4-8-9V6z"/></svg></span>
-        <span><span class="t">Privacy policy</span><span class="d">What we collect and your rights</span></span>
+        <span><span class="t" data-i18n-key="quick.privacy.title">Privacy policy</span><span class="d" data-i18n-key="quick.privacy.desc">What we collect and your rights</span></span>
       </a>
     </div>
 
     <div class="cat" data-cat>
-      <h2>Subscription and billing</h2>
+      <h2 data-i18n-key="cat.billing.heading">Subscription and billing</h2>
       <details>
-        <summary>How do I cancel my subscription?</summary>
-        <div class="answer"><p>Go to the <a href="https://globaliqreport.com/cancellation">Cancellation Portal</a>, enter the email address on your account, and follow the steps. It takes under a minute.</p><p>There is no phone call, no chat queue, and no requirement to explain yourself. If you would rather email, write to <a href="mailto:support@globaliqreport.com">support@globaliqreport.com</a> and we will process it for you.</p></div>
+        <summary data-i18n-key="cat.billing.q1">How do I cancel my subscription?</summary>
+        <div class="answer" data-i18n-key="cat.billing.a1" data-i18n-html="true"><p>Go to the <a href="https://globaliqreport.com/cancellation">Cancellation Portal</a>, enter the email address on your account, and follow the steps. It takes under a minute.</p><p>There is no phone call, no chat queue, and no requirement to explain yourself. If you would rather email, write to <a href="mailto:support@globaliqreport.com">support@globaliqreport.com</a> and we will process it for you.</p></div>
       </details>
       <details>
-        <summary>Does my subscription renew automatically?</summary>
-        <div class="answer"><p>Yes. After the 7-day trial, GlobalIQ bills $29.99 per month and renews automatically until you cancel.</p><p>We email a reminder before the first $29.99 charge, showing the amount, the date, and a link to cancel.</p></div>
+        <summary data-i18n-key="cat.billing.q2">Does my subscription renew automatically?</summary>
+        <div class="answer" data-i18n-key="cat.billing.a2" data-i18n-html="true"><p>Yes. After the 7-day trial, GlobalIQ bills $29.99 per month and renews automatically until you cancel.</p><p>We email a reminder before the first $29.99 charge, showing the amount, the date, and a link to cancel.</p></div>
       </details>
       <details>
-        <summary>What exactly am I charged, and when?</summary>
-        <div class="answer"><ul><li><strong>Today:</strong> $1.00 for 7 days of access.</li><li><strong>Day 8:</strong> $29.99, unless you cancelled first.</li><li><strong>Monthly after that:</strong> $29.99 on the same date each month.</li></ul><p>Cancel before day 8 and the $29.99 is never charged.</p></div>
+        <summary data-i18n-key="cat.billing.q3">What exactly am I charged, and when?</summary>
+        <div class="answer" data-i18n-key="cat.billing.a3" data-i18n-html="true"><ul><li><strong>Today:</strong> $1.00 for 7 days of access.</li><li><strong>Day 8:</strong> $29.99, unless you cancelled first.</li><li><strong>Monthly after that:</strong> $29.99 on the same date each month.</li></ul><p>Cancel before day 8 and the $29.99 is never charged.</p></div>
       </details>
       <details>
-        <summary>I cancelled. Why can I still sign in?</summary>
-        <div class="answer"><p>Cancelling stops future charges but does not cut off access immediately. You keep your account until the end of the period you have already paid for, then it lapses.</p></div>
+        <summary data-i18n-key="cat.billing.q4">I cancelled. Why can I still sign in?</summary>
+        <div class="answer" data-i18n-key="cat.billing.a4" data-i18n-html="true"><p>Cancelling stops future charges but does not cut off access immediately. You keep your account until the end of the period you have already paid for, then it lapses.</p></div>
       </details>
       <details>
-        <summary>Can I get a refund?</summary>
-        <div class="answer"><p>Subscription charges are nonrefundable. If you write to us we will review your situation and make a determination, but a review is not a promise of a refund.</p><p>Billing errors are different and always put right in full: duplicate charges, charges after a valid cancellation, incorrect amounts, or payments you did not authorise. Full details are in our <a href="https://globaliqreport.com/refund">Refund Policy</a>.</p></div>
-      </details>
-    </div>
-
-    <div class="cat" data-cat>
-      <h2>Your test and results</h2>
-      <details>
-        <summary>Where is my score?</summary>
-        <div class="answer"><p>Your result appears as soon as you finish the test, and we email your certificate to the address you entered.</p><p>If it has not arrived, check your spam folder first, then confirm you entered the address correctly. Email us and we will resend it.</p></div>
-      </details>
-      <details>
-        <summary>How accurate is the test?</summary>
-        <div class="answer"><p>GlobalIQ is built for education and entertainment. It is not a clinical assessment, it is not administered by a psychologist, and it is not equivalent to instruments like the WAIS or Stanford&ndash;Binet.</p><p>Treat your score as a snapshot taken under particular conditions. Tiredness, distraction, screen size, and how familiar you are with this style of question all move the number.</p></div>
-      </details>
-      <details>
-        <summary>Can I use my score for a job application or school placement?</summary>
-        <div class="answer"><p>No. Our result is not a professional evaluation and should not be used for employment, academic placement, medical purposes, or membership applications. If you need a formal assessment, see a licensed psychologist.</p></div>
-      </details>
-      <details>
-        <summary>Can I retake the test?</summary>
-        <div class="answer"><p>Yes, while your subscription is active. Bear in mind that familiarity with the question format tends to lift scores on a second attempt, so a higher number is not necessarily a meaningful change.</p></div>
+        <summary data-i18n-key="cat.billing.q5">Can I get a refund?</summary>
+        <div class="answer" data-i18n-key="cat.billing.a5" data-i18n-html="true"><p>Subscription charges are nonrefundable. If you write to us we will review your situation and make a determination, but a review is not a promise of a refund.</p><p>Billing errors are different and always put right in full: duplicate charges, charges after a valid cancellation, incorrect amounts, or payments you did not authorise. Full details are in our <a href="https://globaliqreport.com/refund">Refund Policy</a>.</p></div>
       </details>
     </div>
 
     <div class="cat" data-cat>
-      <h2>Account and data</h2>
+      <h2 data-i18n-key="cat.testresults.heading">Your test and results</h2>
       <details>
-        <summary>How do I change the email on my account?</summary>
-        <div class="answer"><p>Email <a href="mailto:support@globaliqreport.com">support@globaliqreport.com</a> from the address currently on the account and tell us the new one. We will move it across and confirm when it is done.</p></div>
+        <summary data-i18n-key="cat.testresults.q1">Where is my score?</summary>
+        <div class="answer" data-i18n-key="cat.testresults.a1" data-i18n-html="true"><p>Your result appears as soon as you finish the test, and we email your certificate to the address you entered.</p><p>If it has not arrived, check your spam folder first, then confirm you entered the address correctly. Email us and we will resend it.</p></div>
       </details>
       <details>
-        <summary>How do I delete my account and data?</summary>
-        <div class="answer"><p>Email <a href="mailto:support@globaliqreport.com">support@globaliqreport.com</a> from your account address and ask for deletion.</p><p><strong>This is not the same as cancelling.</strong> Deleting cancels any active subscription immediately with no refund, permanently erases your results and history, and cannot be undone. If you only want to stop paying, cancel instead.</p><p>Requests are completed within 30 days. We keep limited billing records where tax law requires it.</p></div>
+        <summary data-i18n-key="cat.testresults.q2">How accurate is the test?</summary>
+        <div class="answer" data-i18n-key="cat.testresults.a2" data-i18n-html="true"><p>GlobalIQ is built for education and entertainment. It is not a clinical assessment, it is not administered by a psychologist, and it is not equivalent to instruments like the WAIS or Stanford&ndash;Binet.</p><p>Treat your score as a snapshot taken under particular conditions. Tiredness, distraction, screen size, and how familiar you are with this style of question all move the number.</p></div>
       </details>
       <details>
-        <summary>What data do you hold about me?</summary>
-        <div class="answer"><p>Your email address, your score and the date you took the test, how you moved through the site, and limited payment details from Stripe or PayPal &mdash; never your full card number.</p><p>Our <a href="https://globaliqreport.com/privacy">Privacy Policy</a> sets it out in full, including how to request a copy.</p></div>
+        <summary data-i18n-key="cat.testresults.q3">Can I use my score for a job application or school placement?</summary>
+        <div class="answer" data-i18n-key="cat.testresults.a3" data-i18n-html="true"><p>No. Our result is not a professional evaluation and should not be used for employment, academic placement, medical purposes, or membership applications. If you need a formal assessment, see a licensed psychologist.</p></div>
       </details>
       <details>
-        <summary>I did not receive an email from you</summary>
-        <div class="answer"><p>Check spam and promotions folders, and search for globaliqreport.com. Certificates and receipts occasionally get filtered.</p><p>If nothing turns up, email us and we will resend it and check the address on file.</p></div>
+        <summary data-i18n-key="cat.testresults.q4">Can I retake the test?</summary>
+        <div class="answer" data-i18n-key="cat.testresults.a4" data-i18n-html="true"><p>Yes, while your subscription is active. Bear in mind that familiarity with the question format tends to lift scores on a second attempt, so a higher number is not necessarily a meaningful change.</p></div>
       </details>
     </div>
 
     <div class="cat" data-cat>
-      <h2>Legal</h2>
-      <details><summary>Privacy Policy</summary><div class="answer"><p>How we collect, use, and protect your data, and the rights you have over it. <a href="https://globaliqreport.com/privacy">Read the Privacy Policy</a>.</p></div></details>
-      <details><summary>Terms &amp; Conditions</summary><div class="answer"><p>The agreement covering your subscription, billing, and cancellation. <a href="https://globaliqreport.com/terms">Read the Terms &amp; Conditions</a>.</p></div></details>
-      <details><summary>Cookie Policy</summary><div class="answer"><p>What we store on your device and how to turn it off. <a href="https://globaliqreport.com/cookie">Read the Cookie Policy</a>.</p></div></details>
-      <details><summary>Refund Policy</summary><div class="answer"><p>When we refund, when we do not, and how to ask. <a href="https://globaliqreport.com/refund">Read the Refund Policy</a>.</p></div></details>
+      <h2 data-i18n-key="cat.account.heading">Account and data</h2>
+      <details>
+        <summary data-i18n-key="cat.account.q1">How do I change the email on my account?</summary>
+        <div class="answer" data-i18n-key="cat.account.a1" data-i18n-html="true"><p>Email <a href="mailto:support@globaliqreport.com">support@globaliqreport.com</a> from the address currently on the account and tell us the new one. We will move it across and confirm when it is done.</p></div>
+      </details>
+      <details>
+        <summary data-i18n-key="cat.account.q2">How do I delete my account and data?</summary>
+        <div class="answer" data-i18n-key="cat.account.a2" data-i18n-html="true"><p>Email <a href="mailto:support@globaliqreport.com">support@globaliqreport.com</a> from your account address and ask for deletion.</p><p><strong>This is not the same as cancelling.</strong> Deleting cancels any active subscription immediately with no refund, permanently erases your results and history, and cannot be undone. If you only want to stop paying, cancel instead.</p><p>Requests are completed within 30 days. We keep limited billing records where tax law requires it.</p></div>
+      </details>
+      <details>
+        <summary data-i18n-key="cat.account.q3">What data do you hold about me?</summary>
+        <div class="answer" data-i18n-key="cat.account.a3" data-i18n-html="true"><p>Your email address, your score and the date you took the test, how you moved through the site, and limited payment details from Stripe or PayPal &mdash; never your full card number.</p><p>Our <a href="https://globaliqreport.com/privacy">Privacy Policy</a> sets it out in full, including how to request a copy.</p></div>
+      </details>
+      <details>
+        <summary data-i18n-key="cat.account.q4">I did not receive an email from you</summary>
+        <div class="answer" data-i18n-key="cat.account.a4" data-i18n-html="true"><p>Check spam and promotions folders, and search for globaliqreport.com. Certificates and receipts occasionally get filtered.</p><p>If nothing turns up, email us and we will resend it and check the address on file.</p></div>
+      </details>
+    </div>
+
+    <div class="cat" data-cat>
+      <h2 data-i18n-key="cat.legal.heading">Legal</h2>
+      <details><summary data-i18n-key="cat.legal.q1">Privacy Policy</summary><div class="answer" data-i18n-key="cat.legal.a1" data-i18n-html="true"><p>How we collect, use, and protect your data, and the rights you have over it. <a href="https://globaliqreport.com/privacy">Read the Privacy Policy</a>.</p></div></details>
+      <details><summary data-i18n-key="cat.legal.q2">Terms &amp; Conditions</summary><div class="answer" data-i18n-key="cat.legal.a2" data-i18n-html="true"><p>The agreement covering your subscription, billing, and cancellation. <a href="https://globaliqreport.com/terms">Read the Terms &amp; Conditions</a>.</p></div></details>
+      <details><summary data-i18n-key="cat.legal.q3">Cookie Policy</summary><div class="answer" data-i18n-key="cat.legal.a3" data-i18n-html="true"><p>What we store on your device and how to turn it off. <a href="https://globaliqreport.com/cookie">Read the Cookie Policy</a>.</p></div></details>
+      <details><summary data-i18n-key="cat.legal.q4">Refund Policy</summary><div class="answer" data-i18n-key="cat.legal.a4" data-i18n-html="true"><p>When we refund, when we do not, and how to ask. <a href="https://globaliqreport.com/refund">Read the Refund Policy</a>.</p></div></details>
     </div>
 
     <div class="contact-card">
       <div>
-        <h2>Still stuck?</h2>
-        <p>A person reads every message, usually within one business day.</p>
+        <h2 data-i18n-key="contact.heading">Still stuck?</h2>
+        <p data-i18n-key="contact.body">A person reads every message, usually within one business day.</p>
       </div>
-      <a href="mailto:support@globaliqreport.com">Email support</a>
+      <a href="mailto:support@globaliqreport.com" data-i18n-key="contact.cta">Email support</a>
     </div>
   </div>
 </main>
@@ -306,66 +311,57 @@
   <!-- Language Selector -->
   <div class="footer-lang-wrap" style="position:relative;">
     <button class="lang-btn" onclick="toggleLang()" id="langBtn">
-      <span id="currentFlag">🇺🇸</span>
+      <img id="currentFlag" class="flag" src="https://flagcdn.com/us.svg" width="20" height="15" alt="">
       <span id="currentLang">English</span>
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
     </button>
     <div class="lang-dropdown" id="langDropdown">
-      <div class="lang-option" onclick="setLang('en','English','🇺🇸')"><span class="flag">🇺🇸</span> English</div>
-      <div class="lang-option" onclick="setLang('es','Español','🇪🇸')"><span class="flag">🇪🇸</span> Español</div>
-      <div class="lang-option" onclick="setLang('fr','Français','🇫🇷')"><span class="flag">🇫🇷</span> Français</div>
-      <div class="lang-option" onclick="setLang('de','Deutsch','🇩🇪')"><span class="flag">🇩🇪</span> Deutsch</div>
-      <div class="lang-option" onclick="setLang('pt','Português','🇧🇷')"><span class="flag">🇧🇷</span> Português</div>
-      <div class="lang-option" onclick="setLang('it','Italiano','🇮🇹')"><span class="flag">🇮🇹</span> Italiano</div>
-      <div class="lang-option" onclick="setLang('nl','Nederlands','🇳🇱')"><span class="flag">🇳🇱</span> Nederlands</div>
-      <div class="lang-option" onclick="setLang('ru','Русский','🇷🇺')"><span class="flag">🇷🇺</span> Русский</div>
-      <div class="lang-option" onclick="setLang('zh','中文','🇨🇳')"><span class="flag">🇨🇳</span> 中文</div>
-      <div class="lang-option" onclick="setLang('ja','日本語','🇯🇵')"><span class="flag">🇯🇵</span> 日本語</div>
-      <div class="lang-option" onclick="setLang('ko','한국어','🇰🇷')"><span class="flag">🇰🇷</span> 한국어</div>
-      <div class="lang-option" onclick="setLang('ar','العربية','🇸🇦')"><span class="flag">🇸🇦</span> العربية</div>
-      <div class="lang-option" onclick="setLang('hi','हिन्दी','🇮🇳')"><span class="flag">🇮🇳</span> हिन्दी</div>
-      <div class="lang-option" onclick="setLang('tr','Türkçe','🇹🇷')"><span class="flag">🇹🇷</span> Türkçe</div>
-      <div class="lang-option" onclick="setLang('pl','Polski','🇵🇱')"><span class="flag">🇵🇱</span> Polski</div>
-      <div class="lang-option" onclick="setLang('sv','Svenska','🇸🇪')"><span class="flag">🇸🇪</span> Svenska</div>
-      <div class="lang-option" onclick="setLang('da','Dansk','🇩🇰')"><span class="flag">🇩🇰</span> Dansk</div>
-      <div class="lang-option" onclick="setLang('no','Norsk','🇳🇴')"><span class="flag">🇳🇴</span> Norsk</div>
-      <div class="lang-option" onclick="setLang('fi','Suomi','🇫🇮')"><span class="flag">🇫🇮</span> Suomi</div>
-      <div class="lang-option" onclick="setLang('el','Ελληνικά','🇬🇷')"><span class="flag">🇬🇷</span> Ελληνικά</div>
-      <div class="lang-option" onclick="setLang('cs','Čeština','🇨🇿')"><span class="flag">🇨🇿</span> Čeština</div>
-      <div class="lang-option" onclick="setLang('ro','Română','🇷🇴')"><span class="flag">🇷🇴</span> Română</div>
-      <div class="lang-option" onclick="setLang('hu','Magyar','🇭🇺')"><span class="flag">🇭🇺</span> Magyar</div>
-      <div class="lang-option" onclick="setLang('sk','Slovenčina','🇸🇰')"><span class="flag">🇸🇰</span> Slovenčina</div>
-      <div class="lang-option" onclick="setLang('uk','Українська','🇺🇦')"><span class="flag">🇺🇦</span> Українська</div>
-      <div class="lang-option" onclick="setLang('he','עברית','🇮🇱')"><span class="flag">🇮🇱</span> עברית</div>
-      <div class="lang-option" onclick="setLang('th','ไทย','🇹🇭')"><span class="flag">🇹🇭</span> ไทย</div>
-      <div class="lang-option" onclick="setLang('vi','Tiếng Việt','🇻🇳')"><span class="flag">🇻🇳</span> Tiếng Việt</div>
-      <div class="lang-option" onclick="setLang('id','Bahasa Indonesia','🇮🇩')"><span class="flag">🇮🇩</span> Bahasa Indonesia</div>
-      <div class="lang-option" onclick="setLang('ms','Bahasa Melayu','🇲🇾')"><span class="flag">🇲🇾</span> Bahasa Melayu</div>
-      <div class="lang-option" onclick="setLang('tl','Filipino','🇵🇭')"><span class="flag">🇵🇭</span> Filipino</div>
-      <div class="lang-option" onclick="setLang('fa','فارسی','🇮🇷')"><span class="flag">🇮🇷</span> فارسی</div>
-      <div class="lang-option" onclick="setLang('bn','বাংলা','🇧🇩')"><span class="flag">🇧🇩</span> বাংলা</div>
-      <div class="lang-option" onclick="setLang('ur','اردو','🇵🇰')"><span class="flag">🇵🇰</span> اردو</div>
-      <div class="lang-option" onclick="setLang('ta','தமிழ்','🇱🇰')"><span class="flag">🇱🇰</span> தமிழ்</div>
-      <div class="lang-option" onclick="setLang('sw','Kiswahili','🇰🇪')"><span class="flag">🇰🇪</span> Kiswahili</div>
-      <div class="lang-option" onclick="setLang('af','Afrikaans','🇿🇦')"><span class="flag">🇿🇦</span> Afrikaans</div>
-      <div class="lang-option" onclick="setLang('ca','Català','🇪🇸')"><span class="flag">🏴</span> Català</div>
-      <div class="lang-option" onclick="setLang('hr','Hrvatski','🇭🇷')"><span class="flag">🇭🇷</span> Hrvatski</div>
-      <div class="lang-option" onclick="setLang('bg','Български','🇧🇬')"><span class="flag">🇧🇬</span> Български</div>
-      <div class="lang-option" onclick="setLang('lt','Lietuvių','🇱🇹')"><span class="flag">🇱🇹</span> Lietuvių</div>
-      <div class="lang-option" onclick="setLang('lv','Latviešu','🇱🇻')"><span class="flag">🇱🇻</span> Latviešu</div>
-      <div class="lang-option" onclick="setLang('et','Eesti','🇪🇪')"><span class="flag">🇪🇪</span> Eesti</div>
-      <div class="lang-option" onclick="setLang('sl','Slovenščina','🇸🇮')"><span class="flag">🇸🇮</span> Slovenščina</div>
-      <div class="lang-option" onclick="setLang('sq','Shqip','🇦🇱')"><span class="flag">🇦🇱</span> Shqip</div>
-      <div class="lang-option" onclick="setLang('sr','Srpski','🇷🇸')"><span class="flag">🇷🇸</span> Srpski</div>
-      <div class="lang-option" onclick="setLang('mk','Македонски','🇲🇰')"><span class="flag">🇲🇰</span> Македонски</div>
-      <div class="lang-option" onclick="setLang('is','Íslenska','🇮🇸')"><span class="flag">🇮🇸</span> Íslenska</div>
-      <div class="lang-option" onclick="setLang('az','Azərbaycan','🇦🇿')"><span class="flag">🇦🇿</span> Azərbaycan</div>
-      <div class="lang-option" onclick="setLang('ka','ქართული','🇬🇪')"><span class="flag">🇬🇪</span> ქართული</div>
+      <a class="lang-option" data-code="en" href="/help/contact-support"><img class="flag" src="https://flagcdn.com/us.svg" width="20" height="15" alt=""> English</a>
+      <a class="lang-option" data-code="fr" href="/fr/help/contact-support"><img class="flag" src="https://flagcdn.com/fr.svg" width="20" height="15" alt=""> Français</a>
+      <a class="lang-option" data-code="de" href="/de/help/contact-support"><img class="flag" src="https://flagcdn.com/de.svg" width="20" height="15" alt=""> Deutsch</a>
+      <a class="lang-option" data-code="no" href="/no/help/contact-support"><img class="flag" src="https://flagcdn.com/no.svg" width="20" height="15" alt=""> Norsk</a>
+      <a class="lang-option" data-code="es" href="/es/help/contact-support"><img class="flag" src="https://flagcdn.com/es.svg" width="20" height="15" alt=""> Español</a>
+      <a class="lang-option" data-code="pt" href="/pt/help/contact-support"><img class="flag" src="https://flagcdn.com/pt.svg" width="20" height="15" alt=""> Português</a>
+      <a class="lang-option" data-code="pl" href="/pl/help/contact-support"><img class="flag" src="https://flagcdn.com/pl.svg" width="20" height="15" alt=""> Polski</a>
+      <a class="lang-option" data-code="da-DK" href="/da-DK/help/contact-support"><img class="flag" src="https://flagcdn.com/dk.svg" width="20" height="15" alt=""> Dansk</a>
+      <a class="lang-option" data-code="cs" href="/cs/help/contact-support"><img class="flag" src="https://flagcdn.com/cz.svg" width="20" height="15" alt=""> Čeština</a>
+      <a class="lang-option" data-code="it" href="/it/help/contact-support"><img class="flag" src="https://flagcdn.com/it.svg" width="20" height="15" alt=""> Italiano</a>
+      <a class="lang-option" data-code="ro" href="/ro/help/contact-support"><img class="flag" src="https://flagcdn.com/ro.svg" width="20" height="15" alt=""> Română</a>
+      <a class="lang-option" data-code="sv" href="/sv/help/contact-support"><img class="flag" src="https://flagcdn.com/se.svg" width="20" height="15" alt=""> Svenska</a>
+      <a class="lang-option" data-code="el" href="/el/help/contact-support"><img class="flag" src="https://flagcdn.com/gr.svg" width="20" height="15" alt=""> Ελληνικά</a>
+      <a class="lang-option" data-code="lv" href="/lv/help/contact-support"><img class="flag" src="https://flagcdn.com/lv.svg" width="20" height="15" alt=""> Latviešu</a>
+      <a class="lang-option" data-code="sl" href="/sl/help/contact-support"><img class="flag" src="https://flagcdn.com/si.svg" width="20" height="15" alt=""> Slovenščina</a>
+      <a class="lang-option" data-code="hu" href="/hu/help/contact-support"><img class="flag" src="https://flagcdn.com/hu.svg" width="20" height="15" alt=""> Magyar</a>
+      <a class="lang-option" data-code="hr" href="/hr/help/contact-support"><img class="flag" src="https://flagcdn.com/hr.svg" width="20" height="15" alt=""> Hrvatski</a>
+      <a class="lang-option" data-code="fi" href="/fi/help/contact-support"><img class="flag" src="https://flagcdn.com/fi.svg" width="20" height="15" alt=""> Suomi</a>
+      <a class="lang-option" data-code="et-EE" href="/et-EE/help/contact-support"><img class="flag" src="https://flagcdn.com/ee.svg" width="20" height="15" alt=""> Eesti</a>
+      <a class="lang-option" data-code="sk" href="/sk/help/contact-support"><img class="flag" src="https://flagcdn.com/sk.svg" width="20" height="15" alt=""> Slovenčina</a>
+      <a class="lang-option" data-code="lt" href="/lt/help/contact-support"><img class="flag" src="https://flagcdn.com/lt.svg" width="20" height="15" alt=""> Lietuvių</a>
+      <a class="lang-option" data-code="nl" href="/nl/help/contact-support"><img class="flag" src="https://flagcdn.com/nl.svg" width="20" height="15" alt=""> Nederlands</a>
+      <a class="lang-option" data-code="pt-BR" href="/pt-BR/help/contact-support"><img class="flag" src="https://flagcdn.com/br.svg" width="20" height="15" alt=""> Português (Brasil)</a>
+      <a class="lang-option" data-code="bg" href="/bg/help/contact-support"><img class="flag" src="https://flagcdn.com/bg.svg" width="20" height="15" alt=""> Български</a>
+      <a class="lang-option" data-code="mt-MT" href="/mt-MT/help/contact-support"><img class="flag" src="https://flagcdn.com/mt.svg" width="20" height="15" alt=""> Malti</a>
+      <a class="lang-option" data-code="es-MX" href="/es-MX/help/contact-support"><img class="flag" src="https://flagcdn.com/mx.svg" width="20" height="15" alt=""> Español (México)</a>
+      <a class="lang-option" data-code="ga-IE" href="/ga-IE/help/contact-support"><img class="flag" src="https://flagcdn.com/ie.svg" width="20" height="15" alt=""> Gaeilge</a>
+      <a class="lang-option" data-code="tr" href="/tr/help/contact-support"><img class="flag" src="https://flagcdn.com/tr.svg" width="20" height="15" alt=""> Türkçe</a>
+      <a class="lang-option" data-code="ar" href="/ar/help/contact-support"><img class="flag" src="https://flagcdn.com/sa.svg" width="20" height="15" alt=""> العربية</a>
+      <a class="lang-option" data-code="fa-IR" href="/fa-IR/help/contact-support"><img class="flag" src="https://flagcdn.com/ir.svg" width="20" height="15" alt=""> فارسی</a>
+      <a class="lang-option" data-code="ku" href="/ku/help/contact-support"><img class="flag" src="https://flagcdn.com/iq.svg" width="20" height="15" alt=""> Kurdî</a>
+      <a class="lang-option" data-code="ru" href="/ru/help/contact-support"><img class="flag" src="https://flagcdn.com/ru.svg" width="20" height="15" alt=""> Русский</a>
+      <a class="lang-option" data-code="ko" href="/ko/help/contact-support"><img class="flag" src="https://flagcdn.com/kr.svg" width="20" height="15" alt=""> 한국어</a>
+      <a class="lang-option" data-code="zh" href="/zh/help/contact-support"><img class="flag" src="https://flagcdn.com/cn.svg" width="20" height="15" alt=""> 中文</a>
+      <a class="lang-option" data-code="th" href="/th/help/contact-support"><img class="flag" src="https://flagcdn.com/th.svg" width="20" height="15" alt=""> ไทย</a>
+      <a class="lang-option" data-code="ja" href="/ja/help/contact-support"><img class="flag" src="https://flagcdn.com/jp.svg" width="20" height="15" alt=""> 日本語</a>
+      <a class="lang-option" data-code="uk-UA" href="/uk-UA/help/contact-support"><img class="flag" src="https://flagcdn.com/ua.svg" width="20" height="15" alt=""> Українська</a>
+      <a class="lang-option" data-code="he" href="/he/help/contact-support"><img class="flag" src="https://flagcdn.com/il.svg" width="20" height="15" alt=""> עברית</a>
+      <a class="lang-option" data-code="is" href="/is/help/contact-support"><img class="flag" src="https://flagcdn.com/is.svg" width="20" height="15" alt=""> Íslenska</a>
     </div>
   </div>
 
   <div class="footer-bottom">Copyright &copy; 2026 GlobalIQ™. All rights reserved. For entertainment or educational purposes only.</div>
 </footer>
+
+<div id="lang-progress-bar"></div>
 <script>
   /* ===== search filter ===== */
   var q = document.getElementById('q');
@@ -387,16 +383,53 @@
     noResults.className = (term && hits === 0) ? 'no-results show' : 'no-results';
   });
 
-  /* ===== Footer language selector ===== */
-  function toggleLang(){var d=document.getElementById('langDropdown');if(d)d.classList.toggle('open');}
-  document.addEventListener('click',function(e){if(!e.target.closest('.footer-lang-wrap')){var d=document.getElementById('langDropdown');if(d)d.classList.remove('open');}});
-  function setLang(code,name,flag){
-    var cl=document.getElementById('currentLang');if(cl)cl.textContent=name;
-    var cf=document.getElementById('currentFlag');if(cf)cf.textContent=flag;
-    var d=document.getElementById('langDropdown');if(d)d.classList.remove('open');
-    function doTranslate(){var s=document.querySelector('.goog-te-combo');if(s){s.value=code;s.dispatchEvent(new Event('change'));return true;}return false;}
-    if(!doTranslate()){var t=0;var tm=setInterval(function(){t++;if(doTranslate()||t>40)clearInterval(tm);},150);}
-  }
+  /* ===== Footer language selector — real links, reads document.documentElement.lang ===== */
+  (function () {
+    var AVAILABLE_LANGS = ["fr","de","no","es","pt","pl","da-DK","cs","it","ro","sv","el","lv","sl","hu","hr","fi","et-EE","sk","lt","nl","pt-BR","bg","mt-MT","es-MX","ga-IE","tr","ar","fa-IR","ku","ru","ko","zh","th","ja","uk-UA","he","is"];
+    var dropdown = document.getElementById('langDropdown');
+    if (!dropdown) return;
+    var options = dropdown.querySelectorAll('.lang-option');
+    var currentLangEl = document.getElementById('currentLang');
+    var currentFlagEl = document.getElementById('currentFlag');
+    var currentCode = document.documentElement.lang || 'en';
+
+    options.forEach(function (opt) {
+      var code = opt.getAttribute('data-code');
+      var isAvailable = code === 'en' || AVAILABLE_LANGS.indexOf(code) !== -1;
+      var shortLabel = code === 'en' ? 'EN' : code.split('-')[0].toUpperCase();
+      var flagSrc = opt.querySelector('.flag').src;
+
+      if (!isAvailable) {
+        opt.classList.add('disabled');
+        opt.removeAttribute('href');
+        opt.setAttribute('aria-disabled', 'true');
+        var soon = document.createElement('span');
+        soon.className = 'soon';
+        soon.textContent = 'Coming soon';
+        opt.appendChild(soon);
+        opt.addEventListener('click', function (e) { e.preventDefault(); });
+      }
+
+      if (code === currentCode) {
+        opt.classList.add('current');
+        if (currentLangEl) currentLangEl.textContent = shortLabel;
+        if (currentFlagEl) currentFlagEl.src = flagSrc;
+      }
+
+      if (isAvailable) {
+        opt.addEventListener('click', function () {
+          var bar = document.getElementById('lang-progress-bar');
+          if (bar) bar.classList.add('active');
+        });
+      }
+    });
+
+    function toggleLang() { dropdown.classList.toggle('open'); }
+    window.toggleLang = toggleLang;
+    document.addEventListener('click', function (e) {
+      if (!e.target.closest('.footer-lang-wrap')) dropdown.classList.remove('open');
+    });
+  })();
 </script>
 </body>
 </html>

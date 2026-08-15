@@ -61,6 +61,7 @@ const PAGE_ALLOW_LIST = [
   "start",
   "quiz",
   "results",
+  "help/contact-support",
 ];
 
 function pageSourcePath(page) {
@@ -78,31 +79,36 @@ function pageSourcePath(page) {
 const RTL_LANGS = new Set(["ar", "fa-IR", "he"]);
 
 // Matches an internal/same-site link, whether given as an absolute
-// globaliqreport.com URL or a root-relative path, and captures the page
-// segment right after the domain/root so it can be checked against
-// PAGE_ALLOW_LIST and rewritten to /{lang}/{page} when eligible. A bare
-// root link (the logo: href="https://globaliqreport.com" or href="/",
+// globaliqreport.com URL or a root-relative path, and extracts the FULL
+// page path (not just the first segment) so multi-segment pages (e.g.
+// "help/contact-support") can be matched against PAGE_ALLOW_LIST by exact
+// string equality — this replaced an earlier version that only captured
+// the first path segment, which meant a link to a nested translated page
+// like /help/contact-support would check "help" against the allow-list
+// (always false) instead of "help/contact-support", silently failing to
+// persist the language on that link. A bare root link (the logo, or "/",
 // with nothing after the domain/slash) maps to the "home" sentinel, since
 // that's the page allow-list entry for the site root.
 function parseInternalLink(href) {
   if (typeof href !== "string") return null;
-  const absoluteRootMatch = href.match(/^https?:\/\/(?:www\.)?globaliqreport\.com\/?(\?.*)?(#.*)?$/i);
-  if (absoluteRootMatch) {
-    const rootPrefix = href.match(/^https?:\/\/(?:www\.)?globaliqreport\.com\//i)
-      ? href.match(/^https?:\/\/(?:www\.)?globaliqreport\.com\//i)[0]
-      : href.replace(/(\?.*)?(#.*)?$/, "") + "/";
-    return { prefix: rootPrefix, page: "home", rest: (absoluteRootMatch[1] || "") + (absoluteRootMatch[2] || "") };
-  }
-  const absoluteMatch = href.match(/^https?:\/\/(?:www\.)?globaliqreport\.com\/([^/?#]+)(.*)$/i);
+  // Captures the domain prefix itself (group 1) so the output href is
+  // always built from THIS SAME match — previously re-matched a second,
+  // slightly different regex to recover the prefix, which threw when the
+  // href had no trailing slash after the domain (e.g. the logo's bare
+  // href="https://globaliqreport.com").
+  const absoluteMatch = href.match(/^(https?:\/\/(?:www\.)?globaliqreport\.com)(\/[^?#]*)?(\?[^#]*)?(#.*)?$/i);
   if (absoluteMatch) {
-    return { prefix: href.slice(0, href.indexOf(absoluteMatch[1])), page: absoluteMatch[1], rest: absoluteMatch[2] };
+    const prefix = absoluteMatch[1] + "/";
+    const path = (absoluteMatch[2] || "/").replace(/^\/|\/$/g, "");
+    return { prefix, page: path === "" ? "home" : path, rest: (absoluteMatch[3] || "") + (absoluteMatch[4] || "") };
   }
-  if (href === "/") {
-    return { prefix: "/", page: "home", rest: "" };
-  }
-  const relativeMatch = href.match(/^\/([^/?#]+)(.*)$/);
+  // Mandatory leading "/" — this is what excludes anchor-only hrefs like
+  // "#tests" (in-page nav links, e.g. home's own "#pricing" section jumps)
+  // from being misread as a link to the site root.
+  const relativeMatch = href.match(/^\/([^?#]*)(\?[^#]*)?(#.*)?$/);
   if (relativeMatch) {
-    return { prefix: "/", page: relativeMatch[1], rest: relativeMatch[2] };
+    const path = relativeMatch[1].replace(/\/$/, "");
+    return { prefix: "/", page: path === "" ? "home" : path, rest: (relativeMatch[2] || "") + (relativeMatch[3] || "") };
   }
   return null; // external link, mailto:, anchor-only, etc. — leave untouched
 }
@@ -168,6 +174,25 @@ function renderTranslatedPage(page, lang) {
     const pageSegment = parsed.page === "home" ? "" : `/${parsed.page}`;
     $(el).attr("href", `${parsed.prefix}${lang}${pageSegment}${parsed.rest}`);
   });
+
+  // 8. Quiz-specific: the question bank, milestone messages, and a few UI
+  // strings live inside quiz/index.html's embedded JS (a plain `var
+  // QS=[...]` array), not as static HTML — data-i18n-key can't reach them.
+  // Instead, inject a small <script>window.QS_I18N={...}</script> block
+  // right before the quiz engine's own <script> tag; quiz/index.html's
+  // i18nQ() helper (see that file) reads window.QS_I18N at render time and
+  // overlays translated text onto each question, falling back to the
+  // original English QS entry whenever a specific translation is missing.
+  if (page === "quiz") {
+    const quizI18nPath = path.join(TRANSLATIONS_DIR, "quiz-i18n", `${lang}.json`);
+    if (fs.existsSync(quizI18nPath)) {
+      const quizI18n = fs.readFileSync(quizI18nPath, "utf8").trim();
+      // Escape "</script" so translated content can never prematurely
+      // close this script tag and get interpreted as HTML.
+      const safeJson = quizI18n.replace(/<\/script/gi, "<\\/script");
+      $("script").first().before(`<script>window.QS_I18N = ${safeJson};</script>\n`);
+    }
+  }
 
   return "<!DOCTYPE html>\n" + $.html();
 }

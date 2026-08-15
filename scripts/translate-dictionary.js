@@ -436,6 +436,20 @@ async function main() {
           result[key] = await translateHtmlFragment(sourceText, translateOne, (shortText) => {
             shortNodesSkipped.push({ key, text: shortText });
           }, floresCode);
+        } else if (/^\d+$/.test(sourceText.trim())) {
+          // Found via spot-check on the quiz question bank: an isolated
+          // bare number like "8" or "4" (a multiple-choice answer option)
+          // gave the model nothing real to translate, and it sometimes
+          // "completed" it into unrelated hallucinated text instead — e.g.
+          // "8" became "8 Les États membres" ("8 Member States") in
+          // French. None of the existing checks catch this: it's not a
+          // repetition loop, the output isn't too SHORT (it's longer than
+          // expected, not shorter), and there's no sentence structure to
+          // check for dropped clauses. Digits are universal across every
+          // target language anyway — there is nothing to translate — so
+          // skip the model entirely for pure-integer values rather than
+          // try to catch every way it could go wrong after the fact.
+          result[key] = sourceText;
         } else {
           let translated = await translateOne(sourceText);
           if (isDegenerate(sourceText, translated, floresCode)) {

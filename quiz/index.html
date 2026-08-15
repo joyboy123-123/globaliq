@@ -352,6 +352,29 @@ var QS=[
 {cat:'About You',type:'edu',q:'What is your education level?',opts:['Some High School','High School Diploma','College / Trade School',"Bachelor's Degree",'Graduate Degree']}
 ];
 
+// Overlays translated text (window.QS_I18N, injected server-side by
+// api/render-page.js for non-English languages) onto a QS entry. Falls
+// back to the original English entry field-by-field whenever a specific
+// translation is missing, so a partial/incomplete translation set never
+// produces a blank question — the same graceful-degradation approach used
+// throughout the rest of this translation feature.
+function i18nQ(q, idx) {
+  if (!window.QS_I18N) return q;
+  var out = q;
+  var qOverride = window.QS_I18N.questions && window.QS_I18N.questions[idx];
+  if (qOverride) out = Object.assign({}, q, qOverride);
+  if (q.type === 'likert' && window.QS_I18N.likert_opts && window.QS_I18N.likert_opts.length === q.opts.length) {
+    out = Object.assign({}, out, { opts: window.QS_I18N.likert_opts });
+  }
+  return out;
+}
+function i18nCat(englishCat) {
+  return (window.QS_I18N && window.QS_I18N.categories && window.QS_I18N.categories[englishCat]) || englishCat;
+}
+function i18nUi(key, fallback) {
+  return (window.QS_I18N && window.QS_I18N.ui && window.QS_I18N.ui[key]) || fallback;
+}
+
 var MILESTONES={
   10:{headline:'Excellent speed! Faster than <span>99%<\/span> of participants.',body:'Your reaction speed places you among the quickest problem-solvers.'},
   20:{headline:'Among the Top <span>24%<\/span> in Logic!',body:'Strong logical reasoning supports effective problem-solving and analytical thinking.'},
@@ -470,13 +493,19 @@ function fireConfetti(){
 
 function showMilestone(n){
   var ms=MILESTONES[n];
-  var headline=ms.headline;
+  var msOverride=window.QS_I18N&&window.QS_I18N.milestones&&window.QS_I18N.milestones[n];
+  var headline=(msOverride&&msOverride.headline)||ms.headline;
+  var body=(msOverride&&msOverride.body)||ms.body;
+  // The dynamic percentage substitution still works on translated text as
+  // long as it still contains a literal "NN%" — position within the
+  // sentence doesn't matter, the regex just finds and replaces it wherever
+  // it lands after translation.
   if(n===10){var pct=Math.floor(Math.random()*10)+90;headline=headline.replace(/\d+%/,pct+'%');}
   if(n===20){var pct=Math.floor(Math.random()*10)+15;headline=headline.replace(/\d+%/,pct+'%');}
   if(n===30){var pct=Math.floor(Math.random()*10)+80;headline=headline.replace(/\d+%/,pct+'%');}
   document.getElementById('msEmoji').innerHTML=MS_ICONS[n]||'';
   document.getElementById('msHeadline').innerHTML=headline;
-  document.getElementById('msBody').innerHTML=ms.body;
+  document.getElementById('msBody').innerHTML=body;
 
   /* Q34 finale: flag image + blue continue button */
   var btnCont=document.querySelector('.btn-continue');
@@ -539,7 +568,7 @@ function renderMatrix(mqFn,subEl,answersEl,displayN){
   }
   wrap.appendChild(inner);
   document.getElementById('qTxt').parentNode.insertBefore(wrap,document.getElementById('qTxt').nextSibling);
-  subEl.style.display='block';subEl.textContent=(mqFn===27)?'Which shape results after folding along the dotted lines?':'Choose your answer:';
+  subEl.style.display='block';subEl.textContent=(mqFn===27)?i18nUi('fold_shape_prompt','Which shape results after folding along the dotted lines?'):i18nUi('choose_answer_prompt','Choose your answer:');
   answersEl.className='ans6c';answersEl.innerHTML='';
   var i,btn,all,j;
   for(i=0;i<mq.opts.length;i++){
@@ -575,10 +604,10 @@ function renderMatrix(mqFn,subEl,answersEl,displayN){
 function render(){
   var q,subEl,ans,s,b,i,rb,note,all,j;
   answered=false;cleanMx();
-  q=QS[cQ];
+  q=i18nQ(QS[cQ],cQ);
   var ans=document.getElementById('answers');
   ans.style.pointerEvents='none';setTimeout(function(){ans.style.pointerEvents='';},350);
-  document.getElementById('qCat').textContent=q.cat;
+  document.getElementById('qCat').textContent=i18nCat(q.cat);
   var displayN=0;for(var k=0;k<=cQ;k++){if(!QS[k].sub)displayN++;}
   var totalQ=QS.filter(function(x){return !x.sub;}).length;
   document.getElementById('qCounter').innerHTML='<span class="qn">'+displayN+'</span> of '+totalQ;
@@ -616,24 +645,25 @@ function render(){
       b.onclick=(function(btn){return function(){all=document.querySelectorAll('.edu-btn');for(j=0;j<all.length;j++)all[j].classList.remove('chosen');btn.classList.add('chosen');document.querySelector('.btn-results').classList.add('show');};})(b);
       ans.appendChild(b);
     }
-    rb=document.createElement('button');rb.className='btn-results';rb.textContent='Get My Results';
+    rb=document.createElement('button');rb.className='btn-results';rb.textContent=i18nUi('get_results','Get My Results');
     rb.onclick=function(){if(sLeft<120){document.getElementById('assessIncomplete').classList.add('show');return;}var scoreTotal=QS.filter(function(x){return !x.noScore&&typeof x.ans!=='undefined'&&x.ans!==-1;}).length;sessionStorage.setItem('myiq_quiz_score',String(score));sessionStorage.setItem('myiq_quiz_total',String(scoreTotal));window.location.href='https://globaliqreport.com/trust';};
     ans.appendChild(rb);
     note=document.createElement('p');note.className='edu-note';
-    note.textContent='Do you want to confirm your answers? You will not be able to edit them after validation.';
+    note.textContent=i18nUi('confirm_note','Do you want to confirm your answers? You will not be able to edit them after validation.');
     ans.appendChild(note);return;
   }
   if(q.type==='cupgame'){
     document.getElementById('qTxt').style.display='';
     document.getElementById('qCat').style.display='';
-    document.getElementById('qTxt').textContent='Find the Ball';
+    document.getElementById('qTxt').textContent=i18nUi('find_the_ball','Find the Ball');
     ans.className='';
     ans.innerHTML='<div class="cg-frame"><div class="cg-stage" id="cgStage">'
       +'<div class="cg-slot" id="cgSlot0" style="left:2%;"><img class="cg-cup" src="'+CUP_IMG+'" alt="cup"></div>'
       +'<div class="cg-slot" id="cgSlot1" style="left:35%;"><div class="cg-ball" id="cgBall"></div><img class="cg-cup" src="'+CUP_IMG+'" alt="cup"></div>'
       +'<div class="cg-slot" id="cgSlot2" style="left:68%;"><img class="cg-cup" src="'+CUP_IMG+'" alt="cup"></div>'
-      +'<div class="cg-count" id="cgCount"></div></div><div class="cg-status" id="cgStatus">Press START, then watch closely\u2026</div></div>'
+      +'<div class="cg-count" id="cgCount"></div></div><div class="cg-status" id="cgStatus"></div></div>'
       +'<div style="text-align:center;margin-top:14px;"><button type="button" id="cgStart" class="abtn" style="display:inline-block;width:auto;padding:16px 48px;font-size:20px;cursor:pointer;">START</button></div>';
+    document.getElementById('cgStatus').textContent=i18nUi('cup_press_start','Press START, then watch closely\u2026');
     startCupGame();
     return;
   }
@@ -696,7 +726,7 @@ function startCupGame(){
       await sleep(560);
     }
     canGuess=true;
-    if(st)st.textContent='Which cup has the ball? Tap one!';
+    if(st)st.textContent=i18nUi('cup_prompt','Which cup has the ball? Tap one!');
   }
   startBtn.onclick=runShuffle;
 }
