@@ -62,6 +62,7 @@ const PAGE_ALLOW_LIST = [
   "quiz",
   "results",
   "help/contact-support",
+  "start.test",
 ];
 
 function pageSourcePath(page) {

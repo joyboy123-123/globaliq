@@ -1,0 +1,11 @@
+{
+  "meta.page_title": "IQテストを始める",
+  "hero.headline_prefix": "準備をしてください",
+  "hero.headline_highlight": "IQテスト!",
+  "checklist.item1": "難易度が増加する40の質問が",
+  "checklist.item2": "6つの選択肢から正しい答えを選択してください",
+  "checklist.item3": "答えがすべて あなたの最終的な IQスコアに 依存します",
+  "gender.male_button": "男性",
+  "gender.female_button": "女性",
+  "avg_score.label": "今日の平均IQスコアは"
+}
