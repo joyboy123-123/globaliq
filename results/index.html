@@ -474,6 +474,69 @@
 </footer>
 <script>
   /* =========================================================
+     ACTIVATE THE RECURRING SUBSCRIPTION
+     Stripe redirects here after the $1.00 trial payment with
+     ?payment_intent=...&redirect_status=succeeded in the URL
+     (PayPal/Venmo instead land with ?paypal=success&subscriptionId=...).
+     This page previously never read either of those and never called
+     the activation endpoints — so no Stripe Subscription object (or
+     PayPal verification) ever happened, meaning nothing was scheduled
+     to auto-charge the $29.99/month after the 7-day trial ended. This
+     runs once on load, fires the appropriate activation call, and logs
+     the outcome. It deliberately never blocks or delays showing the
+     certificate — the customer already paid the $1.00 trial charge by
+     the time they're on this page, so a membership-setup hiccup must
+     never be the reason they don't see their result.
+     ========================================================= */
+  (function () {
+    function activateStripeSubscription(paymentIntentId) {
+      fetch('/api/activate-subscription', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ paymentIntentId: paymentIntentId }),
+      })
+        .then(function (resp) { return resp.json().then(function (data) { return { ok: resp.ok, data: data }; }); })
+        .then(function (result) {
+          if (!result.ok || !result.data || !result.data.success) {
+            console.error('[results] activate-subscription failed:', result.data && result.data.error);
+          } else {
+            console.log('[results] subscription activated, trial ends:', result.data.trialEnd);
+          }
+        })
+        .catch(function (e) { console.error('[results] activate-subscription request error:', e.message); });
+    }
+
+    function verifyPaypalSubscription(subscriptionId) {
+      fetch('/api/paypal-verify-subscription', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ subscriptionId: subscriptionId }),
+      })
+        .then(function (resp) { return resp.json().then(function (data) { return { ok: resp.ok, data: data }; }); })
+        .then(function (result) {
+          if (!result.ok || !result.data || !result.data.active) {
+            console.error('[results] paypal-verify-subscription failed:', result.data && result.data.error);
+          } else {
+            console.log('[results] PayPal subscription verified active.');
+          }
+        })
+        .catch(function (e) { console.error('[results] paypal-verify-subscription request error:', e.message); });
+    }
+
+    var params = new URLSearchParams(window.location.search);
+    var paypalStatus = params.get('paypal');
+    var paypalSubscriptionId = params.get('subscriptionId');
+    var paymentIntentId = params.get('payment_intent');
+    var redirectStatus = params.get('redirect_status');
+
+    if (paypalStatus === 'success' && paypalSubscriptionId) {
+      verifyPaypalSubscription(paypalSubscriptionId);
+    } else if (paymentIntentId && redirectStatus === 'succeeded') {
+      activateStripeSubscription(paymentIntentId);
+    }
+  })();
+
+  /* =========================================================
      FIT THE CERTIFICATE TO THE SCREEN
      The certificate is authored at a fixed 1000 x 667 canvas,
      then scaled so the whole thing is visible at any width.
