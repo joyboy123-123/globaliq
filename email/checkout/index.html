@@ -17804,6 +17804,7 @@ function PaymentBox() {
     // api/paypal-create-subscription.js). Both buttons share one endpoint and
     // one PayPal Subscription Plan — "idle" | "loading" | "ready" | "unavailable".
     const [paypalStage, setPaypalStage] = React.useState({ paypal: "idle", venmo: "idle" });
+    const [retryKey, setRetryKey] = React.useState(0);
     const paypalSdkPromiseRef = React.useRef(null);
     const paypalRenderedRef = React.useRef({ paypal: false, venmo: false });
     const stripeRef = React.useRef(null);
@@ -17820,6 +17821,29 @@ function PaymentBox() {
                     console.error("[Stripe config] This page is being viewed as a local file preview. The payment API (/api/create-payment-intent) and Stripe.js only exist on the deployed site.");
                     throw new Error("Checkout must be opened on the live site: https://globaliqreport.com/email/checkout");
                 }
+                // Stripe.js is loaded via a plain <script src="https://js.stripe.com/v3/">
+                // tag in <head>, which should block/finish before this code ever runs —
+                // but if that request is blocked (ad blocker, privacy extension, network
+                // filter — all commonly target *.stripe.com) or is just unusually slow,
+                // window.Stripe never becomes available and every payment button on the
+                // page silently does nothing when clicked, with no visible explanation.
+                // Wait briefly for it (in case of a slow load) before giving up with a
+                // clear, specific, user-visible message instead of a silent dead end.
+                if (typeof window.Stripe !== "function") {
+                    var stripeReady = await new Promise(function (resolve) {
+                        var tries = 0;
+                        var timer = setInterval(function () {
+                            tries++;
+                            if (typeof window.Stripe === "function") { clearInterval(timer); resolve(true); }
+                            else if (tries > 40) { clearInterval(timer); resolve(false); } // ~6s
+                        }, 150);
+                    });
+                    if (!stripeReady) {
+                        console.error("[Stripe config] window.Stripe never became available — the js.stripe.com script likely failed to load (ad blocker, privacy extension, or network filter are the most common causes).");
+                        throw new Error("Payment system failed to load — this is usually caused by an ad blocker or privacy browser extension blocking Stripe. Please disable it for this site (or try a different browser/incognito window), then reload the page.");
+                    }
+                }
+
                 const email = sessionStorage.getItem(SESSION_KEY) || "";
                 const resp = await fetch("/api/create-payment-intent", {
                     method: "POST",
@@ -17929,7 +17953,7 @@ function PaymentBox() {
             }
         })();
         return () => { cancelled = true; };
-    }, []);
+    }, [retryKey]);
 
     // Mount the Payment Element (Cash App Pay / card / Link) the first time it's opened.
     React.useEffect(() => {
@@ -18086,7 +18110,16 @@ function PaymentBox() {
                 h("rect", { x: 2, y: 5, width: 20, height: 14, rx: 2 }),
                 h("line", { x1: 2, y1: 10, x2: 22, y2: 10 })),
             "Credit or debit card"),
-        errorMsg ? h("div", { style: { color: "#ef4444", fontSize: 13, lineHeight: 1.4, marginBottom: 11 } }, errorMsg) : null,
+        errorMsg ? h("div", { style: { color: "#ef4444", fontSize: 13, lineHeight: 1.4, marginBottom: 6 } }, errorMsg) : null,
+        errorMsg ? h("button", {
+            type: "button",
+            onClick: () => { setErrorMsg(""); setRetryKey(function (k) { return k + 1; }); },
+            style: {
+                display: "block", width: "100%", padding: "10px", marginBottom: 11,
+                border: "1.5px solid #ef4444", borderRadius: 10, background: "#fff",
+                color: "#ef4444", fontSize: 13, fontWeight: 700, cursor: "pointer",
+            },
+        }, "Retry") : null,
         h("div", { id: "payment-sheet", style: { display: showSheet ? "block" : "none", marginTop: 4 } },
             h("div", { id: "payment-element", style: { marginBottom: 14 } }),
             h("button", {
