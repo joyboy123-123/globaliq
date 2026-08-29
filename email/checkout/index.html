@@ -17989,7 +17989,6 @@ function PaymentBox() {
 
     function openSheet(preferred) {
         trackStage("clicked_pay_" + preferred);
-        setUnavailable(null);
         if (!elementsRef.current) {
             setErrorMsg(function (prev) { return prev || "Unable to start checkout. Please refresh and try again."; });
             return;
