@@ -17538,14 +17538,33 @@ function CheckoutPage({ email, onBack }) {
         const onScroll = () => {
             const el = document.getElementById("payment-anchor");
             if (!el) return;
+            // If the card-entry sheet is open, never show the sticky nudge bar —
+            // it has no reason to compete with (or, if this box's height grew
+            // after expanding and a scroll/resize hasn't re-fired yet, potentially
+            // sit on top of) the form the user is actively filling out.
+            const sheet = document.getElementById("payment-sheet");
+            if (sheet && sheet.style.display !== "none") {
+                setShowStickyBar(false);
+                return;
+            }
             const rect = el.getBoundingClientRect();
             // Show only once the bottom of the payment box (credit/debit card button)
             // has scrolled up to / past the top of the screen.
             setShowStickyBar(rect.bottom <= 0);
         };
         window.addEventListener("scroll", onScroll, { passive: true });
+        window.addEventListener("resize", onScroll);
+        // Mobile browsers can collapse/expand their address bar (shifting the
+        // viewport) or the card sheet can expand in height without a scroll
+        // event firing at all — poll briefly as a cheap safety net so
+        // showStickyBar never gets stuck stale over the real button.
+        const poll = setInterval(onScroll, 500);
         onScroll();
-        return () => window.removeEventListener("scroll", onScroll);
+        return () => {
+            window.removeEventListener("scroll", onScroll);
+            window.removeEventListener("resize", onScroll);
+            clearInterval(poll);
+        };
     }, []);
     return (React.createElement("div", { style: styles.pageWrap },
         React.createElement("header", { style: styles.header },
